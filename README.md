@@ -1,0 +1,2 @@
+# BomberClone
+Projekt na uczelnię
