@@ -1,7 +1,7 @@
 #ifndef STACK_H_INCLUDED
 #define STACK_H_INCLUDED
 
-//Plik nag³ówkowy zawieraj¹cy deklaracjê stosu i funkcji, które bêd¹ go obs³ugiwaæ.
+//Plik naglowkowy zawierajacy deklaracje stosu i funkcji, ktore beda go obslugiwac.
 
 extern struct stack_node;
 extern struct stack_node *push;
