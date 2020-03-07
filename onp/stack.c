@@ -1,63 +1,63 @@
 #include "stack.h"
 #include <stdlib.h>
 
-//Struktura rekurencyjna "stack_node" pe≈Çniaca rolƒô elementu stosu.
+//Struktura rekurencyjna "stack_node" pe≥niaca rolÍ elementu stosu.
 struct stack_node
 {
-    //Pole "content" typ char, kt√≥re bƒôdzie przechowywaƒá  nieprzetworzonƒÖ jeszcze na typ liczbowy liczbƒô lub operator.
+    //Pole "content" typ char, ktÛre bÍdzie przechowywaÊ  nieprzetworzonπ jeszcze na typ liczbowy liczbÍ lub operator.
     char content;
 
-    //Wska≈∫nik na kolejny (ni≈ºszy) element stosu; ma ten sam typ co struktura, w kt√≥rej siƒô znajduje (stƒÖd "struktura rekurencyjna").
+    //Wskaünik na kolejny (niøszy) element stosu; ma ten sam typ co struktura, w ktÛrej siÍ znajduje (stπd "struktura rekurencyjna").
     struct stack_node *next;
 };
 
 
-//Funkcja "push" dodajƒÖca element do stosu. Zwraca wska≈∫nik na nowy wierzcho≈Çek stosu.
+//Funkcja "push" dodajπca element do stosu. Zwraca wskaünik na nowy wierzcho≥ek stosu.
 struct stack_node *push(struct stack_node *top, char content)
 {
-    //Deklaracja i inicjalizacja nowego elementu stosu - "new_node"; dynamiczne przydzielenie pamiƒôci do niego.
+    //Deklaracja i inicjalizacja nowego elementu stosu - "new_node"; dynamiczne przydzielenie pamiÍci do niego.
     struct stack_node *new_node = (struct stack_node *)malloc(sizeof(stack_node));
 
-    //Je≈õli pamiƒôc dla nowego elementu stosu zosta≈Ça przydzielona pomy≈õlnie to:
+    //Jeúli pamiÍc dla nowego elementu stosu zosta≥a przydzielona pomyúlnie to:
     if (new_node)
     {
-        //Przypisanie polu "content" nowego elementu stosu warto≈õƒá parametru 'content'.
+        //Przypisanie polu "content" nowego elementu stosu wartoúÊ parametru 'content'.
         new_node -> content = content;
 
-        //Ustawienie obecnego wierzcho≈Çka stosu ("top") jako natƒôpny element stosu dla elementu "new_node".
+        //Ustawienie obecnego wierzcho≥ka stosu ("top") jako natÍpny element stosu dla elementu "new_node".
         new_node -> next = top;
 
-        //Ustawienie "new_node" jako nowego wierzcho≈Çka stosu.
+        //Ustawienie "new_node" jako nowego wierzcho≥ka stosu.
         top = new_node;
     }
 
-    //Zwr√≥cenie wska≈∫nika na nowy wierzcho≈Çek stosu
+    //ZwrÛcenie wskaünika na nowy wierzcho≥ek stosu
     return top;
 }
 
 
-//Funkcja "pop" zwracajƒÖca zawarto≈õƒá pola "content" z najwy≈ºszego elementu stosu i usuwajƒÖca ten element ze stosu tzn. zdejmuje element ze stosu.
+//Funkcja "pop" zwracajπca zawartoúÊ pola "content" z najwyøszego elementu stosu i usuwajπca ten element ze stosu tzn. zdejmuje element ze stosu.
 char pop(struct stack_node **top)
 {
-    //Deklaracja i inicjalizacja zmiennej "result", kt√≥rej poczƒÖtkowo przypisywana jest warto≈õƒá -1
+    //Deklaracja i inicjalizacja zmiennej "result", ktÛrej poczπtkowo przypisywana jest wartoúÊ -1
     char result = -1;
 
-    //Sprawdzenie czy stos jest niepusty. Je≈õli stos posiada jeden lub wiƒôcej element√≥w, to:
+    //Sprawdzenie czy stos jest niepusty. Jeúli stos posiada jeden lub wiÍcej elementÛw, to:
     if (*top)
     {
-        //Przypisz zmiennej "result" warto≈õƒá pola "content", kt√≥re posiada wierzcho≈Çek stosu.
+        //Przypisz zmiennej "result" wartoúÊ pola "content", ktÛre posiada wierzcho≥ek stosu.
         result = (*top) -> content;
 
-        //Deklaracja i inicjalizacja tymczasowej zmiennej wska≈∫nikowej "tmp", kt√≥ra przechowuje wska≈∫nik na drugi element stosu, tj. element pod wierzcho≈Çkiem stosu
+        //Deklaracja i inicjalizacja tymczasowej zmiennej wskaünikowej "tmp", ktÛra przechowuje wskaünik na drugi element stosu, tj. element pod wierzcho≥kiem stosu
         struct stack_node *tmp = (*top) -> next;
 
-        //Zwolnienie pamiƒôci, kt√≥rƒÖ zajmowa≈Ç obecny wierzcho≈Çek stosu.
+        //Zwolnienie pamiÍci, ktÛrπ zajmowa≥ obecny wierzcho≥ek stosu.
         free(*top);
 
-        //Przypisanie do wska≈∫nika na wierzcho≈Çek stosu warto≈õci wska≈∫nika "tmp". Ustawienie drugiego elementu stosu jako nowego wierzcho≈Çka stosu.
+        //Przypisanie do wskaünika na wierzcho≥ek stosu wartoúci wskaünika "tmp". Ustawienie drugiego elementu stosu jako nowego wierzcho≥ka stosu.
         *top = tmp;
     }
 
-    //Zwr√≥cenie: warto≈õci -1 je≈õli stos by≈Ç pusty; warto≈õci pola "content" najwy≈ºszego elementu stosu, je≈õli ten stos by≈Ç niepusty
+    //ZwrÛcenie: wartoúci -1 jeúli stos by≥ pusty; wartoúci pola "content" najwyøszego elementu stosu, jeúli ten stos by≥ niepusty
     return result;
 }
