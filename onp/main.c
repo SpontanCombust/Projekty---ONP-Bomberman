@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "stack.h"
+//#include "stack.h"
 
 float get_operation_result(float x1, float x2, char operation)
 {
