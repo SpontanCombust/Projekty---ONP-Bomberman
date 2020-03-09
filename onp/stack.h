@@ -1,10 +1,11 @@
-#ifndef STACK_H_INCLUDED
-#define STACK_H_INCLUDED
+#ifndef STACK_H
+#define STACK_H
 
 //Plik naglowkowy zawierajacy deklaracje stosu i funkcji, ktore beda go obslugiwac.
 
-extern Tstack_node;
-extern Tstack_node *push(Tstack_node *, char);
-extern char pop(Tstack_node **);
+struct stack_node;
+typedef struct stack_node Tstack_node;
+Tstack_node *push(Tstack_node *, float);
+float pop(Tstack_node **);
 
-#endif // STACK_H_INCLUDED
+#endif 

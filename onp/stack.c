@@ -1,11 +1,13 @@
 #include "stack.h"
 #include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 //Struktura rekurencyjna "stack_node" pelniaca role elementu stosu.
 struct stack_node
-
-    //Pole "content" typ char, ktore bedzie przechowywac  nieprzetworzona jeszcze na typ liczbowy liczbe lub operator.
-    char content[20];
+{
+    //Pole "content" typ float, ktore bedzie przechowywac  liczbe
+    float content;
 
     //Wskaznik na kolejny (nizszy) element stosu; ma ten sam typ co struktura, w ktorej sie znajduje (stad "struktura rekurencyjna").
     struct stack_node *next;
@@ -15,7 +17,7 @@ struct stack_node
 typedef struct stack_node Tstack_node;
 
 //Funkcja "push" dodajaca element do stosu. Zwraca wskaznik na nowy wierzcholek stosu.
-Tstack_node *push(Tstack_node *top, char content)
+Tstack_node *push(Tstack_node *top, float content)
 {
     //Deklaracja i inicjalizacja nowego elementu stosu - "new_node"; dynamiczne przydzielenie pamieci do niego.
     Tstack_node *new_node = (Tstack_node *)malloc(sizeof(Tstack_node));
@@ -39,7 +41,7 @@ Tstack_node *push(Tstack_node *top, char content)
 
 
 //Funkcja "pop" zwracajaca zawartosc pola "content" z najwyzszego elementu stosu i usuwajaca ten element ze stosu tzn. zdejmuje element ze stosu.
-char pop(Tstack_node **top)
+float pop(Tstack_node **top)
 {
     //Deklaracja i inicjalizacja zmiennej "result", ktorej poczatkowo przypisywana jest wartosc -1
     char result = -1;
@@ -49,7 +51,7 @@ char pop(Tstack_node **top)
     {
         //Przypisz zmiennej "result" wartosc pola "content", ktore posiada wierzcholek stosu.
         result = (*top) -> content;
-
+        
         //Deklaracja i inicjalizacja tymczasowej zmiennej wskaznikowej "tmp", ktora przechowuje wskaznik na drugi element stosu, tj. element pod wierzchozkiem stosu
         Tstack_node *tmp = (*top) -> next;
 
@@ -63,3 +65,14 @@ char pop(Tstack_node **top)
     //Zwrocenie: wartosci -1 jesli stos byc pusty; wartosci pola "content" najwyzszego elementu stosu, jesli ten stos byc niepusty
     return result;
 }
+
+
+//STACK_TEST
+/*
+int main(){
+    Tstack_node *top = NULL;
+    top = push(top, 6.5);
+    top = push(top, 2);
+    printf("Hurrrraa!!! %f", pop(&top));
+}
+*/
