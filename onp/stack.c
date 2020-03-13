@@ -4,7 +4,7 @@
 #include <string.h>
 
 //Struktura rekurencyjna "stack_node" pelniaca role elementu stosu.
-struct stack_node
+static struct stack_node
 {
     //Pole "content" typ float, ktore bedzie przechowywac  liczbe
     float content;
