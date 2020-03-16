@@ -4,7 +4,6 @@
 
 #define SCREEN_HEIGHT 480
 #define SCREEN_WIDTH 640
-#define R 50
 
 int main(int argc, char *argv[])
 {
