@@ -44,7 +44,7 @@ Tstack_node *push(Tstack_node *top, float content)
 float pop(Tstack_node **top)
 {
     //Deklaracja i inicjalizacja zmiennej "result", ktorej poczatkowo przypisywana jest wartosc -1
-    char result = -1;
+    float result = -1;
 
     //Sprawdzenie czy stos jest niepusty. Jesli stos posiada jeden lub wiecej elementow, to:
     if (*top)

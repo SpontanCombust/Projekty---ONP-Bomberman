@@ -1,0 +1,9 @@
+;To jest komentarz
+;Jesli linia zaczyna sie od ';', zostanie ona zignorowana
+;Dane mapy musza znajdowac sie bezposrednio za komentarzem
+; 0 - pusta przestrzen, 1 - blok twardy, 2 - blok kruchy
+01001
+00210
+10100
+12111
+12021
