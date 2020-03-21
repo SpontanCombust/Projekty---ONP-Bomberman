@@ -2,7 +2,7 @@
 Projekty na uczelnię: ONP i Gra Bomberman
 
 ## Kamień milowy 1 - 03.04.2020
-- ONP:
+ONP:
 - [x] stos
 - [x] obsługa pojedynczego elementu działania ONP
 - [x] algorytm arytmetyczny
@@ -13,7 +13,7 @@ Projekty na uczelnię: ONP i Gra Bomberman
 - [ ] analiza algorytmu - wstęp
 - [ ] teoria - wstęp
 
-- Bomberman:
+Bomberman:
 - [x] system poruszania się
 - [ ] system kolizji
 - [ ] podkładanie bomb
