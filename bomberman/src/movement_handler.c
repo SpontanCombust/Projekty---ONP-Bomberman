@@ -1,6 +1,4 @@
-#include "logic_handlers.h"
-#include <allegro5/allegro.h>
-
+#include "../headers/logic_handlers.h"
 
 void handleEventKeyDown(char eventKeyboardKeycode, bool vx[2], bool vy[2], bool *done)
 {
@@ -53,4 +51,11 @@ void resolveDirection( enum Direction *dir, bool vx[2], bool vy[2] )
         *dir = LEFT;
     else if( vx[1] & !vy[0] & !vy[1] )
         *dir = RIGHT;
+}
+
+void updateMovement( Entity *player, bool vx[2], bool vy[2], int speed)
+{
+    player -> x += speed * ( -vx[0] + vx[1] );
+    player -> y += speed * ( -vy[0] + vy[1] ); 
+
 }

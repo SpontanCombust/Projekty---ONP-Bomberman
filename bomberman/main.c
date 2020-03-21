@@ -1,33 +1,17 @@
+#include "./headers/level_utilities.h"
+#include "./headers/logic_handlers.h"
+#include "./headers/entity.h"
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 
-#include "utilities.h"
-#include "logic_handlers.h"
-
 #define SCREEN_HEIGHT 480
 #define SCREEN_WIDTH 640
 #define FPS 60.0
 
-#define SPEED 5
-
-struct SEntity {
-    int x, y;
-    ALLEGRO_BITMAP *bmp;
-};
-typedef struct SEntity Entity; 
-
-void initEntity(Entity *entity, int x, int y, ALLEGRO_BITMAP *bmp)
-{
-    entity -> x = x;
-    entity -> y = y;
-    entity -> bmp = bmp;
-}
-
-void drawSolidBlock(int y, int x, ALLEGRO_BITMAP *solid_block_sprite);
-void drawBrittleBlock(int y, int x, ALLEGRO_BITMAP *brittle_block_sprite);
-void generateMapBitmap(int **map, int rows, int collumns, ALLEGRO_BITMAP *map_bitmap, ALLEGRO_BITMAP *solid_block_sprite, ALLEGRO_BITMAP *brittle_block_sprite, ALLEGRO_DISPLAY *display);
+#define SPEED 2
 
 void updateGFX( Entity *player, enum Direction dir, ALLEGRO_BITMAP *map_bitmap)
 {
@@ -35,55 +19,6 @@ void updateGFX( Entity *player, enum Direction dir, ALLEGRO_BITMAP *map_bitmap)
     al_draw_bitmap(map_bitmap, 0, 0, 0);
     al_draw_bitmap_region(player->bmp, dir * 32, 0, 32, 32, player->x, player->y, 0);
     al_flip_display();
-}
-
-void updateMovement( Entity *player, bool vx[2], bool vy[2])
-{
-    player -> x += SPEED * ( -vx[0] + vx[1] );
-    player -> y += SPEED * ( -vy[0] + vy[1] ); 
-
-}
-
-/*
-         | vy[0]
-         |
-vx[0]----0---> vx[1]
-         |
-         \/ vy[1]
-*/
-
-
-void drawSolidBlock(int y, int x, ALLEGRO_BITMAP *solid_block_sprite)
-{
-    int pixelCoords[2];
-    pixelCoordsFromTileCoords(x, y, pixelCoords);
-    al_draw_bitmap(solid_block_sprite, pixelCoords[0], pixelCoords[1], 0);
-}
-
-void drawBrittleBlock(int y, int x, ALLEGRO_BITMAP *brittle_block_sprite)
-{
-    int pixelCoords[2];
-    pixelCoordsFromTileCoords(x, y, pixelCoords);
-    al_draw_bitmap(brittle_block_sprite, pixelCoords[0], pixelCoords[1], 0);
-}
-
-void generateMapBitmap(int **map, int rows, int collumns, ALLEGRO_BITMAP *map_bitmap, ALLEGRO_BITMAP *solid_block_sprite, ALLEGRO_BITMAP *brittle_block_sprite, ALLEGRO_DISPLAY *display)
-{
-    al_set_target_bitmap(map_bitmap);
-
-    for (int i = 0; i < rows; i++)
-    {
-        for (int j = 0; j < collumns; j++)
-        {
-            if( map[i][j] == 1 )
-                drawSolidBlock(i, j, solid_block_sprite);
-            else if( map[i][j] == 2 )
-                drawBrittleBlock(i, j, brittle_block_sprite);
-        }
-        
-    }
-
-    al_set_target_bitmap(al_get_backbuffer(display));   
 }
 
 int main(void)
@@ -116,21 +51,29 @@ int main(void)
     al_register_event_source( eq, al_get_timer_event_source( timer ) );
     al_register_event_source( eq, al_get_display_event_source( display ) );
 
-    ALLEGRO_BITMAP *solid_block_sprite = al_load_bitmap("solid_block.png");
-    ALLEGRO_BITMAP *brittle_block_sprite = al_load_bitmap("brittle_block.png");    
+    ALLEGRO_BITMAP *solid_block_sprite = al_load_bitmap("./sprites/solid_block.png");
+    ALLEGRO_BITMAP *brittle_block_sprite = al_load_bitmap("./sprites/brittle_block.png");    
     
     int **map = NULL;
-    map = createLevelTileMatrix("test_map.txt", 15, 20, map);
+    map = createLevelTileMatrix("./levels/test_map.txt", 15, 20, map);
     ALLEGRO_BITMAP *map_bitmap = al_create_bitmap(SCREEN_WIDTH, SCREEN_HEIGHT);
     generateMapBitmap(map, 15, 20, map_bitmap, solid_block_sprite, brittle_block_sprite, display);
 
-    ALLEGRO_BITMAP *player_sprites = al_load_bitmap("player_sheet.png");
+    ALLEGRO_BITMAP *player_sprites = al_load_bitmap("./sprites/player_sheet.png");
     Entity player;
     initEntity(&player, 100, 100, player_sprites);
 
     bool vx[2] = {false, false};
     bool vy[2] = {false, false};
     enum Direction dir = DOWN;
+    /*
+             | vy[0]
+             |
+    vx[0]----0---> vx[1]
+             |
+            \/ vy[1]
+    */
+    
 
     bool done = false, draw = false;
 
@@ -165,7 +108,7 @@ int main(void)
 
         if(draw)
         {
-            updateMovement(&player, vx, vy);
+            updateMovement(&player, vx, vy, SPEED);
             updateGFX(&player, dir, map_bitmap);
             // wazne, by "draw" ustawiac na false po kazdym zwroceniu bufora, by nie marnowac zasobow na nadmierne renderowanie
             // aktualne tylko w przypadku, gdy nic nie porusza sie na ekranie 

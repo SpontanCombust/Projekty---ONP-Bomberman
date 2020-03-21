@@ -3,7 +3,10 @@
 
 
 PROGRAM_NAME=bomberman
-SOURCES=main.c movement_handler.c logic_handlers.h level_mapper.c coordinate_translator.c utilities.h
+SOURCES=-I./headers -I./src \
+./headers/logic_handlers.h ./headers/level_utilities.h ./headers/entity.h\
+./src/coordinate_translator.c ./src/level_map_manager.c ./src/movement_handler.c ./src/entity_init.c\
+main.c 
 
 
 ####################

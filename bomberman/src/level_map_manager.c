@@ -1,6 +1,7 @@
+#include "../headers/level_utilities.h"
+
 #include <stdlib.h>
 #include <stdio.h>
-#include "utilities.h"
 
 int **createLevelTileMatrix(char *path, int rows, int collumns, int **tileMatrix)
 {
@@ -42,6 +43,39 @@ int **createLevelTileMatrix(char *path, int rows, int collumns, int **tileMatrix
     free(mapFile);
 
     return tileMatrix;
+}
+
+void drawSolidBlock(int y, int x, ALLEGRO_BITMAP *solid_block_sprite)
+{
+    int pixelCoords[2];
+    pixelCoordsFromTileCoords(x, y, pixelCoords);
+    al_draw_bitmap(solid_block_sprite, pixelCoords[0], pixelCoords[1], 0);
+}
+
+void drawBrittleBlock(int y, int x, ALLEGRO_BITMAP *brittle_block_sprite)
+{
+    int pixelCoords[2];
+    pixelCoordsFromTileCoords(x, y, pixelCoords);
+    al_draw_bitmap(brittle_block_sprite, pixelCoords[0], pixelCoords[1], 0);
+}
+
+void generateMapBitmap(int **map, int rows, int collumns, ALLEGRO_BITMAP *map_bitmap, ALLEGRO_BITMAP *solid_block_sprite, ALLEGRO_BITMAP *brittle_block_sprite, ALLEGRO_DISPLAY *display)
+{
+    al_set_target_bitmap(map_bitmap);
+
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < collumns; j++)
+        {
+            if( map[i][j] == 1 )
+                drawSolidBlock(i, j, solid_block_sprite);
+            else if( map[i][j] == 2 )
+                drawBrittleBlock(i, j, brittle_block_sprite);
+        }
+        
+    }
+
+    al_set_target_bitmap(al_get_backbuffer(display));   
 }
 
 /*
