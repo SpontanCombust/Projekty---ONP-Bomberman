@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include "utilities.h"
 
 int **createLevelTileMatrix(char *path, int rows, int collumns, int **tileMatrix)
 {
@@ -17,7 +18,8 @@ int **createLevelTileMatrix(char *path, int rows, int collumns, int **tileMatrix
         return NULL;
     }
     
-    char line[100]; int i;
+    char line[100]; 
+    int i = 0;
     while( fgets( line, 100, mapFile ) != NULL )
     {
         if( line[0] == ';')
