@@ -15,14 +15,14 @@ ONP:
 
 Bomberman:
 - [x] system poruszania się
-- [ ] system kolizji
+- [x] system kolizji
 - [ ] podkładanie bomb
 - [ ] niszczenie otoczenia przez bomby
 - [x] tworzenie mapy z pliku
 - [ ] dodanie przykładowej mapy
 - [ ] system poziomów i ich przechodzenia
-- [ ] pełny uproszczony interfejs graficzny
 - [ ] prości patrolujący wrogowie
+- [ ] pełny uproszczony interfejs graficzny
 
 
 ## Kamień milowy 2 - TBA
