@@ -1,6 +1,8 @@
+#include "./headers/sprite_properties.h"
+#include "./headers/direction.h"
+#include "./headers/entity.h"
 #include "./headers/level_utilities.h"
 #include "./headers/logic_handlers.h"
-#include "./headers/entity.h"
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -17,7 +19,7 @@ void updateGFX( Entity *player, enum Direction dir, ALLEGRO_BITMAP *map_bitmap)
 {
     al_clear_to_color(al_map_rgb(0, 150, 0));
     al_draw_bitmap(map_bitmap, 0, 0, 0);
-    al_draw_bitmap_region(player->bmp, dir * 32, 0, 32, 32, player->x, player->y, 0);
+    al_draw_bitmap_region(player->bmp, dir * TILE_SIZE, 0, TILE_SIZE, TILE_SIZE, player->x, player->y, 0);
     al_flip_display();
 }
 
@@ -60,8 +62,9 @@ int main(void)
     generateMapBitmap(map, 15, 20, map_bitmap, solid_block_sprite, brittle_block_sprite, display);
 
     ALLEGRO_BITMAP *player_sprites = al_load_bitmap("./sprites/player_sheet.png");
+    // ALLEGRO_BITMAP *player_sprites = al_load_bitmap("./sprites/debug_bomberclone_sprites_with_bounding_box.png");
     Entity player;
-    initEntity(&player, 100, 100, player_sprites);
+    initEntity(&player, 0, 0, player_sprites);
 
     bool vx[2] = {false, false};
     bool vy[2] = {false, false};
@@ -75,7 +78,7 @@ int main(void)
     */
     
 
-    bool done = false, draw = false;
+    bool done = false, render = false;
 
     updateGFX(&player, dir, map_bitmap);
     
@@ -93,7 +96,7 @@ int main(void)
         }
         else if ( events.type == ALLEGRO_EVENT_TIMER )
         {
-            draw = true;  
+            render = true;  
         }
         else if( events.type == ALLEGRO_EVENT_KEY_DOWN)
         {
@@ -106,13 +109,20 @@ int main(void)
 
         resolveDirection( &dir, vx, vy );
 
-        if(draw)
+        if(render)
         {
-            updateMovement(&player, vx, vy, SPEED);
+            updateMovementX(&player, vx, SPEED);
+            if( isCollision( &player, map, SCREEN_WIDTH, SCREEN_HEIGHT, PLAYER_COLLISION_BOX_X, PLAYER_COLLISION_BOX_Y, PLAYER_COLLISION_BOX_W, PLAYER_COLLISION_BOX_H ) )
+                updateMovementX(&player, vx, -SPEED);
+
+
+            updateMovementY(&player, vy, SPEED);
+            if( isCollision( &player, map, SCREEN_WIDTH, SCREEN_HEIGHT, PLAYER_COLLISION_BOX_X, PLAYER_COLLISION_BOX_Y, PLAYER_COLLISION_BOX_W, PLAYER_COLLISION_BOX_H ) )
+                updateMovementY(&player, vy, -SPEED);
+
             updateGFX(&player, dir, map_bitmap);
-            // wazne, by "draw" ustawiac na false po kazdym zwroceniu bufora, by nie marnowac zasobow na nadmierne renderowanie
-            // aktualne tylko w przypadku, gdy nic nie porusza sie na ekranie 
-            draw = false;
+
+            render = false;
         }
     }
     

@@ -1,13 +1,10 @@
 #include "../headers/level_utilities.h"
+#include "../headers/sprite_properties.h"
 
-void tileCoordsFromPixelCoords(int x, int y, int tileCoords[2])
-{
-    tileCoords[0] = (x / 32);
-    tileCoords[1] = (y / 32);
+int pixelFromTile(int t){
+    return t * TILE_SIZE;
 }
 
-void pixelCoordsFromTileCoords(int x, int y, int pixelCoords[2])
-{
-    pixelCoords[0] = ( x * 32 );
-    pixelCoords[1] = ( y * 32 );
+int tileFromPixel(int p){
+    return p / TILE_SIZE;
 }

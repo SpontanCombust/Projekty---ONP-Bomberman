@@ -53,9 +53,14 @@ void resolveDirection( enum Direction *dir, bool vx[2], bool vy[2] )
         *dir = RIGHT;
 }
 
-void updateMovement( Entity *player, bool vx[2], bool vy[2], int speed)
+void updateMovementX( Entity *player, bool vx[2], int speed)
 {
     player -> x += speed * ( -vx[0] + vx[1] );
+
+}
+
+void updateMovementY( Entity *player, bool vy[2], int speed)
+{
     player -> y += speed * ( -vy[0] + vy[1] ); 
 
 }
