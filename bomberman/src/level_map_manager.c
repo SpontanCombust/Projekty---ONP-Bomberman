@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int **createLevelTileMatrix(char *path, int rows, int collumns, int **tileMatrix)
+int **createLevelTileMatrix( char *path, int rows, int collumns )
 {
-    tileMatrix = (int **)malloc(rows * sizeof(int *));
+    int **tileMatrix = (int **)malloc(rows * sizeof(int *));
     for (int i = 0; i < rows; i++)
     {
         tileMatrix[i] = (int *)malloc(collumns * sizeof(int));
@@ -40,36 +40,44 @@ int **createLevelTileMatrix(char *path, int rows, int collumns, int **tileMatrix
         return NULL;
     }
 
-    free(mapFile);
+    free( mapFile );
 
     return tileMatrix;
 }
 
-void drawSolidBlock(int x, int y, ALLEGRO_BITMAP *solid_block_sprite)
+void drawSolidBlock( int x, int y, ALLEGRO_BITMAP *solid_block_sprite )
 {
-    al_draw_bitmap(solid_block_sprite, pixelFromTile(x), pixelFromTile(y), 0);
+    al_draw_bitmap( solid_block_sprite, pixelFromTile(x), pixelFromTile(y), 0 );
 }
 
-void drawBrittleBlock(int x, int y, ALLEGRO_BITMAP *brittle_block_sprite)
+void drawBrittleBlock( int x, int y, ALLEGRO_BITMAP *brittle_block_sprite )
 {
-    al_draw_bitmap(brittle_block_sprite, pixelFromTile(x), pixelFromTile(y), 0);
+    al_draw_bitmap( brittle_block_sprite, pixelFromTile(x), pixelFromTile(y), 0 );
 }
 
-void generateMapBitmap(int **map, int rows, int collumns, ALLEGRO_BITMAP *map_bitmap, ALLEGRO_BITMAP *solid_block_sprite, ALLEGRO_BITMAP *brittle_block_sprite, ALLEGRO_DISPLAY *display)
+void generateMapBitmap( int **map, int rows, int collumns, ALLEGRO_BITMAP *map_bitmap, ALLEGRO_BITMAP *solid_block_sprite, ALLEGRO_BITMAP *brittle_block_sprite, ALLEGRO_DISPLAY *display )
 {
-    al_set_target_bitmap(map_bitmap);
+    al_set_target_bitmap( map_bitmap );
 
     for (int i = 0; i < rows; i++)
     {
         for (int j = 0; j < collumns; j++)
         {
             if( map[i][j] == 1 )
-                drawSolidBlock(j, i, solid_block_sprite);
+                drawSolidBlock( j, i, solid_block_sprite );
             else if( map[i][j] == 2 )
-                drawBrittleBlock(j, i, brittle_block_sprite);
-        }
-        
+                drawBrittleBlock( j, i, brittle_block_sprite );
+        }    
     }
+    
+    al_set_target_bitmap(al_get_backbuffer( display ));   
+}
 
-    al_set_target_bitmap(al_get_backbuffer(display));   
+void freeMap( int **map, int rows )
+{
+    for (int i = 0; i < rows; i++)
+        free( map[i] );
+
+    free( map );
+    map = NULL;
 }

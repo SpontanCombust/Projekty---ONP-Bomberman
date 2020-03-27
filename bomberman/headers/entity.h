@@ -9,6 +9,7 @@ struct SEntity {
 };
 typedef struct SEntity Entity; 
 
-void initEntity(Entity *entity, int x, int y, ALLEGRO_BITMAP *bmp);
+// ======================== entity_init.c =========================
+void initEntity( Entity *entity, int x, int y, ALLEGRO_BITMAP *bmp );
 
 #endif
