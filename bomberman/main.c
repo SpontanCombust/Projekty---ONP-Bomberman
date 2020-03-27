@@ -10,10 +10,28 @@
 #include <allegro5/allegro_image.h>
 
 #define SCREEN_HEIGHT 480
-#define SCREEN_WIDTH 640
+#define SCREEN_WIDTH 672
 #define FPS 60.0
 
-#define SPEED 2
+#define SPEED 3
+
+
+void updatePlayerMovement( Entity *player, int **map, bool vx[2], bool vy[2] )
+{
+    enum Direction cdir;
+
+    updateMovementX(player, vx, SPEED);
+    if( isOutOfBounds( player, &cdir, SCREEN_WIDTH, SCREEN_HEIGHT, CBX_PLAYER, CBY_PLAYER, CBW_PLAYER, CBH_PLAYER ) )
+        handleOutOfBounds( player, cdir, SCREEN_WIDTH, SCREEN_HEIGHT, CBX_PLAYER, CBY_PLAYER, CBW_PLAYER, CBH_PLAYER );
+    else if( isTerrainCollisionX( player, &cdir, map, CBX_PLAYER, CBY_PLAYER, CBW_PLAYER, CBH_PLAYER ) )
+        handleTerrainCollision( player, cdir, map, CBX_PLAYER, CBY_PLAYER, CBW_PLAYER, CBH_PLAYER );
+
+    updateMovementY( player, vy, SPEED );
+    if( isOutOfBounds( player, &cdir, SCREEN_WIDTH, SCREEN_HEIGHT, CBX_PLAYER, CBY_PLAYER, CBW_PLAYER, CBH_PLAYER ) )
+        handleOutOfBounds( player, cdir, SCREEN_WIDTH, SCREEN_HEIGHT, CBX_PLAYER, CBY_PLAYER, CBW_PLAYER, CBH_PLAYER );
+    else if( isTerrainCollisionY( player, &cdir, map, CBX_PLAYER, CBY_PLAYER, CBW_PLAYER, CBH_PLAYER ) )
+        handleTerrainCollision( player, cdir, map, CBX_PLAYER, CBY_PLAYER, CBW_PLAYER, CBH_PLAYER );
+}
 
 void updateGFX( Entity *player, enum Direction dir, ALLEGRO_BITMAP *map_bitmap)
 {
@@ -56,13 +74,13 @@ int main(void)
     ALLEGRO_BITMAP *solid_block_sprite = al_load_bitmap("./sprites/solid_block.png");
     ALLEGRO_BITMAP *brittle_block_sprite = al_load_bitmap("./sprites/brittle_block.png");    
     
-    int **map = NULL;
-    map = createLevelTileMatrix("./levels/test_map.txt", 15, 20, map);
-    ALLEGRO_BITMAP *map_bitmap = al_create_bitmap(SCREEN_WIDTH, SCREEN_HEIGHT);
-    generateMapBitmap(map, 15, 20, map_bitmap, solid_block_sprite, brittle_block_sprite, display);
+    int **map = createLevelTileMatrix("./levels/test_map.txt", 15, 21);
 
-    ALLEGRO_BITMAP *player_sprites = al_load_bitmap("./sprites/player_sheet.png");
-    // ALLEGRO_BITMAP *player_sprites = al_load_bitmap("./sprites/debug_bomberclone_sprites_with_bounding_box.png");
+    ALLEGRO_BITMAP *map_bitmap = al_create_bitmap(SCREEN_WIDTH, SCREEN_HEIGHT);
+    generateMapBitmap(map, 15, 21, map_bitmap, solid_block_sprite, brittle_block_sprite, display);
+    
+    // ALLEGRO_BITMAP *player_sprites = al_load_bitmap("./sprites/player_sheet.png");
+    ALLEGRO_BITMAP *player_sprites = al_load_bitmap("./sprites/debug_bomberclone_sprites_with_bounding_box.png");
     Entity player;
     initEntity(&player, 0, 0, player_sprites);
 
@@ -111,22 +129,14 @@ int main(void)
 
         if(render)
         {
-            updateMovementX(&player, vx, SPEED);
-            if( isCollision( &player, map, SCREEN_WIDTH, SCREEN_HEIGHT, PLAYER_COLLISION_BOX_X, PLAYER_COLLISION_BOX_Y, PLAYER_COLLISION_BOX_W, PLAYER_COLLISION_BOX_H ) )
-                updateMovementX(&player, vx, -SPEED);
-
-
-            updateMovementY(&player, vy, SPEED);
-            if( isCollision( &player, map, SCREEN_WIDTH, SCREEN_HEIGHT, PLAYER_COLLISION_BOX_X, PLAYER_COLLISION_BOX_Y, PLAYER_COLLISION_BOX_W, PLAYER_COLLISION_BOX_H ) )
-                updateMovementY(&player, vy, -SPEED);
-
+            updatePlayerMovement( &player, map, vx, vy );
             updateGFX(&player, dir, map_bitmap);
 
             render = false;
         }
     }
     
-    free(map);
+    freeMap(map, 15);
     al_destroy_bitmap(map_bitmap);
     al_destroy_bitmap(solid_block_sprite);
     al_destroy_bitmap(brittle_block_sprite);
