@@ -1,7 +1,14 @@
-;To jest komentarz
-;Jesli linia zaczyna sie od ';', zostanie ona zignorowana
-;Dane mapy musza znajdowac sie bezposrednio za komentarzem
+; To jest komentarz
+; Jesli linia zaczyna sie od ';', zostanie ona zignorowana
+; Dane powinny byc oznaczone przez odpowiedni naglowek
+; [dimensions] - nagl. wymiarow, [data] - nagl. danych mapy
+; Wymiary moga byc najwyzej dwucyfrowe i znajdowac sie przed danymi mapy
+; r - rows (rzedy), c - collumns (kolumny)
 ; 0 - pusta przestrzen, 1 - blok twardy, 2 - blok kruchy
+[dimensions]
+r15
+c21
+[data]
 000020020200000222200
 010121010101010101010
 000020200200200000000

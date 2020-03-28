@@ -50,7 +50,7 @@ void handleOutOfBounds( Actor *actor, int screen_w, int screen_h, enum Direction
 
 bool isCollidedVertex( int vertex_x, int vertex_y, int **map )
 {
-    if( map[ tileFromPixel( vertex_y ) ][ tileFromPixel( vertex_x ) ] != 0 )
+    if( getBlockTypeAtTile( tileFromPixel(vertex_x), tileFromPixel(vertex_y), map ) != EMPTY_BLOCK )
         return true;
     return false;
 }

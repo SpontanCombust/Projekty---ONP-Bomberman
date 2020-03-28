@@ -2,37 +2,61 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
-int **createLevelTileMatrix( char *path, int rows, int collumns )
+int **allocateMatrix( int rows, int collumns)
 {
-    int **tileMatrix = (int **)malloc(rows * sizeof(int *));
+    int **matrix = (int **)malloc(rows * sizeof(int *));
     for (int i = 0; i < rows; i++)
-    {
-        tileMatrix[i] = (int *)malloc(collumns * sizeof(int));
-    }
-    
+        matrix[i] = (int *)malloc(collumns * sizeof(int));
 
+    return matrix;
+}
+
+int **createLevelTileMatrix( char *path, int *rows, int *collumns )
+{
     FILE *mapFile = fopen( path, "r" );
     
     if( mapFile == NULL ){
         fprintf( stderr, "Failed to open file %s", path );
         return NULL;
     }
-    
-    char line[100]; 
-    int i = 0;
-    while( fgets( line, 100, mapFile ) != NULL )
+
+    int **tileMatrix = NULL;
+
+    char buffer[100];
+    char subbuf[3];
+    while ( fgets( buffer, 100, mapFile ) != NULL )
     {
-        if( line[0] == ';')
+        if( buffer[0] == ';' )
             continue;
 
-        for ( int j = 0; j < collumns; j++ )
+        else if( strcmp( buffer, "[dimensions]\n" ) == 0 )
         {
-            tileMatrix[i][j] = line[j] - '0';
+            for (int i = 0; i < 2; i++)
+            {
+                fgets( buffer, 100, mapFile );
+                strncpy( subbuf, buffer+1, 2);
+                subbuf[2] = '\0';
+
+                if( buffer[0] == 'r' )
+                    *rows = atoi( subbuf );
+                else if( buffer[0] == 'c' )
+                    *collumns = atoi( subbuf );      
+            }
+            
+            tileMatrix = allocateMatrix(*rows, *collumns);
         }
 
-        i++;
-        
+        else if( strcmp( buffer, "[data]\n" ) == 0 )
+        {
+            for (int i = 0; i < *rows; i++)
+            {
+                fgets( buffer, 100, mapFile );
+                for (int j = 0; j < *collumns; j++)
+                    tileMatrix[i][j] = buffer[j] - '0'; 
+            }   
+        }
     }
 
     if( fclose( mapFile ) == EOF ){
@@ -45,32 +69,9 @@ int **createLevelTileMatrix( char *path, int rows, int collumns )
     return tileMatrix;
 }
 
-void drawSolidBlock( int x, int y, ALLEGRO_BITMAP *solid_block_sprite )
+enum BlockTypes getBlockTypeAtTile( int tile_x, int tile_y, int **map )
 {
-    al_draw_bitmap( solid_block_sprite, pixelFromTile(x), pixelFromTile(y), 0 );
-}
-
-void drawBrittleBlock( int x, int y, ALLEGRO_BITMAP *brittle_block_sprite )
-{
-    al_draw_bitmap( brittle_block_sprite, pixelFromTile(x), pixelFromTile(y), 0 );
-}
-
-void generateMapBitmap( int **map, int rows, int collumns, ALLEGRO_BITMAP *map_bitmap, ALLEGRO_BITMAP *solid_block_sprite, ALLEGRO_BITMAP *brittle_block_sprite, ALLEGRO_DISPLAY *display )
-{
-    al_set_target_bitmap( map_bitmap );
-
-    for (int i = 0; i < rows; i++)
-    {
-        for (int j = 0; j < collumns; j++)
-        {
-            if( map[i][j] == 1 )
-                drawSolidBlock( j, i, solid_block_sprite );
-            else if( map[i][j] == 2 )
-                drawBrittleBlock( j, i, brittle_block_sprite );
-        }    
-    }
-    
-    al_set_target_bitmap(al_get_backbuffer( display ));   
+    return map[ tile_y ][ tile_x ];
 }
 
 void destroyMap( int **map, int rows )
@@ -80,4 +81,22 @@ void destroyMap( int **map, int rows )
 
     free( map );
     map = NULL;
+}
+
+
+int main()
+{   
+    int rows, collumns;
+    int **map = createLevelTileMatrix("../levels/test_map.txt", &rows, &collumns);
+
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < collumns; j++)
+        {
+            printf("%d ", map[i][j]);
+        }
+        puts("");
+    }
+    
+    
 }
