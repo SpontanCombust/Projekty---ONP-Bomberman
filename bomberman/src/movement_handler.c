@@ -1,20 +1,22 @@
 #include "../headers/logic_handlers.h"
 
-void handleEventKeyDown( char eventKeyboardKeycode, bool vx[2], bool vy[2], bool *done )
+#include <allegro5/allegro.h>
+
+void handleMovementInputKeyDown( char eventKeyboardKeycode, Actor *actor, bool *done )
 {
     switch (eventKeyboardKeycode)
     {
         case ALLEGRO_KEY_UP:
-            vy[0] = true;
+            actor -> vy[0] = true;
             break;
         case ALLEGRO_KEY_DOWN:
-            vy[1] = true;
+            actor -> vy[1] = true;
             break;
         case ALLEGRO_KEY_LEFT:
-            vx[0] = true;
+            actor -> vx[0] = true;
             break;
         case ALLEGRO_KEY_RIGHT:
-            vx[1] = true;
+            actor -> vx[1] = true;
             break;
         case ALLEGRO_KEY_ESCAPE:
             *done = true;
@@ -22,43 +24,43 @@ void handleEventKeyDown( char eventKeyboardKeycode, bool vx[2], bool vy[2], bool
     }
 }
 
-void handleEventKeyUp( char eventKeyboardKeycode, bool vx[2], bool vy[2] ) 
+void handleMovementInputKeyUp( char eventKeyboardKeycode, Actor *actor ) 
 {
     switch (eventKeyboardKeycode)
     {
         case ALLEGRO_KEY_UP:
-            vy[0] = false;
+            actor -> vy[0] = false;
             break;
         case ALLEGRO_KEY_DOWN:
-            vy[1] = false;
+            actor -> vy[1] = false;
             break;
         case ALLEGRO_KEY_LEFT:
-            vx[0] = false;
+            actor -> vx[0] = false;
             break;
         case ALLEGRO_KEY_RIGHT:
-            vx[1] = false;
+            actor -> vx[1] = false;
             break;
     }
 }
 
-void resolveDirection( enum Direction *dir, bool vx[2], bool vy[2] )
+void resolveDirection( Actor *actor )
 {
-    if( vy[0] & !vx[0] & !vx[1] )
-        *dir = UP;
-    else if( vy[1] & !vx[0] & !vx[1] )
-        *dir = DOWN;        
-    else if( vx[0] & !vy[0] & !vy[1])
-        *dir = LEFT;
-    else if( vx[1] & !vy[0] & !vy[1] )
-        *dir = RIGHT;
+    if( actor->vy[0] & !( actor->vx[0] ) & !( actor->vx[1] ) )
+        actor -> dir = UP;
+    else if( actor->vy[1] & !( actor->vx[0] ) & !( actor->vx[1] ) )
+        actor -> dir = DOWN;        
+    else if( actor->vx[0] & !( actor->vy[0] ) & !( actor->vy[1] ) )
+        actor -> dir = LEFT;
+    else if( actor->vx[1] & !( actor->vy[0] ) & !( actor->vy[1] ) )
+        actor -> dir = RIGHT;
 }
 
-void updateMovementX( Entity *player, bool vx[2], int speed )
+void updatePositionX( Actor *actor )
 {
-    player -> x += speed * ( -vx[0] + vx[1] );
+    actor -> x += actor->speed * ( -( actor->vx[0] ) + actor->vx[1] );
 }
 
-void updateMovementY( Entity *player, bool vy[2], int speed )
+void updatePositionY( Actor *actor )
 {   
-    player -> y += speed * ( -vy[0] + vy[1] ); 
+    actor -> y += actor->speed * ( -( actor->vy[0] ) + actor->vy[1] ); 
 }

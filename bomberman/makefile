@@ -4,8 +4,8 @@
 
 PROGRAM_NAME=bomberman
 SOURCES=-I./headers -I./src \
-./headers/direction.h ./headers/entity.h ./headers/level_utilities.h ./headers/logic_handlers.h ./headers/sprite_properties.h\
-./src/collision_handler.c ./src/coordinate_translator.c ./src/entity_init.c ./src/level_map_manager.c ./src/movement_handler.c\
+./headers/actor.h ./headers/direction.h ./headers/level_utilities.h ./headers/logic_handlers.h ./headers/sprite_properties.h\
+./src/actor_init.c ./src/collision_handler.c ./src/coordinate_translator.c ./src/level_map_manager.c ./src/movement_handler.c\
 main.c 
 
 

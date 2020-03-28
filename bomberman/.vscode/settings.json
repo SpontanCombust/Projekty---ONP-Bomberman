@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "level_utilities.h": "c",
-        "logic_handlers.h": "c"
+        "logic_handlers.h": "c",
+        "actor.h": "c"
     }
 }

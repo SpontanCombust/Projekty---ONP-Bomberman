@@ -1,26 +1,26 @@
 #include "../headers/logic_handlers.h"
 #include "../headers/level_utilities.h"
 
-bool isOutOfBounds( Entity *player, enum Direction *cdir, int screen_w, int screen_h, int cx, int cy, int cw, int ch )
+bool isOutOfBounds( Actor *actor, int screen_w, int screen_h, enum Direction *cdir, int cx, int cy, int cw, int ch )
 {
     bool outOfBounds = false;
 
-    if( player->y + cy + ch > screen_h )
+    if( actor->y + cy + ch > screen_h )
     {
         outOfBounds = true;
         *cdir = DOWN;
     }
-    else if( player->y + cy < 0 )
+    else if( actor->y + cy < 0 )
     {
         outOfBounds = true;
         *cdir = UP;
     }
-    else if( player->x + cx < 0 )
+    else if( actor->x + cx < 0 )
     {
         outOfBounds = true;
         *cdir = LEFT;
     }
-    else if( player->x + cx + cw > screen_w )
+    else if( actor->x + cx + cw > screen_w )
     {
         outOfBounds = true;
         *cdir = RIGHT;
@@ -29,21 +29,21 @@ bool isOutOfBounds( Entity *player, enum Direction *cdir, int screen_w, int scre
     return outOfBounds;
 }
 
-void handleOutOfBounds( Entity *player, enum Direction cdir, int screen_w, int screen_h, int cx, int cy, int cw, int ch )
+void handleOutOfBounds( Actor *actor, int screen_w, int screen_h, enum Direction cdir, int cx, int cy, int cw, int ch )
 {
     switch ( cdir )
     {
         case DOWN:
-            player -> y = screen_h - cy - ch;
+            actor -> y = screen_h - cy - ch;
             break;
         case UP:
-            player -> y = -cy;
+            actor -> y = -cy;
             break;
         case LEFT:
-            player -> x = -cx;
+            actor -> x = -cx;
             break;
         case RIGHT:
-            player -> x = screen_w - cx - cw;
+            actor -> x = screen_w - cx - cw;
             break;
     }
 }
@@ -55,18 +55,18 @@ bool isCollidedVertex( int vertex_x, int vertex_y, int **map )
     return false;
 }
 
-bool isTerrainCollisionX( Entity *player, enum Direction *cdir, int **map, int cx, int cy, int cw, int ch )
+bool isTerrainCollisionX( Actor *actor, int **map, enum Direction *cdir, int cx, int cy, int cw, int ch )
 {
     bool terrainCollision = false;
 
-    if( isCollidedVertex( player->x + cx, player->y + cy,          map ) ||        // lewy gorny wierzcholek
-        isCollidedVertex( player->x + cx, player->y + cy + ch - 1, map ) )         // lewy dolny wierzcholek
+    if( isCollidedVertex( actor->x + cx, actor->y + cy,          map ) ||        // lewy gorny wierzcholek
+        isCollidedVertex( actor->x + cx, actor->y + cy + ch - 1, map ) )         // lewy dolny wierzcholek
     {
         terrainCollision = true;
         *cdir = LEFT;
     }
-    else if( isCollidedVertex( player->x + cx + cw - 1,  player->y + cy,          map ) ||   // prawy gorny wierzcholek
-             isCollidedVertex( player->x + cx + cw - 1,  player->y + cy + ch - 1, map ) )    // prawy dolny wierzcholek
+    else if( isCollidedVertex( actor->x + cx + cw - 1,  actor->y + cy,          map ) ||   // prawy gorny wierzcholek
+             isCollidedVertex( actor->x + cx + cw - 1,  actor->y + cy + ch - 1, map ) )    // prawy dolny wierzcholek
     {
         terrainCollision = true;
         *cdir = RIGHT;
@@ -75,18 +75,18 @@ bool isTerrainCollisionX( Entity *player, enum Direction *cdir, int **map, int c
     return terrainCollision;
 }
 
-bool isTerrainCollisionY( Entity *player, enum Direction *cdir, int **map, int cx, int cy, int cw, int ch )
+bool isTerrainCollisionY( Actor *actor, int **map, enum Direction *cdir, int cx, int cy, int cw, int ch )
 {
     bool terrainCollision = false;
 
-    if( isCollidedVertex( player->x + cx,           player->y + cy + ch - 1, map ) ||   // lewy dolny wierzcholek
-        isCollidedVertex( player->x + cx + cw - 1,  player->y + cy + ch - 1, map ) )    // prawy dolny wierzcholek
+    if( isCollidedVertex( actor->x + cx,           actor->y + cy + ch - 1, map ) ||   // lewy dolny wierzcholek
+        isCollidedVertex( actor->x + cx + cw - 1,  actor->y + cy + ch - 1, map ) )    // prawy dolny wierzcholek
     {
         terrainCollision = true;
         *cdir = DOWN;
     }
-    else if( isCollidedVertex( player->x + cx,           player->y + cy, map ) ||       // lewy gorny wierzcholek
-             isCollidedVertex( player->x + cx + cw - 1,  player->y + cy, map ) )        // prawy gorny wierzcholek
+    else if( isCollidedVertex( actor->x + cx,           actor->y + cy, map ) ||       // lewy gorny wierzcholek
+             isCollidedVertex( actor->x + cx + cw - 1,  actor->y + cy, map ) )        // prawy gorny wierzcholek
     {
         terrainCollision = true;
         *cdir = UP;
@@ -95,26 +95,26 @@ bool isTerrainCollisionY( Entity *player, enum Direction *cdir, int **map, int c
     return terrainCollision;
 }
 
-void handleTerrainCollision(Entity *player, enum Direction cdir, int **map, int cx, int cy, int cw, int ch)
+void handleTerrainCollision(Actor *actor, int **map, enum Direction cdir, int cx, int cy, int cw, int ch)
 {
     int head_coord;
     switch( cdir )
     {
         case DOWN:
-            head_coord = player->y + cy + ch - 1;
-            player -> y = pixelFromTile( tileFromPixel( head_coord ) - 1 );
+            head_coord = actor->y + cy + ch - 1;
+            actor -> y = pixelFromTile( tileFromPixel( head_coord ) - 1 );
             break;
         case UP:
-            head_coord = player->y + cy;
-            player -> y = pixelFromTile( tileFromPixel( head_coord ) + 1 ) - cy;
+            head_coord = actor->y + cy;
+            actor -> y = pixelFromTile( tileFromPixel( head_coord ) + 1 ) - cy;
             break;
         case LEFT:
-            head_coord = player->x + cx;
-            player -> x = pixelFromTile( tileFromPixel( head_coord ) + 1 ) - cx;
+            head_coord = actor->x + cx;
+            actor -> x = pixelFromTile( tileFromPixel( head_coord ) + 1 ) - cx;
             break;
         case RIGHT:
-            head_coord = player->x + cx + cw - 1;
-            player -> x = pixelFromTile( tileFromPixel( head_coord ) - 1 ) + cx;
+            head_coord = actor->x + cx + cw - 1;
+            actor -> x = pixelFromTile( tileFromPixel( head_coord ) - 1 ) + cx;
             break;
     }
 }

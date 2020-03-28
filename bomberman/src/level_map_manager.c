@@ -73,7 +73,7 @@ void generateMapBitmap( int **map, int rows, int collumns, ALLEGRO_BITMAP *map_b
     al_set_target_bitmap(al_get_backbuffer( display ));   
 }
 
-void freeMap( int **map, int rows )
+void destroyMap( int **map, int rows )
 {
     for (int i = 0; i < rows; i++)
         free( map[i] );
