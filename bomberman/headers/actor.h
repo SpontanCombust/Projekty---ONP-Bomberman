@@ -1,9 +1,9 @@
-#ifndef CHARACTER_H
-#define CHARACTER_H
+#ifndef ACTOR_H
+#define ACTOR_H
 
 #include "direction.h"
-
 #include <allegro5/allegro.h>
+#include <stdbool.h>
 
 /*
          | vy[0]
@@ -13,7 +13,8 @@ vx[0]----0---> vx[1]
          \/ vy[1]
 */
 
-struct SActor {
+struct SActor
+{
     int x, y;
     bool vx[2], vy[2];
     int speed;
@@ -22,8 +23,8 @@ struct SActor {
 };
 typedef struct SActor Actor; 
 
-// ======================== actor_init.c =========================
+// ======================== actor_essentials.c =========================
 Actor *createActor( int x, int y, int speed, enum Direction dir, ALLEGRO_BITMAP *bmp );
-void destroyActor( Actor *actor );
+void destroyActor( Actor **actor );
 
 #endif

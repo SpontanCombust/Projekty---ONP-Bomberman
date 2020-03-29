@@ -1,4 +1,4 @@
-#include "../headers/logic_handlers.h"
+#include "../../headers/logic.h"
 
 #include <allegro5/allegro.h>
 

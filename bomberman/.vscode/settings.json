@@ -2,6 +2,12 @@
     "files.associations": {
         "level_utilities.h": "c",
         "logic_handlers.h": "c",
-        "actor.h": "c"
+        "actor.h": "c",
+        "direction.h": "c",
+        "allegro_image.h": "c",
+        "*.tcc": "cpp",
+        "limits": "cpp",
+        "bomb_handlers.h": "c",
+        "sfx.h": "c"
     }
 }
