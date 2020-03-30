@@ -1,11 +1,21 @@
 #ifndef STACK_H
 #define STACK_H
 
-//Plik naglowkowy zawierajacy deklaracje stosu i funkcji, ktore beda go obslugiwac.
+//Struktura rekurencyjna "stack_node" pelniaca role elementu stosu.
+struct s_stack_node
+{
+    //Pole "content" typ float, ktore bedzie przechowywac  liczbe
+    float content;
 
-static struct stack_node;
-typedef struct stack_node Tstack_node;
-Tstack_node *push(Tstack_node *, float);
-float pop(Tstack_node **);
+    //Wskaznik na kolejny (nizszy) element stosu; ma ten sam typ co struktura, w ktorej sie znajduje (stad "struktura rekurencyjna").
+    struct s_stack_node *next;
+};
 
-#endif 
+//Definicja typu Tstack_node w celu pozniejszego uproszczenia kodu
+typedef struct s_stack_node stack_node;
+
+stack_node *push( stack_node *, float );
+float pop( stack_node ** );
+float peek( stack_node * );
+
+#endif
