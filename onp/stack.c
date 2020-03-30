@@ -1,26 +1,12 @@
 #include "stack.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
-
-//Struktura rekurencyjna "stack_node" pelniaca role elementu stosu.
-static struct stack_node
-{
-    //Pole "content" typ float, ktore bedzie przechowywac  liczbe
-    float content;
-
-    //Wskaznik na kolejny (nizszy) element stosu; ma ten sam typ co struktura, w ktorej sie znajduje (stad "struktura rekurencyjna").
-    struct stack_node *next;
-};
-
-//Definicja typu Tstack_node w celu pozniejszego uproszczenia kodu
-typedef struct stack_node Tstack_node;
 
 //Funkcja "push" dodajaca element do stosu. Zwraca wskaznik na nowy wierzcholek stosu.
-Tstack_node *push(Tstack_node *top, float content)
+stack_node *push( stack_node *top, float content )
 {
     //Deklaracja i inicjalizacja nowego elementu stosu - "new_node"; dynamiczne przydzielenie pamieci do niego.
-    Tstack_node *new_node = (Tstack_node *)malloc(sizeof(Tstack_node));
+    stack_node *new_node = ( stack_node * )malloc( sizeof( stack_node ) );
 
     //Jesli pamiec dla nowego elementu stosu zostala przydzielonaS pomyslnie to:
     if (new_node)
@@ -41,7 +27,7 @@ Tstack_node *push(Tstack_node *top, float content)
 
 
 //Funkcja "pop" zwracajaca zawartosc pola "content" z najwyzszego elementu stosu i usuwajaca ten element ze stosu tzn. zdejmuje element ze stosu.
-float pop(Tstack_node **top)
+float pop(stack_node **top)
 {
     //Deklaracja i inicjalizacja zmiennej "result", ktorej poczatkowo przypisywana jest wartosc -1
     float result = -1;
@@ -51,9 +37,9 @@ float pop(Tstack_node **top)
     {
         //Przypisz zmiennej "result" wartosc pola "content", ktore posiada wierzcholek stosu.
         result = (*top) -> content;
-        
+
         //Deklaracja i inicjalizacja tymczasowej zmiennej wskaznikowej "tmp", ktora przechowuje wskaznik na drugi element stosu, tj. element pod wierzchozkiem stosu
-        Tstack_node *tmp = (*top) -> next;
+        stack_node *tmp = (*top) -> next;
 
         //Zwolnienie pamieci, ktora zajmowal obecny wierzcholek stosu.
         free(*top);
@@ -61,18 +47,26 @@ float pop(Tstack_node **top)
         //Przypisanie do wskaznika na wierzcholek stosu wartosci wskaznika "tmp". Ustawienie drugiego elementu stosu jako nowego wierzcholka stosu.
         *top = tmp;
     }
+    else
+    {
+        puts("Stack is empty!");
+    }
+    
 
     //Zwrocenie: wartosci -1 jesli stos byc pusty; wartosci pola "content" najwyzszego elementu stosu, jesli ten stos byc niepusty
     return result;
 }
 
+float peek( stack_node *top)
+{
+    float result = -1;
 
-//STACK_TEST
-/*
-int main(){
-    Tstack_node *top = NULL;
-    top = push(top, 6.5);
-    top = push(top, 2);
-    printf("Hurrrraa!!! %f", pop(&top));
+    if( top )
+        result = top -> content;
+    else
+        puts("Stack is empty!");
+    
+    return result;
 }
-*/
+
+

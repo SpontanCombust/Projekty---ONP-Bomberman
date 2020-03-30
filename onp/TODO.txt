@@ -1,1 +1,0 @@
-> ograniczenie długości wejścia do n znaków (tu: 20)
