@@ -16,10 +16,10 @@ ONP:
 Bomberman:
 - [x] system poruszania się
 - [x] system kolizji
-- [ ] podkładanie bomb
-- [ ] niszczenie otoczenia przez bomby
+- [x] podkładanie bomb
+- [x] niszczenie otoczenia przez bomby
 - [x] tworzenie mapy z pliku
-- [ ] dodanie przykładowej mapy
+- [x] dodanie przykładowej mapy
 - [ ] system poziomów i ich przechodzenia
 - [ ] prości patrolujący wrogowie
 - [ ] pełny uproszczony interfejs graficzny
