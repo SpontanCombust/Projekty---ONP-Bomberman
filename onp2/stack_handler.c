@@ -46,6 +46,8 @@ if(result)
 // Sprawdzanie czy pierwszy wprowadzany znak jest cyfra
 if (result[0]>='0'&&result[0]<='9')
     top = push(top,atof(result));
+else if (result[0]=='-'&&result[1]>='0'&&result[1]<='9')
+    top = push(top,atof(result));
     else{
     float n2 = pop(&top);
     float n1 = pop(&top);
