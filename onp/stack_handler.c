@@ -37,7 +37,7 @@ float get_operation_result( float x1, float x2, char operator, bool steps)
             printf("Invalid operator!\n");
             return -2;
     }
-    //Wypisanie krokow dzialania funkcji jesli uzytkownik wybral taka mozliwosc
+    // Wypisanie krokow dzialania funkcji jesli uzytkownik wybral taka mozliwosc
     if(steps==true){
         printf("Executed operation %f %c %f\n",x1 , operator , x2);
         printf("Placed %f at the top of the stack \n", outcome );}
@@ -52,7 +52,7 @@ void handle_element( char *e, stack_node **top , bool steps )
     if ( e[0] >= '0' && e[0] <= '9' || e[0] == '-' & e[1] >= '0' && e[1] <= '9' ){
         *top = push( *top, atof( e ) );
 
-    //Wypisanie krokow dzialania funkcji jesli uzytkownik wybral taka mozliwosc
+    // Wypisanie krokow dzialania funkcji jesli uzytkownik wybral taka mozliwosc
         if(steps==true)
            printf("Placed %lf at the top of the stack \n",atof( e ));}
     else
@@ -60,7 +60,7 @@ void handle_element( char *e, stack_node **top , bool steps )
         float n2 = pop( top );
         float n1 = pop( top );
 
-    //Wypisanie krokow dzialania funkcji jesli uzytkownik wybral taka mozliwosc
+    // Wypisanie krokow dzialania funkcji jesli uzytkownik wybral taka mozliwosc
         if(steps==true)
             printf("Removed %f and %f from the stack. ", n2, n1);
 
@@ -82,7 +82,7 @@ float get_ONP_result( char *string , bool steps )
 
     } while( result != NULL ); //Zwrocenie wartosci NULL oznacza ze funkcja sprawdzila wszystkie znaki lancucha
 
-    //
+    // Wypisanie krokow dzialania funkcji jesli uzytkownik wybral taka mozliwosc
     if(steps==true)
         printf("Returning top of the stack as a result\n");
     return pop( &top );
@@ -92,16 +92,18 @@ float get_ONP_result( char *string , bool steps )
 bool show_steps( void )
 {
 char input;
-puts("Do you want to see steps of ONP? [Y/N]");
-while (input!='Y'||'N')
+puts("Do you want to see steps of RPN? [Y/N]");
+while (1)
     {
     scanf("%c",&input);
     switch (input)
         {
-        case 'Y': return true;
-                    break;
-        case 'N': return false;
-                    break;
+        case ('Y'): return true;
+        case ('y'): return true;
+
+        case ('N'): return false;
+        case ('n'): return false;
+
         default : continue;
         }
     }

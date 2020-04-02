@@ -51,22 +51,8 @@ float pop(stack_node **top)
     {
         puts("Stack is empty!");
     }
-    
+
 
     //Zwrocenie: wartosci -1 jesli stos byc pusty; wartosci pola "content" najwyzszego elementu stosu, jesli ten stos byc niepusty
     return result;
 }
-
-float peek( stack_node *top)
-{
-    float result = -1;
-
-    if( top )
-        result = top -> content;
-    else
-        puts("Stack is empty!");
-    
-    return result;
-}
-
-
