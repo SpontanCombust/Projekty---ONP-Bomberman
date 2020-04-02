@@ -1,11 +1,10 @@
 #include "onp.h"
 #include <string.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 int main(){
-
     char input[22];
-
     puts( "Enter Reverse Polish Notation of max. length of 20:" );
     scanf("%21[^\n]s", input );
 
@@ -16,7 +15,7 @@ int main(){
         return -1;
     }
 
-    printf("The result is: %f", get_ONP_result( input ) );
+    printf("The result is: %f", get_ONP_result( input , show_steps() ) );
 
     return 0;
 }
