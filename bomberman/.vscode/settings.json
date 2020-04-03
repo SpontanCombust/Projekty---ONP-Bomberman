@@ -8,6 +8,8 @@
         "*.tcc": "cpp",
         "limits": "cpp",
         "bomb_handlers.h": "c",
-        "sfx.h": "c"
+        "sfx.h": "c",
+        "string.h": "c",
+        "level_tile_matrix_tools.h": "c"
     }
 }

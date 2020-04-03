@@ -1,7 +1,7 @@
 #include "../../headers/bomb.h"
 
 #include "../../headers/sprite_properties.h"
-#include "../../headers/tile_matrix_tools.h"
+#include "../../headers/level_tile_matrix_tools.h"
 #include <allegro5/allegro.h>
 
 Bomb *createBombAtActor( Actor *actor )

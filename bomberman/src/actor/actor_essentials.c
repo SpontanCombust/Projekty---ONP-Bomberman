@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-Actor *createActor( int x, int y, int speed, enum Direction dir, ALLEGRO_BITMAP *bmp )
+Actor *createActor( double x, double y, double speed, enum Direction dir, ALLEGRO_BITMAP *bmp )
 {
     Actor *actor = (Actor *)malloc( sizeof( Actor ) );
 
@@ -15,6 +15,7 @@ Actor *createActor( int x, int y, int speed, enum Direction dir, ALLEGRO_BITMAP 
         actor -> vy[0] = false;
         actor -> vy[1] = false;
         actor -> speed = speed;
+        actor -> alive = true;
         actor -> dir = dir;
         actor -> bmp = bmp;
     } 
@@ -32,4 +33,10 @@ void destroyActor( Actor **actor )
 {
     free( *actor );
     *actor = NULL;
+}
+
+void destroyActors( Actor ** enemies, int enemy_num )
+{
+    for (int i = 0; i < enemy_num; i++)
+        destroyActor( &enemies[i] );
 }

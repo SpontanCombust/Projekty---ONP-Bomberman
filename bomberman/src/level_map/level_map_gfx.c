@@ -1,7 +1,7 @@
 #include "../../headers/level_map.h"
 
 #include "../../headers/block_type.h"
-#include "../../headers/tile_matrix_tools.h"
+#include "../../headers/level_tile_matrix_tools.h"
 
 void drawSolidBlock( int x, int y, ALLEGRO_BITMAP *solid_block_sprite )
 {

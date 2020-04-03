@@ -1,7 +1,7 @@
 #include "../../headers/logic.h"
 
 #include "../../headers/sprite_properties.h"
-#include "../../headers/tile_matrix_tools.h"
+#include "../../headers/level_tile_matrix_tools.h"
 #include <stdio.h>
 
 bool isOutOfBounds( Actor *actor, LevelMap *level_map, enum Direction *cdir, int cx, int cy, int cw, int ch )

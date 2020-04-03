@@ -4,19 +4,23 @@
 #include <allegro5/allegro.h>
 #include <stdbool.h>
 
-struct SSFX
+typedef struct S_SFX
 {
     int tile_x, tile_y;
     int lifespan;
     ALLEGRO_BITMAP *bmp;
-};
-typedef struct SSFX SFX;
+    
+} SFX;
+
 
 //========== sfx_essentials.c ===========
+
 SFX *createSFX(int x, int y, int lifespan, ALLEGRO_BITMAP *bmp);
 void destroySFX( SFX **sfx );
 
+
 //======================= sfx_manager.c ===========================
+
 bool isEmptySFXContainer( SFX * container[], int max_size );
 void addSFXToContainer(SFX * container[], int max_size, SFX *sfx );
 

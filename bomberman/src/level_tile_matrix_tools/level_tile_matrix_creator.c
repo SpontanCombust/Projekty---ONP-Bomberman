@@ -1,29 +1,14 @@
-#include "../../headers/tile_matrix_tools.h"
+#include "../../headers/level_tile_matrix_tools.h"
 
 #include <stdlib.h>
 #include <string.h>
-
-int **allocateMatrix( int rows, int collumns )
-{
-    int **matrix = (int **)malloc(rows * sizeof(int *));
-    for (int i = 0; i < rows; i++)
-        matrix[i] = (int *)malloc(collumns * sizeof(int));
-
-    if( !matrix )
-    {
-        puts("Failed to allocate matrix!");
-        return NULL;
-    }
-
-    return matrix;
-}
 
 int **createLevelTileMatrix( FILE *map_file, int *rows, int *collumns )
 {
     int **tile_matrix = NULL;
 
     char buffer[100];
-    char subbuf[3];
+    char subbuf[4];
     while ( fgets( buffer, 100, map_file ) != NULL )
     {
         if( buffer[0] == ';' )
@@ -35,8 +20,8 @@ int **createLevelTileMatrix( FILE *map_file, int *rows, int *collumns )
             {
                 if( fgets( buffer, 100, map_file ) != NULL )
                 {
-                    strncpy( subbuf, buffer+1, 2);
-                    subbuf[2] = '\0';
+                    strncpy( subbuf, buffer + 1, strlen( buffer ) - 2);
+                    subbuf[ strlen( subbuf ) ] = '\0';
 
                     if( buffer[0] == 'r' )
                         *rows = atoi( subbuf );

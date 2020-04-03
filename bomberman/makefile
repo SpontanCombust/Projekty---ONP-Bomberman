@@ -3,17 +3,21 @@
 
 
 PROGRAM_NAME=bomberman
-SOURCES=-I./headers -I./src \
+SOURCES=-I./headers -I./src -I./libs \
 \
-./headers/_game.h ./headers/actor.h ./headers/block_type.h ./headers/bomb.h ./headers/direction.h ./headers/level_map.h ./headers/logic.h ./headers/sfx.h ./headers/sprite_properties.h ./headers/tile_matrix_tools.h \
+./libs/matrix.h ./libs/matrix/matrix.c \
+\
+./headers/_game.h ./headers/_game_rules.h ./headers/actor.h ./headers/ai.h ./headers/block_type.h ./headers/bomb.h ./headers/direction.h ./headers/level_map.h ./headers/level_tile_matrix_tools.h ./headers/level.h ./headers/logic.h ./headers/sfx.h ./headers/sprite_properties.h \
 \
 ./src/game.c \
 ./src/actor/actor_essentials.c \
+./src/ai/ai_essentials.c ./src/ai/ai_module_handler.c ./src/ai/path_array_creator.c \
 ./src/bomb/bomb_action.c ./src/bomb/bomb_essentials.c ./src/bomb/bomb_placing.c \
+./src/level/level_creator.c ./src/level/level_essentials.c \
 ./src/level_map/level_map_essentials.c ./src/level_map/level_map_gfx.c \
 ./src/logic/collision_handler.c ./src/logic/movement_handler.c \
 ./src/sfx/sfx_essentials.c ./src/sfx/sfx_manager.c \
-./src/tile_matrix_tools/coordinate_translator.c ./src/tile_matrix_tools/tile_matrix_creator.c ./src/tile_matrix_tools/tile_matrix_handler.c \
+./src/level_tile_matrix_tools/coordinate_translator.c ./src/level_tile_matrix_tools/level_tile_matrix_creator.c \
 \
 main.c 
 
@@ -22,10 +26,10 @@ main.c
 OUTPUT_DIR=bin
 LINUX_GCC=gcc
 LINUX_CFLAGS=-O2 -Wall
-WINDOWS_GCC=x86_64-w64-mingw32-gcc
+WINDOWS_GCC=i686-w64-mingw32-gcc
 WINDOWS_CFLAGS=-O2 -Wall
-ALLEGRO5_LINUX=`pkg-config --cflags --libs allegro-5 allegro_main-5 allegro_image-5 allegro_color-5`
-ALLEGRO5_WINDOWS=`pkg-config --cflags --libs allegro-5 allegro_main-5 allegro_image-5 allegro_color-5`
+ALLEGRO5_LINUX=`pkg-config --cflags --libs allegro-5 allegro_main-5 allegro_image-5 allegro_color-5 allegro_font-5 allegro_ttf-5`
+ALLEGRO5_WINDOWS=`pkg-config --cflags --libs allegro-5 allegro_main-5 allegro_image-5 allegro_color-5 allegro_font-5 allegro_ttf-5`
 export PKG_CONFIG_PATH=/usr/x86_64-w64-mingw32/lib/pkgconfig/
 ####################
 

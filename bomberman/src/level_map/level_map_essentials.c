@@ -1,22 +1,22 @@
 #include "../../headers/level_map.h"
 
 #include "../../headers/sprite_properties.h"
-#include "../../headers/tile_matrix_tools.h"
+#include "../../headers/level_tile_matrix_tools.h"
 #include <allegro5/allegro.h>
 #include <stdio.h>
 
-LevelMap *createLevelMap( char *map_path )
+LevelMap *createLevelMap( char *map_file_path )
 {
     LevelMap *level_map = (LevelMap *)malloc( sizeof( LevelMap ) );
 
     if( level_map )
     {
         
-        FILE *map_file = fopen( map_path, "r" );
+        FILE *map_file = fopen( map_file_path, "r" );
 
         if( map_file == NULL)
         {
-            printf("Failed to pen file %s !", map_path );
+            printf("Failed to open file %s !", map_file_path );
             return NULL;
         }
 
@@ -24,11 +24,8 @@ LevelMap *createLevelMap( char *map_path )
         int **tile_matrix = createLevelTileMatrix( map_file, &rows, &collumns );
 
         if( fclose( map_file ) == EOF )
-        {
-            printf("Failed to close file %s !", map_path );
-        }
-
-
+            printf("Failed to close file %s !", map_file_path );
+            
         level_map -> rows = rows;
         level_map -> collumns = collumns;
         level_map -> tile_matrix = tile_matrix;
