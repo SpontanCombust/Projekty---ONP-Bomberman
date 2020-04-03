@@ -2,21 +2,41 @@
 
 #include <allegro5/allegro.h>
 
+void updateVelocityX( Actor *actor, bool vx0, bool vx1 )
+{
+    actor -> vx[0] = vx0;
+    actor -> vx[1] = vx1;
+}
+
+void updateVelocityY( Actor *actor, bool vy0, bool vy1 )
+{
+    actor -> vy[0] = vy0;
+    actor -> vy[1] = vy1;
+}
+
+void resetVelocity( Actor *actor )
+{
+    actor -> vx[0] = false;
+    actor -> vx[1] = false;
+    actor -> vy[0] = false;
+    actor -> vy[1] = false;
+}
+
 void handleMovementInputKeyDown( char eventKeyboardKeycode, Actor *actor, bool *done )
 {
     switch (eventKeyboardKeycode)
     {
         case ALLEGRO_KEY_UP:
-            actor -> vy[0] = true;
+            updateVelocityY( actor, true, actor->vy[1] );
             break;
         case ALLEGRO_KEY_DOWN:
-            actor -> vy[1] = true;
+            updateVelocityY( actor, actor->vy[0], true );
             break;
         case ALLEGRO_KEY_LEFT:
-            actor -> vx[0] = true;
+            updateVelocityX( actor, true, actor->vx[1] );
             break;
         case ALLEGRO_KEY_RIGHT:
-            actor -> vx[1] = true;
+            updateVelocityX( actor, actor->vx[0], true );
             break;
         case ALLEGRO_KEY_ESCAPE:
             *done = true;
@@ -29,16 +49,16 @@ void handleMovementInputKeyUp( char eventKeyboardKeycode, Actor *actor )
     switch (eventKeyboardKeycode)
     {
         case ALLEGRO_KEY_UP:
-            actor -> vy[0] = false;
+            updateVelocityY( actor, false, actor->vy[1] );
             break;
         case ALLEGRO_KEY_DOWN:
-            actor -> vy[1] = false;
+            updateVelocityY( actor, actor->vy[0], false );
             break;
         case ALLEGRO_KEY_LEFT:
-            actor -> vx[0] = false;
+            updateVelocityX( actor, false, actor->vx[1] );
             break;
         case ALLEGRO_KEY_RIGHT:
-            actor -> vx[1] = false;
+            updateVelocityX( actor, actor->vx[0], false );
             break;
     }
 }

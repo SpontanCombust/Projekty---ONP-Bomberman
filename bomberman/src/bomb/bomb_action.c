@@ -1,11 +1,11 @@
 #include "../../headers/bomb.h"
 
 #include "../../headers/block_type.h"
-#include "../../headers/tile_matrix_tools.h"
+#include "../../headers/level_tile_matrix_tools.h"
 
 void explosion( LevelMap *level_map, int remaining_range, int tile_x, int tile_y, int x_step, int y_step, SFX * sfx_container[], int container_size, ALLEGRO_BITMAP *explosion_bmp )
 {
-    if( tile_x >= 0 && tile_x < level_map->collumns && tile_y >= 0 && tile_y < level_map->rows && remaining_range > 0 )
+    if( !areCoordsOutOfBounds( tile_x, tile_y, level_map->rows, level_map->collumns ) && remaining_range > 0 )
     {
         int block = getTileContent( level_map->tile_matrix, tile_x, tile_y );
 

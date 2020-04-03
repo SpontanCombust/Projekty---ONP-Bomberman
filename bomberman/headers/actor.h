@@ -13,18 +13,20 @@ vx[0]----0---> vx[1]
          \/ vy[1]
 */
 
-struct SActor
+typedef struct S_Actor
 {
-    int x, y;
+    double x, y;
     bool vx[2], vy[2];
-    int speed;
+    double speed;
     enum Direction dir;
     ALLEGRO_BITMAP *bmp;
-};
-typedef struct SActor Actor; 
+    
+} Actor; 
+
 
 // ======================== actor_essentials.c =========================
-Actor *createActor( int x, int y, int speed, enum Direction dir, ALLEGRO_BITMAP *bmp );
+
+Actor *createActor( double x, double y, double speed, enum Direction dir, ALLEGRO_BITMAP *bmp );
 void destroyActor( Actor **actor );
 
 #endif

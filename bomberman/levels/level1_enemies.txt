@@ -1,0 +1,18 @@
+; To jest komentarz
+; Jesli linia z poczatku pliku zaczyna sie od ';', zostanie ona zignorowana
+; Dane powinny byc oznaczone przez odpowiedni naglowek
+; [quantity] - nagl. ilosci sciezek, [paths] - nagl. rozpoczecia wypisywania sciezek
+; ilosc sciezek oznaczona jest przen n
+; formula linii sciezki: 
+; ilosc_krokow krok1x,krok2y krok2x,krok2y ... kroknx,krokny
+[quantity]
+n8
+[paths]
+2 0,10 5,10
+3 6,8 8,8 8,10
+5 6,2 6,4 14,4 14,2 6,2
+3 15,4 14,4 14,8
+4 17,10 20,10 18,10 18,8
+5 26,5 26,8 24,8 24,4 20,4
+2 17,0 25,0
+2 4,3 4,5

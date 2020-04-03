@@ -1,8 +1,8 @@
 ; To jest komentarz
-; Jesli linia zaczyna sie od ';', zostanie ona zignorowana
+; Jesli linia z poczatku pliku zaczyna sie od ';', zostanie ona zignorowana
 ; Dane powinny byc oznaczone przez odpowiedni naglowek
 ; [dimensions] - nagl. wymiarow, [data] - nagl. danych mapy
-; Wymiary moga byc najwyzej dwucyfrowe i znajdowac sie przed danymi mapy
+; Wymiary moga byc najwyzej trzycyfrowe i znajdowac sie przed danymi mapy
 ; r - rows (rzedy), c - collumns (kolumny)
 ; 0 - pusta przestrzen, 1 - blok twardy, 2 - blok kruchy
 [dimensions]

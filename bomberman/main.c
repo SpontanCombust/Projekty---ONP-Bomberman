@@ -40,18 +40,27 @@ int main(void)
     ALLEGRO_BITMAP *player_sprites = al_load_bitmap( "./sprites/player_sheet.png" );
     // ALLEGRO_BITMAP *player_sprites = al_load_bitmap("./sprites/debug_bomberclone_sprites_with_bounding_box.png");
 
-    LevelMap *level_map = createLevelMap( "./levels/test_map.txt" );
+    LevelMap *level_map = createLevelMap( "./levels/level1_map.txt" );
     updateLevelMapBitmap( level_map, solid_block_sprite, brittle_block_sprite, display );
 
     Actor *player = createActor(0, 0, PLAYER_SPEED, DOWN, player_sprites);
+
+    int enemy_num;
+    Path * enemy_paths = createPathArray( "./levels/level1_enemies.txt", &enemy_num );
+    Actor * enemies[ enemy_num ];
+    AIModule * ai_modules[ enemy_num ];
+    for (int i = 0; i < enemy_num; i++)
+    {
+        enemies[i] = createAIActor( enemy_paths[i], PLAYER_SPEED, DOWN, player_sprites );
+        ai_modules[i] = createAIModule( enemies[i], enemy_paths[i] );
+    }
 
     Bomb * bomb_container[ BOMB_BUDGET ] = { NULL };
     SFX * sfx_container[ SFX_BUDGET ] = { NULL };
 
     bool done = false, render = false, map_update = false; 
 
-    updateGFX( player, level_map ,bomb_container, sfx_container );
-    
+    updateGFX( player, ai_modules, enemy_num, level_map, bomb_container, sfx_container );
     al_start_timer( game_timer );
     al_start_timer( second_timer );
 
@@ -90,16 +99,15 @@ int main(void)
             handleMovementInputKeyUp( events.keyboard.keycode, player);
         }  
 
-        resolveDirection( player );
-
         if(render)
         {
             updatePlayerPosition( player, level_map );
-            
+            updateEnemyPosition( ai_modules, enemy_num );
+
             if( map_update )
                 updateLevelMapBitmap( level_map, solid_block_sprite, brittle_block_sprite, display );
 
-            updateGFX( player, level_map, bomb_container, sfx_container );
+            updateGFX( player, ai_modules, enemy_num, level_map, bomb_container, sfx_container );
 
             render = false;
         }
@@ -107,6 +115,9 @@ int main(void)
     
     destroyLevelMap( &level_map );
     destroyActor( &player );
+    destroyPathArray( &enemy_paths );
+    destroyEnemies( enemies, enemy_num );
+    destroyAIModules( ai_modules, enemy_num );
     al_destroy_bitmap( solid_block_sprite );
     al_destroy_bitmap( brittle_block_sprite );
     al_destroy_bitmap( player_sprites );
