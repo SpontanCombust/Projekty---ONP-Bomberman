@@ -23,6 +23,6 @@ void doEndScreen( ALLEGRO_FONT *font, int x, int y )
 
 void destroyLevel( Level **level )
 {
-    free( level );
-    level = NULL;
+    free( *level );
+    *level = NULL;
 }
