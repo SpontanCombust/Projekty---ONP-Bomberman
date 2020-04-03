@@ -68,6 +68,7 @@ void handle_element( char *e, stack_node **top , bool steps )
 
     }
 }
+// Dzieli podany ciag znakow na pojedyncze elementy, a nastepnie wysyla je do funkcji ktore je obslugujay
 
 float get_ONP_result( char *string , bool steps )
 {
