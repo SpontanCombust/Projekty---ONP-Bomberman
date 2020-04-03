@@ -1,6 +1,8 @@
 #include "../headers/_game.h"
 
-void updateContainers( Bomb * bomb_container[], SFX * sfx_container[], LevelMap *level_map, ALLEGRO_BITMAP *explosion_bmp, bool *map_update )
+static void killEnemyAtPositionIfPresent( Actor ** enemies, int enemy_num, int tile_x, int tile_y );
+
+void updateContainers( Bomb * bomb_container[], SFX * sfx_container[], LevelMap *level_map, Actor **enemies, int enemy_num, ALLEGRO_BITMAP *explosion_bmp, bool *map_update )
 {
     if( !isEmptyBombContainer( bomb_container, BOMB_BUDGET ) )
     {
@@ -26,10 +28,13 @@ void updateContainers( Bomb * bomb_container[], SFX * sfx_container[], LevelMap 
         {
             if( sfx_container[i] != NULL )
             {
+                killEnemyAtPositionIfPresent( enemies, enemy_num, sfx_container[i]->tile_x, sfx_container[i]->tile_y );
+                
                 sfx_container[i] -> lifespan--;
 
                 if( sfx_container[i]->lifespan == 0)
                     destroySFX( &sfx_container[i] );
+
             }
         }   
     }
@@ -78,17 +83,20 @@ void updatePlayerPosition( Actor *player, LevelMap *level_map )
     resolveDirection( player );
 }
 
-void updateEnemyPosition( AIModule ** enemies, int enemy_num )
+void updateEnemyPosition( AIModule ** enemy_modules, int enemy_num )
 {
     for (int i = 0; i < enemy_num; i++)
     {
-        if( reachedDestination( enemies[i] ) )
-            doNextStep( enemies[i] );
-        
-        updatePositionX( enemies[i] -> actor );
-        updatePositionY( enemies[i] -> actor );
+        if( enemy_modules[i]->actor->alive )
+        {
+            if( reachedDestination( enemy_modules[i] ) )
+                doNextStep( enemy_modules[i] );
+            
+            updatePositionX( enemy_modules[i] -> actor );
+            updatePositionY( enemy_modules[i] -> actor );
 
-        resolveDirection( enemies[i] -> actor );
+            resolveDirection( enemy_modules[i] -> actor );
+        }
     }
     
 }
@@ -102,7 +110,8 @@ void drawEnemies( AIModule ** modules, int enemy_num )
 {
     for (int i = 0; i < enemy_num; i++)
     {
-        al_draw_bitmap_region( modules[i]->actor->bmp, modules[i]->actor->dir * TILE_SIZE, 0, TILE_SIZE, TILE_SIZE, modules[i]->actor->x, modules[i]->actor->y, 0);
+        if( modules[i]->actor->alive )
+            al_draw_bitmap_region( modules[i]->actor->bmp, modules[i]->actor->dir * TILE_SIZE, 0, TILE_SIZE, TILE_SIZE, modules[i]->actor->x, modules[i]->actor->y, 0);
     }
     
 }
@@ -120,14 +129,21 @@ void updateGFX( Actor *player, AIModule ** modules, int enemy_num, LevelMap *lev
     al_flip_display();
 }
 
-void destroyEnemies( Actor ** enemies, int enemy_num )
+static void killEnemyAtPositionIfPresent( Actor ** enemies, int enemy_num, int tile_x, int tile_y )
 {
     for (int i = 0; i < enemy_num; i++)
-        destroyActor( &enemies[i] );
+    {
+        if( tileFromPixel( enemies[i]->x + TILE_SIZE/2 )  == tile_x && tileFromPixel( enemies[i]->y + TILE_SIZE/2 ) == tile_y )
+            enemies[i] -> alive = false;   
+    }
 }
 
-void destroyAIModules( AIModule ** modules, int module_num )
+bool areAllEnemiesDead( Actor ** enemies, int enemy_num )
 {
-    for (int i = 0; i < module_num; i++)
-        destroyAIModule( &modules[i] );
+    for (int i = 0; i < enemy_num; i++)
+    {
+        if( enemies[i]->alive )
+            return false;
+    }
+    return true;
 }

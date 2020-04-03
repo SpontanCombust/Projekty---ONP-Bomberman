@@ -35,6 +35,18 @@ bool areCoordsOutOfBounds( int tile_x, int tile_y, int rows, int collumns )
     return false;
 }
 
+int countContentInMatrix( int **tile_matrix, int rows, int collumns, int content )
+{
+    int count = 0;
+
+    for (int i = 0; i < rows; i++)
+        for (int j = 0; j < collumns; j++)
+            if( tile_matrix[i][j] == content )
+                count++;
+    
+    return count;
+}
+
 void printMatrix( int **matrix, int rows, int colls )
 {
     for (int i = 0; i < rows; i++)

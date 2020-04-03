@@ -21,6 +21,12 @@ void destroyAIModule( AIModule **module )
     *module = NULL;
 }
 
+void destroyAIModules( AIModule ** modules, int module_num )
+{
+    for (int i = 0; i < module_num; i++)
+        destroyAIModule( &modules[i] );
+}
+
 Actor *createAIActor( Path path, double speed, enum Direction dir, ALLEGRO_BITMAP *bmp )
 {
     return createActor( path.steps[0].dest_x, path.steps[0].dest_y, speed, dir, bmp );

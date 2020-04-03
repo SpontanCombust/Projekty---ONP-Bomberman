@@ -20,9 +20,9 @@ Bomberman:
 - [x] niszczenie otoczenia przez bomby
 - [x] tworzenie mapy z pliku
 - [x] dodanie przykładowej mapy
-- [ ] system poziomów i ich przechodzenia
-- [ ] prości patrolujący wrogowie
-- [ ] pełny uproszczony interfejs graficzny
+- [x] system poziomów i ich przechodzenia
+- [x] prości patrolujący wrogowie
+- [x] pełny uproszczony interfejs graficzny
 
 
 ## Kamień milowy 2 - TBA
