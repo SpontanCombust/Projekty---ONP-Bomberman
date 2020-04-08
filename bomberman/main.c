@@ -107,8 +107,8 @@ int main(void)
 
         if(render)
         {
-            updatePlayerPosition( player, level_map );
-            updateEnemyPosition( ai_modules, enemy_num );
+            updatePlayer( player, level_map, sfx_container );
+            updateEnemies( ai_modules, enemy_num, sfx_container );
 
             if( map_update )
                 updateLevelMapBitmap( level_map, solid_block_sprite, brittle_block_sprite, display );
@@ -121,7 +121,12 @@ int main(void)
         if( areAllEnemiesDead( enemies, enemy_num ) )
         {
             done = true;
-            doEndScreen( font_big, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 75 );
+            doEndScreen( font_big, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 75, true );
+        }
+        else if( !player->alive )
+        {
+            done = true;
+            doEndScreen( font_big, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 75, false );
         }
     }
     

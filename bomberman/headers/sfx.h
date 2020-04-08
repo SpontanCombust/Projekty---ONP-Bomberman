@@ -15,7 +15,7 @@ typedef struct S_SFX
 
 //========== sfx_essentials.c ===========
 
-SFX *createSFX(int x, int y, int lifespan, ALLEGRO_BITMAP *bmp);
+SFX *createSFX( int tile_x, int tile_y, int lifespan, ALLEGRO_BITMAP *bmp );
 void destroySFX( SFX **sfx );
 
 

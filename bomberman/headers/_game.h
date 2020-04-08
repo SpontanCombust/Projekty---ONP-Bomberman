@@ -23,12 +23,8 @@
 // =========================================================== game.c =======================================================================
 
 void updateContainers( Bomb * bomb_container[], SFX * sfx_container[], LevelMap *level_map, Actor **enemies, int enemy_num, ALLEGRO_BITMAP *explosion_bmp, bool *map_update );
-void drawBombs( Bomb * bomb_container[] );
-void drawSFX( SFX * sfx_container[] );
-void updatePlayerPosition( Actor *player, LevelMap *level_map );
-void updateEnemyPosition( AIModule ** modules, int enemy_num );
-void drawPlayer( Actor *player );
-void drawEnemies( AIModule ** enemies, int enemy_num );
+void updatePlayer( Actor *player, LevelMap *level_map, SFX *sfx_container[] );
+void updateEnemies( AIModule * *enemy_modules, int enemy_num, SFX *sfx_container[] );
 void updateGFX( Actor *player, AIModule ** modules, int enemy_num, LevelMap *level_map, Bomb * bomb_container[], SFX * sfx_container[] );
 bool areAllEnemiesDead( Actor ** enemies, int enemy_num );
 

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-SFX *createSFX(int tile_x, int tile_y, int lifespan, ALLEGRO_BITMAP *bmp)
+SFX *createSFX( int tile_x, int tile_y, int lifespan, ALLEGRO_BITMAP *bmp )
 {
     SFX *sfx = (SFX *)malloc( sizeof( SFX ) );
 

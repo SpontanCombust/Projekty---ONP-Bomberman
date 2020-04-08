@@ -4,7 +4,7 @@
 #include "../../headers/level_tile_matrix_tools.h"
 #include <stdio.h>
 
-bool isOutOfBounds( Actor *actor, LevelMap *level_map, enum Direction *cdir, int cx, int cy, int cw, int ch )
+bool isOutOfBounds( Actor *actor, LevelMap *level_map, enum Direction *cdir, float cx, float cy, float cw, float ch )
 {
     bool outOfBounds = false;
 
@@ -32,7 +32,7 @@ bool isOutOfBounds( Actor *actor, LevelMap *level_map, enum Direction *cdir, int
     return outOfBounds;
 }
 
-void handleOutOfBounds( Actor *actor, LevelMap *level_map, enum Direction cdir, int cx, int cy, int cw, int ch )
+void handleOutOfBounds( Actor *actor, LevelMap *level_map, enum Direction cdir, float cx, float cy, float cw, float ch )
 {
     switch ( cdir )
     {
@@ -51,14 +51,14 @@ void handleOutOfBounds( Actor *actor, LevelMap *level_map, enum Direction cdir, 
     }
 }
 
-bool isCollidedVertex( LevelMap *level_map, int vertex_x, int vertex_y )
+bool isCollidedVertex( LevelMap *level_map, float vertex_x, float vertex_y )
 {
-    if( getTileContent( level_map->tile_matrix, tileFromPixel(vertex_x), tileFromPixel(vertex_y) ) > 0 )
+    if( getTileContent( level_map->tile_matrix, tileFromPixel( vertex_x ), tileFromPixel( vertex_y ) ) > 0 )
         return true;
     return false;
 }
 
-bool isTerrainCollisionX( Actor *actor, LevelMap *level_map, enum Direction *cdir, int cx, int cy, int cw, int ch )
+bool isTerrainCollisionX( Actor *actor, LevelMap *level_map, enum Direction *cdir, float cx, float cy, float cw, float ch )
 {
     bool terrainCollision = false;
 
@@ -78,7 +78,7 @@ bool isTerrainCollisionX( Actor *actor, LevelMap *level_map, enum Direction *cdi
     return terrainCollision;
 }
 
-bool isTerrainCollisionY( Actor *actor, LevelMap *level_map, enum Direction *cdir, int cx, int cy, int cw, int ch )
+bool isTerrainCollisionY( Actor *actor, LevelMap *level_map, enum Direction *cdir, float cx, float cy, float cw, float ch )
 {
     bool terrainCollision = false;
 
@@ -98,7 +98,7 @@ bool isTerrainCollisionY( Actor *actor, LevelMap *level_map, enum Direction *cdi
     return terrainCollision;
 }
 
-void handleTerrainCollision(Actor *actor, enum Direction cdir, int cx, int cy, int cw, int ch)
+void handleTerrainCollision(Actor *actor, enum Direction cdir, float cx, float cy, float cw, float ch )
 {
     int head_coord;
     switch( cdir )

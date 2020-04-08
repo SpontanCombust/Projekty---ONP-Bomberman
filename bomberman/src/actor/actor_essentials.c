@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-Actor *createActor( double x, double y, double speed, enum Direction dir, ALLEGRO_BITMAP *bmp )
+Actor *createActor( float x, float y, float speed, enum Direction dir, ALLEGRO_BITMAP *bmp )
 {
     Actor *actor = (Actor *)malloc( sizeof( Actor ) );
 
