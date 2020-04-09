@@ -1,79 +1,57 @@
 #include "../headers/_game.h"
 
-void updateContainers( Bomb *bomb_container[], SFX *sfx_container[], LevelMap *level_map, Actor **enemies, int enemy_num, ALLEGRO_BITMAP *explosion_bmp, bool *map_update )
+void updateContainers( Bomb *bomb_container[], SFX *explosion_container[], SFX *corpse_container[], LevelMap *level_map, Actor **enemies, int enemy_num, ALLEGRO_BITMAP *explosion_bmp, bool *map_update )
 {
-    if( !isEmptyBombContainer( bomb_container, BOMB_BUDGET ) )
+    for (int i = 0; i < BOMB_BUDGET; i++)
     {
-        for (int i = 0; i < BOMB_BUDGET; i++)
+        if( bomb_container[i] != NULL )
         {
-            if( bomb_container[i] != NULL )
+            bomb_container[i] -> fuse--;
+
+            if( bomb_container[i]->fuse == 0 )
             {
-                bomb_container[i] -> fuse--;
-
-                if( bomb_container[i]->fuse == 0 )
-                {
-                    explodeBomb(bomb_container[i], level_map, sfx_container, SFX_BUDGET, explosion_bmp );
-                    destroyBomb( &bomb_container[i] );
-                    *map_update = true;
-                }
+                explodeBomb(bomb_container[i], level_map, explosion_container, EXPLOSION_BUDGET, explosion_bmp );
+                destroyBomb( &bomb_container[i] );
+                *map_update = true;
             }
-        }        
-    }
-
-    if( !isEmptySFXContainer( sfx_container, SFX_BUDGET ) )
-    {
-        for (int i = 0; i < SFX_BUDGET; i++)
-        {
-            if( sfx_container[i] != NULL )
-            {   
-                sfx_container[i] -> lifespan--;
-
-                if( sfx_container[i]->lifespan == 0)
-                    destroySFX( &sfx_container[i] );
-
-            }
-        }   
-    }
-}
-
-static bool isSFXAtTile( int tile_x, int tile_y, SFX *sfx_container[] )
-{
-    if( !isEmptySFXContainer( sfx_container, SFX_BUDGET ) )
-    {
-        for (int i = 0; i < SFX_BUDGET; i++)
-        {
-            if( sfx_container[i] != NULL)
-            {
-                if( tileFromPixel( sfx_container[i]->x ) == tile_x && tileFromPixel( sfx_container[i]->y ) == tile_y )
-                    return true;   
-            }
-        } 
-    }
-    return false;
-}
-
-static void drawBombs( Bomb *bomb_container[] )
-{
-    if( !isEmptyBombContainer( bomb_container, BOMB_BUDGET ) )
-    {
-        for (int i = 0; i < BOMB_BUDGET; i++)
-        {
-            if( bomb_container[i] != NULL )
-                al_draw_bitmap( bomb_container[i]->bomb_bmp, pixelFromTile( bomb_container[i]->tile_x ), pixelFromTile( bomb_container[i]->tile_y ), 0 );
         }
-    }
+    }        
+
+    for (int i = 0; i < EXPLOSION_BUDGET; i++)
+    {
+        if( explosion_container[i] != NULL )
+        {   
+            explosion_container[i] -> lifespan--;
+
+            if( explosion_container[i]->lifespan == 0)
+                destroySFX( &explosion_container[i] );
+        }
+    }   
+    
+    for (int i = 0; i < CORPSE_BUDGET; i++)
+    {
+        if( corpse_container[i] != NULL )
+        {   
+            corpse_container[i] -> lifespan--;
+
+            if( corpse_container[i]->lifespan == 0)
+                destroySFX( &corpse_container[i] );
+        }
+    } 
 }
 
-static void drawSFX( SFX *sfx_container[] )
+bool areEmptyContainers( Bomb *bomb_container[], SFX *explosion_container[], SFX *corpse_container[] )
 {
-    if( !isEmptySFXContainer( sfx_container, SFX_BUDGET ) )
-    {
-        for (int i = 0; i < SFX_BUDGET; i++)
-        {
-            if( sfx_container[i] != NULL )
-                al_draw_bitmap( sfx_container[i]->bmp, sfx_container[i]->x, sfx_container[i]->y, 0 );
-        }
-    }
+    return  isEmptyBombContainer( bomb_container, BOMB_BUDGET )         
+        &&  isEmptySFXContainer( explosion_container, EXPLOSION_BUDGET )
+        &&  isEmptySFXContainer( corpse_container, CORPSE_BUDGET);
+}
+
+static void killActor( Actor *actor, SFX *corpse_container[] )
+{
+    actor -> alive = false;
+    SFX *corpse = createSFX( actor->x, actor->y, CORPSE_LIFESPAN, CORPSE, actor->bmp );
+    addSFXToContainer( corpse_container, CORPSE_BUDGET, corpse );
 }
 
 static void updatePlayerPosition( Actor *player, LevelMap *level_map )
@@ -95,12 +73,15 @@ static void updatePlayerPosition( Actor *player, LevelMap *level_map )
     resolveDirection( player );
 }
 
-void updatePlayer( Actor *player, LevelMap *level_map, SFX *sfx_container[] )
+void updatePlayer( Actor *player, LevelMap *level_map, SFX *explosion_container[], SFX *corpse_container[] )
 {
-    updatePlayerPosition( player, level_map );
+    if( player->alive )
+    {
+        updatePlayerPosition( player, level_map );
 
-    if( isSFXAtTile( tileFromPixel( player->x + TILE_SIZE/2 ), tileFromPixel( player->y + TILE_SIZE/2 ), sfx_container ) )
-        player -> alive = false;
+        if( isSFXAtTile( tileFromPixel( player->x + TILE_SIZE/2 ), tileFromPixel( player->y + TILE_SIZE/2 ), explosion_container, EXPLOSION_BUDGET ) )
+            killActor( player, corpse_container );
+    }
 }
 
 static void updateEnemyPosition( AIModule *enemy_module )
@@ -114,7 +95,7 @@ static void updateEnemyPosition( AIModule *enemy_module )
     resolveDirection( enemy_module -> actor );
 }
 
-void updateEnemies( AIModule * *enemy_modules, int enemy_num, SFX *sfx_container[] )
+void updateEnemies( AIModule * *enemy_modules, int enemy_num, SFX *explosion_container[], SFX *corpse_container[] )
 {
     for (int i = 0; i < enemy_num; i++)
     {
@@ -122,34 +103,20 @@ void updateEnemies( AIModule * *enemy_modules, int enemy_num, SFX *sfx_container
         {
             updateEnemyPosition( enemy_modules[i] );
 
-            if( isSFXAtTile( tileFromPixel( enemy_modules[i]->actor->x + TILE_SIZE/2 ), tileFromPixel( enemy_modules[i]->actor->y + TILE_SIZE/2 ), sfx_container ) )
-                enemy_modules[i] -> actor -> alive = false;
+            if( isSFXAtTile( tileFromPixel( enemy_modules[i]->actor->x + TILE_SIZE/2 ), tileFromPixel( enemy_modules[i]->actor->y + TILE_SIZE/2 ), explosion_container, EXPLOSION_BUDGET ) )
+                killActor( enemy_modules[i]->actor, corpse_container );
         }
     }
 }
 
-static void drawPlayer( Actor *player )
-{
-    al_draw_bitmap_region( player->bmp, player->dir * TILE_SIZE, 0, TILE_SIZE, TILE_SIZE, (int) player->x, (int) player->y, 0 );
-}
-
-static void drawEnemies( AIModule * *modules, int enemy_num )
-{
-    for (int i = 0; i < enemy_num; i++)
-    {
-        if( modules[i]->actor->alive )
-            al_draw_bitmap_region( modules[i]->actor->bmp, modules[i]->actor->dir * TILE_SIZE, 0, TILE_SIZE, TILE_SIZE, modules[i]->actor->x, modules[i]->actor->y, 0);
-    }
-    
-}
-
-void updateGFX( Actor *player, AIModule * *modules, int enemy_num, LevelMap *level_map, Bomb *bomb_container[], SFX *sfx_container[] )
+void updateGFX( Actor *player, AIModule * *modules, int enemy_num, LevelMap *level_map, Bomb *bomb_container[], SFX *explosion_container[], SFX *corpse_container[] )
 {
     al_clear_to_color( al_map_rgb( 0, 150, 0 ) );
 
     al_draw_bitmap( level_map->bmp, 0, 0, 0 );
     drawBombs( bomb_container );
-    drawSFX( sfx_container );
+    drawSFX( explosion_container, EXPLOSION );
+    drawSFX( corpse_container, CORPSE );
     drawPlayer( player );
     drawEnemies( modules, enemy_num );
 

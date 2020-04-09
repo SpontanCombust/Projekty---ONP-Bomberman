@@ -24,7 +24,7 @@ int main(void)
     al_init_image_addon();
     al_init_font_addon();
     al_init_ttf_addon();
-
+    
     ALLEGRO_FONT *font_big = al_load_font( FONT_SRC, 50, 0 );
     ALLEGRO_FONT *font_small = al_load_font( FONT_SRC, 30, 0 );
 
@@ -58,19 +58,22 @@ int main(void)
     updateLevelMapBitmap( level_map, solid_block_sprite, brittle_block_sprite, display );
 
     Bomb *bomb_container[ BOMB_BUDGET ] = { NULL };
-    SFX *sfx_container[ SFX_BUDGET ] = { NULL };
+    SFX *explosion_container[ EXPLOSION_BUDGET ] = { NULL };
+    SFX *corpse_container[ CORPSE_BUDGET ] = { NULL };
 
     enum LevelClearCondition clear_cond = KILL_ALL_ENEMIES;
 
-    bool done = false, render = false, map_update = false;
+    bool done = false, clean = true;
+    bool render = false, map_update = false;
+    bool won = false;
 
     doTitleScreen( font_big, font_small, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 75, 1, clear_cond );
 
-    updateGFX( player, ai_modules, enemy_num, level_map, bomb_container, sfx_container );
+    updateGFX( player, ai_modules, enemy_num, level_map, bomb_container, explosion_container, corpse_container );
     al_start_timer( game_timer );
     al_start_timer( second_timer );
 
-    while( !done )
+    while( !done || !clean )
     {
         ALLEGRO_EVENT events;
         al_wait_for_event( eq, &events );
@@ -85,7 +88,10 @@ int main(void)
                 render = true;  
 
             if( events.timer.source == second_timer )
-                updateContainers( bomb_container, sfx_container, level_map, enemies, enemy_num, explosion_bitmap, &map_update );
+            {
+                updateContainers( bomb_container, explosion_container, corpse_container, level_map, enemies, enemy_num, explosion_bitmap, &map_update );
+                clean = areEmptyContainers( bomb_container, explosion_container, corpse_container );
+            }
         }
         else if( events.type == ALLEGRO_EVENT_KEY_DOWN)
         {
@@ -107,13 +113,13 @@ int main(void)
 
         if(render)
         {
-            updatePlayer( player, level_map, sfx_container );
-            updateEnemies( ai_modules, enemy_num, sfx_container );
+            updatePlayer( player, level_map, explosion_container, corpse_container );
+            updateEnemies( ai_modules, enemy_num, explosion_container, corpse_container );
 
             if( map_update )
                 updateLevelMapBitmap( level_map, solid_block_sprite, brittle_block_sprite, display );
 
-            updateGFX( player, ai_modules, enemy_num, level_map, bomb_container, sfx_container );
+            updateGFX( player, ai_modules, enemy_num, level_map, bomb_container, explosion_container, corpse_container );
 
             render = false;
         }
@@ -121,15 +127,16 @@ int main(void)
         if( areAllEnemiesDead( enemies, enemy_num ) )
         {
             done = true;
-            doEndScreen( font_big, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 75, true );
+            won = true;
         }
         else if( !player->alive )
         {
             done = true;
-            doEndScreen( font_big, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 75, false );
         }
     }
-    
+    al_rest(1);
+    doEndScreen( font_big, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 75, won );
+
     destroyLevelMap( &level_map );
     destroyActor( &player );
     destroyPathArray( &enemy_paths );

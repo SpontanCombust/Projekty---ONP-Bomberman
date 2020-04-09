@@ -7,16 +7,17 @@ SOURCES=-I./headers -I./src -I./libs \
 \
 ./libs/matrix.h ./libs/matrix/matrix.c \
 \
-./headers/_game.h ./headers/_game_rules.h ./headers/actor.h ./headers/ai.h ./headers/block_type.h ./headers/bomb.h ./headers/direction.h ./headers/level_map.h ./headers/level_tile_matrix_tools.h ./headers/level.h ./headers/logic.h ./headers/sfx.h ./headers/sprite_properties.h \
+./headers/_game.h ./headers/_game_rules.h ./headers/actor.h ./headers/ai.h ./headers/block_type.h ./headers/bomb.h ./headers/direction.h ./headers/level_map.h ./headers/level_tile_matrix_tools.h ./headers/level.h ./headers/logic.h ./headers/rendering.h ./headers/sfx.h ./headers/sprite_properties.h \
 \
 ./src/game.c \
 ./src/actor/actor_essentials.c \
 ./src/ai/ai_essentials.c ./src/ai/ai_module_handler.c ./src/ai/path_array_creator.c \
-./src/bomb/bomb_action.c ./src/bomb/bomb_essentials.c ./src/bomb/bomb_placing.c \
+./src/bomb/bomb_action.c ./src/bomb/bomb_container_manager.c ./src/bomb/bomb_essentials.c ./src/bomb/bomb_placing.c \
 ./src/level/level_creator.c ./src/level/level_essentials.c \
 ./src/level_map/level_map_essentials.c ./src/level_map/level_map_gfx.c \
 ./src/logic/collision_handler.c ./src/logic/movement_handler.c \
-./src/sfx/sfx_essentials.c ./src/sfx/sfx_manager.c \
+./src/rendering/rendering.c \
+./src/sfx/sfx_essentials.c ./src/sfx/sfx_container_manager.c \
 ./src/level_tile_matrix_tools/coordinate_translator.c ./src/level_tile_matrix_tools/level_tile_matrix_creator.c \
 \
 main.c 

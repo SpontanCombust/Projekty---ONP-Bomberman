@@ -7,6 +7,7 @@
 #include "direction.h"
 #include "level.h"
 #include "logic.h"
+#include "rendering.h"
 #include "sfx.h"
 #include "sprite_properties.h"
 #include "level_tile_matrix_tools.h"
@@ -22,10 +23,11 @@
 
 // =========================================================== game.c =======================================================================
 
-void updateContainers( Bomb * bomb_container[], SFX * sfx_container[], LevelMap *level_map, Actor **enemies, int enemy_num, ALLEGRO_BITMAP *explosion_bmp, bool *map_update );
-void updatePlayer( Actor *player, LevelMap *level_map, SFX *sfx_container[] );
-void updateEnemies( AIModule * *enemy_modules, int enemy_num, SFX *sfx_container[] );
-void updateGFX( Actor *player, AIModule ** modules, int enemy_num, LevelMap *level_map, Bomb * bomb_container[], SFX * sfx_container[] );
+void updateContainers( Bomb *bomb_container[], SFX *explosion_container[], SFX *corpse_container[], LevelMap *level_map, Actor **enemies, int enemy_num, ALLEGRO_BITMAP *explosion_bmp, bool *map_update );
+bool areEmptyContainers( Bomb *bomb_container[], SFX *explosion_container[], SFX *corpse_container[] );
+void updatePlayer( Actor *player, LevelMap *level_map, SFX *explosion_container[], SFX *corpse_container[] );
+void updateEnemies( AIModule * *enemy_modules, int enemy_num, SFX *explosion_container[], SFX *corpse_container[] );
+void updateGFX( Actor *player, AIModule * *modules, int enemy_num, LevelMap *level_map, Bomb *bomb_container[], SFX *explosion_container[], SFX *corpse_container[] );
 bool areAllEnemiesDead( Actor ** enemies, int enemy_num );
 
 
