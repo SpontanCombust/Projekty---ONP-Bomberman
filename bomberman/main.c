@@ -52,13 +52,13 @@ int main(void)
     LevelMap *level_map = level->level_map;
     int enemy_num = level->enemy_intit_count;
     Path * enemy_paths = level->enemy_paths;
-    Actor ** enemies = level->enemies;
-    AIModule ** ai_modules = level->enemy_modules;
+    Actor * *enemies = level->enemies;
+    AIModule * *ai_modules = level->enemy_modules;
     
     updateLevelMapBitmap( level_map, solid_block_sprite, brittle_block_sprite, display );
 
-    Bomb * bomb_container[ BOMB_BUDGET ] = { NULL };
-    SFX * sfx_container[ SFX_BUDGET ] = { NULL };
+    Bomb *bomb_container[ BOMB_BUDGET ] = { NULL };
+    SFX *sfx_container[ SFX_BUDGET ] = { NULL };
 
     enum LevelClearCondition clear_cond = KILL_ALL_ENEMIES;
 
@@ -133,8 +133,8 @@ int main(void)
     destroyLevelMap( &level_map );
     destroyActor( &player );
     destroyPathArray( &enemy_paths );
-    destroyActors( enemies, enemy_num );
-    destroyAIModules( ai_modules, enemy_num );
+    destroyActorArray( &enemies, enemy_num );
+    destroyAIModuleArray( &ai_modules, enemy_num );
     destroyLevel( &level );
     al_destroy_bitmap( solid_block_sprite );
     al_destroy_bitmap( brittle_block_sprite );

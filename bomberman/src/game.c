@@ -36,7 +36,7 @@ void updateContainers( Bomb *bomb_container[], SFX *sfx_container[], LevelMap *l
     }
 }
 
-static bool isSFXAtPosition( float x, float y, SFX *sfx_container[] )
+static bool isSFXAtTile( int tile_x, int tile_y, SFX *sfx_container[] )
 {
     if( !isEmptySFXContainer( sfx_container, SFX_BUDGET ) )
     {
@@ -44,7 +44,7 @@ static bool isSFXAtPosition( float x, float y, SFX *sfx_container[] )
         {
             if( sfx_container[i] != NULL)
             {
-                if( sfx_container[i]->tile_x == tileFromPixel( x ) && sfx_container[i]->tile_y == tileFromPixel( y ) )
+                if( tileFromPixel( sfx_container[i]->x ) == tile_x && tileFromPixel( sfx_container[i]->y ) == tile_y )
                     return true;   
             }
         } 
@@ -71,7 +71,7 @@ static void drawSFX( SFX *sfx_container[] )
         for (int i = 0; i < SFX_BUDGET; i++)
         {
             if( sfx_container[i] != NULL )
-                al_draw_bitmap( sfx_container[i]->bmp, pixelFromTile( sfx_container[i]->tile_x ), pixelFromTile( sfx_container[i]->tile_y ), 0 );
+                al_draw_bitmap( sfx_container[i]->bmp, sfx_container[i]->x, sfx_container[i]->y, 0 );
         }
     }
 }
@@ -99,7 +99,7 @@ void updatePlayer( Actor *player, LevelMap *level_map, SFX *sfx_container[] )
 {
     updatePlayerPosition( player, level_map );
 
-    if( isSFXAtPosition( player->x + TILE_SIZE/2, player->y + TILE_SIZE/2, sfx_container ) )
+    if( isSFXAtTile( tileFromPixel( player->x + TILE_SIZE/2 ), tileFromPixel( player->y + TILE_SIZE/2 ), sfx_container ) )
         player -> alive = false;
 }
 
@@ -122,7 +122,7 @@ void updateEnemies( AIModule * *enemy_modules, int enemy_num, SFX *sfx_container
         {
             updateEnemyPosition( enemy_modules[i] );
 
-            if( isSFXAtPosition( enemy_modules[i]->actor->x + TILE_SIZE/2, enemy_modules[i]->actor->y + TILE_SIZE/2, sfx_container ) )
+            if( isSFXAtTile( tileFromPixel( enemy_modules[i]->actor->x + TILE_SIZE/2 ), tileFromPixel( enemy_modules[i]->actor->y + TILE_SIZE/2 ), sfx_container ) )
                 enemy_modules[i] -> actor -> alive = false;
         }
     }

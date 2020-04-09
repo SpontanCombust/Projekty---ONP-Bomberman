@@ -10,6 +10,9 @@
 #define BOMB_BUDGET 5
 #define SFX_BUDGET 50
 
+#define EXPLOSION_LIFESPAN 2
+#define CORPSE_LIFESPAN 2
+
 #define PLAYER_SPEED 1.3
 #define ENEMY_SPEED 1.2
 

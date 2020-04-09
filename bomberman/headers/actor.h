@@ -29,6 +29,6 @@ typedef struct S_Actor
 
 Actor *createActor( float x, float y, float speed, enum Direction dir, ALLEGRO_BITMAP *bmp );
 void destroyActor( Actor **actor );
-void destroyActors( Actor ** enemies, int enemy_num );
+void destroyActorArray( Actor ** *enemies, int enemy_num );
 
 #endif

@@ -6,7 +6,7 @@
 
 typedef struct S_SFX
 {
-    int tile_x, tile_y;
+    float x, y;
     int lifespan;
     ALLEGRO_BITMAP *bmp;
     
@@ -15,7 +15,7 @@ typedef struct S_SFX
 
 //========== sfx_essentials.c ===========
 
-SFX *createSFX( int tile_x, int tile_y, int lifespan, ALLEGRO_BITMAP *bmp );
+SFX *createSFX( float x, float y, int lifespan, ALLEGRO_BITMAP *bmp );
 void destroySFX( SFX **sfx );
 
 

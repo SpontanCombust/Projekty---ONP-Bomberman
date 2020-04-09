@@ -35,8 +35,10 @@ void destroyActor( Actor **actor )
     *actor = NULL;
 }
 
-void destroyActors( Actor ** enemies, int enemy_num )
+void destroyActorArray( Actor ** *enemies, int enemy_num )
 {
     for (int i = 0; i < enemy_num; i++)
-        destroyActor( &enemies[i] );
+        destroyActor( &(*enemies)[i] );
+    free( *enemies );
+    *enemies = NULL;
 }

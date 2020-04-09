@@ -46,7 +46,7 @@ void doNextStep( AIModule *module );
 
 AIModule *createAIModule( Actor *actor, Path path );
 void destroyAIModule( AIModule **module );
-void destroyAIModules( AIModule ** modules, int module_num );
+void destroyAIModuleArray( AIModule ** *modules, int module_num );
 Actor *createAIActor( Path path, float speed, enum Direction dir, ALLEGRO_BITMAP *bmp );
 
 #endif
