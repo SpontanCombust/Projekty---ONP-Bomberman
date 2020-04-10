@@ -15,6 +15,6 @@
 void drawBombs( Bomb *bomb_container[] );
 void drawSFX( SFX *sfx_container[], enum SFXType type );
 void drawPlayer( Actor *player );
-void drawEnemies( AIModule * *modules, int enemy_num );
+void drawEnemies( Actor * *enemies, int enemy_num );
 
 #endif

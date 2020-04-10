@@ -15,7 +15,7 @@ typedef struct S_Level {
     Path * enemy_paths;
     int enemy_intit_count;
     Actor ** enemies;
-    AIModule ** enemy_modules;
+    AIModule ** ai_modules;
 
     // int enemy_count;
     // int block_count;

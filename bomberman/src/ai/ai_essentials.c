@@ -29,7 +29,7 @@ void destroyAIModuleArray( AIModule ** *modules, int module_num )
     *modules = NULL;
 }
 
-Actor *createAIActor( Path path, float speed, enum Direction dir, ALLEGRO_BITMAP *bmp )
+Actor *createAIActor( Path path, float speed, ALLEGRO_BITMAP *bmp )
 {
-    return createActor( path.steps[0].dest_x, path.steps[0].dest_y, speed, dir, bmp );
+    return createActor( path.steps[0].dest_x, path.steps[0].dest_y, speed, bmp );
 }

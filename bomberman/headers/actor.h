@@ -18,6 +18,7 @@ typedef struct S_Actor
     float x, y;
     bool vx[2], vy[2];
     float speed;
+    float cx, cy, cw, ch;
     bool alive;
     enum Direction dir;
     ALLEGRO_BITMAP *bmp;
@@ -27,8 +28,10 @@ typedef struct S_Actor
 
 // ======================== actor_essentials.c =========================
 
-Actor *createActor( float x, float y, float speed, enum Direction dir, ALLEGRO_BITMAP *bmp );
+Actor *createActor( float x, float y, float speed, ALLEGRO_BITMAP *bmp );
+void applyCollisionToActor( Actor *actor, float cx, float cy, float cw, float ch );
+void applyCollisionToActorArray( Actor * *actors, int actor_num, float cx, float cy, float cw, float ch );
 void destroyActor( Actor **actor );
-void destroyActorArray( Actor ** *enemies, int enemy_num );
+void destroyActorArray( Actor ** *actors, int actors_num );
 
 #endif

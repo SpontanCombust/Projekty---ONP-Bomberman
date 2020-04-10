@@ -43,17 +43,19 @@ int main(void)
     ALLEGRO_BITMAP *bomb_bitmap = al_load_bitmap( BOMB_SPRITES_SRC );
     ALLEGRO_BITMAP *explosion_bitmap = al_load_bitmap( EXPLOSION_SPRITES_SRC );
     ALLEGRO_BITMAP *player_sprites = al_load_bitmap( PLAYER_SPRITES_SRC );
-    ALLEGRO_BITMAP *enemy_sprites = al_load_bitmap( ENEMY_SPRITES_SRC );
+    ALLEGRO_BITMAP *enemy_sprites = al_load_bitmap( ENEMY1_SPRITES_SRC );
 
-    Actor *player = createActor(0, 0, PLAYER_SPEED, DOWN, player_sprites);
-    
+    Actor *player = createActor(0, 0, PLAYER_SPEED, player_sprites);
+    applyCollisionToActor( player, CBX_PLAYER, CBY_PLAYER, CBW_PLAYER, CBH_PLAYER );
+
     Level *level = createLevel( 1, enemy_sprites );
 
     LevelMap *level_map = level->level_map;
     int enemy_num = level->enemy_intit_count;
     Path * enemy_paths = level->enemy_paths;
     Actor * *enemies = level->enemies;
-    AIModule * *ai_modules = level->enemy_modules;
+    applyCollisionToActorArray( enemies, enemy_num, CBX_ENEMY1, CBY_ENEMY1, CBW_ENEMY1, CBH_ENEMY1 );
+    AIModule * *ai_modules = level->ai_modules;
     
     updateLevelMapBitmap( level_map, solid_block_sprite, brittle_block_sprite, display );
 
@@ -69,7 +71,7 @@ int main(void)
 
     doTitleScreen( font_big, font_small, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 75, 1, clear_cond );
 
-    updateGFX( player, ai_modules, enemy_num, level_map, bomb_container, explosion_container, corpse_container );
+    updateGFX( player, enemies, enemy_num, level_map, bomb_container, explosion_container, corpse_container );
     al_start_timer( game_timer );
     al_start_timer( second_timer );
 
@@ -113,13 +115,13 @@ int main(void)
 
         if(render)
         {
-            updatePlayer( player, level_map, explosion_container, corpse_container );
+            updatePlayer( player, level_map, enemies, enemy_num, explosion_container, corpse_container );
             updateEnemies( ai_modules, enemy_num, explosion_container, corpse_container );
 
             if( map_update )
                 updateLevelMapBitmap( level_map, solid_block_sprite, brittle_block_sprite, display );
 
-            updateGFX( player, ai_modules, enemy_num, level_map, bomb_container, explosion_container, corpse_container );
+            updateGFX( player, enemies, enemy_num, level_map, bomb_container, explosion_container, corpse_container );
 
             render = false;
         }

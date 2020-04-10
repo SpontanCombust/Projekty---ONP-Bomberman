@@ -9,4 +9,9 @@
 #define CBW_PLAYER 18   // Collision box width
 #define CBH_PLAYER 21   // Collision box height
 
+#define CBX_ENEMY1 3
+#define CBY_ENEMY1 0
+#define CBW_ENEMY1 26
+#define CBH_ENEMY1 32
+
 #endif

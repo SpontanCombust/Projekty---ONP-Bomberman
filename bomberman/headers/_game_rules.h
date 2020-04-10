@@ -24,6 +24,6 @@
 #define BOMB_SPRITES_SRC "./sprites/bomb.png"
 #define EXPLOSION_SPRITES_SRC "./sprites/explosion.png"
 #define PLAYER_SPRITES_SRC "./sprites/player_sheet.png"
-#define ENEMY_SPRITES_SRC "./sprites/enemy_sheet.png"
+#define ENEMY1_SPRITES_SRC "./sprites/enemy1_sheet.png"
 
 #endif

@@ -59,27 +59,40 @@ static void updatePlayerPosition( Actor *player, LevelMap *level_map )
     enum Direction cdir;
 
     updatePositionX( player );
-    if( isOutOfBounds( player, level_map, &cdir, CBX_PLAYER, CBY_PLAYER, CBW_PLAYER, CBH_PLAYER ) )
-        handleOutOfBounds( player, level_map, cdir, CBX_PLAYER, CBY_PLAYER, CBW_PLAYER, CBH_PLAYER );
-    else if( isTerrainCollisionX( player, level_map, &cdir, CBX_PLAYER, CBY_PLAYER, CBW_PLAYER, CBH_PLAYER ) )
-        handleTerrainCollision( player, cdir, CBX_PLAYER, CBY_PLAYER, CBW_PLAYER, CBH_PLAYER );
+    if( isOutOfBounds( player, level_map, &cdir ) )
+        handleOutOfBounds( player, level_map, cdir );
+    else if( isTerrainCollisionX( player, level_map, &cdir ) )
+        handleTerrainCollision( player, cdir );
 
     updatePositionY( player );
-    if( isOutOfBounds( player, level_map, &cdir, CBX_PLAYER, CBY_PLAYER, CBW_PLAYER, CBH_PLAYER ) )
-        handleOutOfBounds( player, level_map, cdir, CBX_PLAYER, CBY_PLAYER, CBW_PLAYER, CBH_PLAYER );
-    else if( isTerrainCollisionY( player, level_map, &cdir, CBX_PLAYER, CBY_PLAYER, CBW_PLAYER, CBH_PLAYER ) )
-        handleTerrainCollision( player, cdir, CBX_PLAYER, CBY_PLAYER, CBW_PLAYER, CBH_PLAYER );
+    if( isOutOfBounds( player, level_map, &cdir ) )
+        handleOutOfBounds( player, level_map, cdir );
+    else if( isTerrainCollisionY( player, level_map, &cdir ) )
+        handleTerrainCollision( player, cdir );
 
     resolveDirection( player );
 }
 
-void updatePlayer( Actor *player, LevelMap *level_map, SFX *explosion_container[], SFX *corpse_container[] )
+static bool isCollisionWithEnemies( Actor *player, Actor * *enemies, int enemy_num )
+{
+    for (int i = 0; i < enemy_num; i++)
+    {
+        if( isActorCollision( player, enemies[i] ) )
+            return true;
+    }
+    return false;
+}
+
+void updatePlayer( Actor *player, LevelMap *level_map, Actor * *enemies, int enemy_num, SFX *explosion_container[], SFX *corpse_container[] )
 {
     if( player->alive )
     {
         updatePlayerPosition( player, level_map );
 
-        if( isSFXAtTile( tileFromPixel( player->x + TILE_SIZE/2 ), tileFromPixel( player->y + TILE_SIZE/2 ), explosion_container, EXPLOSION_BUDGET ) )
+        bool blown_up = isSFXAtTile( tileFromPixel( player->x + TILE_SIZE/2 ), tileFromPixel( player->y + TILE_SIZE/2 ), explosion_container, EXPLOSION_BUDGET );
+        bool touched_enemy = isCollisionWithEnemies( player, enemies, enemy_num );
+        
+        if( blown_up || touched_enemy )
             killActor( player, corpse_container );
     }
 }
@@ -109,7 +122,7 @@ void updateEnemies( AIModule * *enemy_modules, int enemy_num, SFX *explosion_con
     }
 }
 
-void updateGFX( Actor *player, AIModule * *modules, int enemy_num, LevelMap *level_map, Bomb *bomb_container[], SFX *explosion_container[], SFX *corpse_container[] )
+void updateGFX( Actor *player, Actor * *enemies, int enemy_num, LevelMap *level_map, Bomb *bomb_container[], SFX *explosion_container[], SFX *corpse_container[] )
 {
     al_clear_to_color( al_map_rgb( 0, 150, 0 ) );
 
@@ -118,7 +131,7 @@ void updateGFX( Actor *player, AIModule * *modules, int enemy_num, LevelMap *lev
     drawSFX( explosion_container, EXPLOSION );
     drawSFX( corpse_container, CORPSE );
     drawPlayer( player );
-    drawEnemies( modules, enemy_num );
+    drawEnemies( enemies, enemy_num );
 
     al_flip_display();
 }

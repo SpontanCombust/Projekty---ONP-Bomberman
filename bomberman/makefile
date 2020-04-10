@@ -26,9 +26,10 @@ main.c
 ####################
 OUTPUT_DIR=bin
 LINUX_GCC=gcc
-LINUX_CFLAGS=-O2 -Wall
+LINUX_CFLAGS=-O2 -Wall 
 WINDOWS_GCC=i686-w64-mingw32-gcc
 WINDOWS_CFLAGS=-O2 -Wall
+MATH=-lm -ldl
 ALLEGRO5_LINUX=`pkg-config --cflags --libs allegro-5 allegro_main-5 allegro_image-5 allegro_color-5 allegro_font-5 allegro_ttf-5`
 ALLEGRO5_WINDOWS=`pkg-config --cflags --libs allegro-5 allegro_main-5 allegro_image-5 allegro_color-5 allegro_font-5 allegro_ttf-5`
 export PKG_CONFIG_PATH=/usr/x86_64-w64-mingw32/lib/pkgconfig/
@@ -50,15 +51,15 @@ help:
 
 linux:
 	mkdir -p $(OUTPUT_DIR)/linux/
-	$(LINUX_GCC) $(LINUX_CFLAGS) -o $(OUTPUT_DIR)/linux/$(PROGRAM_NAME) $(SOURCES) $(ALLEGRO5_LINUX)
+	$(LINUX_GCC) $(LINUX_CFLAGS) -o $(OUTPUT_DIR)/linux/$(PROGRAM_NAME) $(SOURCES) $(ALLEGRO5_LINUX) $(MATH)
 
 debug:
 	mkdir -p $(OUTPUT_DIR)/linux/
-	$(LINUX_GCC) $(LINUX_CFLAGS) -g -o $(OUTPUT_DIR)/linux/$(PROGRAM_NAME) $(SOURCES) $(ALLEGRO5_LINUX)
+	$(LINUX_GCC) $(LINUX_CFLAGS) -g -o $(OUTPUT_DIR)/linux/$(PROGRAM_NAME) $(SOURCES) $(ALLEGRO5_LINUX) $(MATH)
 
 windows:
 	mkdir -p $(OUTPUT_DIR)/windows/
-	$(WINDOWS_GCC) $(WINDOWS_CFLAGS) -o $(OUTPUT_DIR)/windows/$(PROGRAM_NAME).exe $(SOURCES) $(ALLEGRO5_WINDOWS)
+	$(WINDOWS_GCC) $(WINDOWS_CFLAGS) -o $(OUTPUT_DIR)/windows/$(PROGRAM_NAME).exe $(SOURCES) $(ALLEGRO5_WINDOWS) $(MATH)
 
 run:
 	$(OUTPUT_DIR)/linux/$(PROGRAM_NAME)

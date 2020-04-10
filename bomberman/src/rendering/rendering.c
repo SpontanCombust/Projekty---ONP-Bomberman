@@ -40,12 +40,12 @@ void drawPlayer( Actor *player )
         al_draw_bitmap_region( player->bmp, player->dir * TILE_SIZE, 0, TILE_SIZE, TILE_SIZE, (int) player->x, (int) player->y, 0 );
 }
 
-void drawEnemies( AIModule * *modules, int enemy_num )
+void drawEnemies( Actor * *enemies, int enemy_num )
 {
     for (int i = 0; i < enemy_num; i++)
     {
-        if( modules[i]->actor->alive )
-            al_draw_bitmap_region( modules[i]->actor->bmp, modules[i]->actor->dir * TILE_SIZE, 0, TILE_SIZE, TILE_SIZE, modules[i]->actor->x, modules[i]->actor->y, 0);
+        if( enemies[i]->alive )
+            al_draw_bitmap_region( enemies[i]->bmp, enemies[i]->dir * TILE_SIZE, 0, TILE_SIZE, TILE_SIZE, enemies[i]->x, enemies[i]->y, 0);
     }
     
 }
