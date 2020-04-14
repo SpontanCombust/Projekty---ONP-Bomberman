@@ -25,7 +25,7 @@ int main(void)
     al_init_font_addon();
     al_init_ttf_addon();
     
-    ALLEGRO_FONT *font_big = al_load_font( FONT_SRC, 50, 0 );
+    ALLEGRO_FONT *font_big = al_load_font( FONT_SRC, 40, 0 );
     ALLEGRO_FONT *font_small = al_load_font( FONT_SRC, 30, 0 );
 
     ALLEGRO_EVENT_QUEUE *eq = al_create_event_queue();
@@ -50,18 +50,24 @@ int main(void)
 
     Level *level = createLevel( 1, enemy_sprites );
 
+
     LevelMap *level_map = level->level_map;
+
     int enemy_num = level->enemy_intit_count;
+
     Path * enemy_paths = level->enemy_paths;
+
     Actor * *enemies = level->enemies;
     applyCollisionToActorArray( enemies, enemy_num, CBX_ENEMY1, CBY_ENEMY1, CBW_ENEMY1, CBH_ENEMY1 );
+
     AIModule * *ai_modules = level->ai_modules;
-    
-    updateLevelMapBitmap( level_map, solid_block_sprite, brittle_block_sprite, display );
 
     Bomb *bomb_container[ BOMB_BUDGET ] = { NULL };
     SFX *explosion_container[ EXPLOSION_BUDGET ] = { NULL };
     SFX *corpse_container[ CORPSE_BUDGET ] = { NULL };
+
+    Camera *camera = createCamera( player, level_map );
+
 
     enum LevelClearCondition clear_cond = KILL_ALL_ENEMIES;
 
@@ -71,6 +77,7 @@ int main(void)
 
     doTitleScreen( font_big, font_small, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 75, 1, clear_cond );
 
+    updateLevelMapBitmap( level_map, solid_block_sprite, brittle_block_sprite, display );
     updateGFX( player, enemies, enemy_num, level_map, bomb_container, explosion_container, corpse_container );
     al_start_timer( game_timer );
     al_start_timer( second_timer );
@@ -87,7 +94,17 @@ int main(void)
         else if ( events.type == ALLEGRO_EVENT_TIMER )
         {
             if( events.timer.source == game_timer )
+            {
+                updatePlayer( player, level_map, enemies, enemy_num, explosion_container, corpse_container );
+                updateEnemies( ai_modules, enemy_num, explosion_container, corpse_container );
+
+                if( map_update )
+                    updateLevelMapBitmap( level_map, solid_block_sprite, brittle_block_sprite, display );
+
+                updateCamera( camera );
+
                 render = true;  
+            }
 
             if( events.timer.source == second_timer )
             {
@@ -115,14 +132,7 @@ int main(void)
 
         if(render)
         {
-            updatePlayer( player, level_map, enemies, enemy_num, explosion_container, corpse_container );
-            updateEnemies( ai_modules, enemy_num, explosion_container, corpse_container );
-
-            if( map_update )
-                updateLevelMapBitmap( level_map, solid_block_sprite, brittle_block_sprite, display );
-
             updateGFX( player, enemies, enemy_num, level_map, bomb_container, explosion_container, corpse_container );
-
             render = false;
         }
 
@@ -137,6 +147,7 @@ int main(void)
         }
     }
     al_rest(1);
+    disableCamera( camera );
     doEndScreen( font_big, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 75, won );
 
     destroyLevelMap( &level_map );
@@ -145,6 +156,7 @@ int main(void)
     destroyActorArray( &enemies, enemy_num );
     destroyAIModuleArray( &ai_modules, enemy_num );
     destroyLevel( &level );
+    destroyCamera( &camera );
     al_destroy_bitmap( solid_block_sprite );
     al_destroy_bitmap( brittle_block_sprite );
     al_destroy_bitmap( bomb_bitmap );

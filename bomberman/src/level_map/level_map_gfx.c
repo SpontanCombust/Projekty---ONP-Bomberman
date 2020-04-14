@@ -29,5 +29,5 @@ void updateLevelMapBitmap( LevelMap *level_map, ALLEGRO_BITMAP *solid_block_spri
         }    
     }
     
-    al_set_target_bitmap(al_get_backbuffer( display ));   
+    al_set_target_backbuffer( display );   
 }

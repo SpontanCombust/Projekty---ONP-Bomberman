@@ -19,6 +19,7 @@ Actor *createActor( float x, float y, float speed, ALLEGRO_BITMAP *bmp )
         actor -> cy = 0;
         actor -> cw = 0;
         actor -> ch = 0;
+        actor -> enabled_collision = false;
         actor -> alive = true;
         actor -> dir = DOWN;
         actor -> bmp = bmp;
@@ -35,6 +36,7 @@ Actor *createActor( float x, float y, float speed, ALLEGRO_BITMAP *bmp )
 
 void applyCollisionToActor( Actor *actor, float cx, float cy, float cw, float ch )
 {
+    actor -> enabled_collision = true;
     actor -> cx = cx;
     actor -> cy = cy;
     actor -> cw = cw;

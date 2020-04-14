@@ -19,6 +19,7 @@ typedef struct S_Actor
     bool vx[2], vy[2];
     float speed;
     float cx, cy, cw, ch;
+    bool enabled_collision;
     bool alive;
     enum Direction dir;
     ALLEGRO_BITMAP *bmp;

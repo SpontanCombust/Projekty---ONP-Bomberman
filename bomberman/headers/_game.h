@@ -4,6 +4,7 @@
 #include "_game_rules.h"
 #include "actor.h"
 #include "bomb.h"
+#include "camera.h"
 #include "direction.h"
 #include "level.h"
 #include "logic.h"

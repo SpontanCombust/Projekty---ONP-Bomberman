@@ -1,8 +1,10 @@
 #ifndef GAME_RULES_H
 #define GAME_RULES_H
 
-#define SCREEN_HEIGHT 352
-#define SCREEN_WIDTH 864
+#define SCREEN_HEIGHT 480
+#define SCREEN_WIDTH 640
+
+#define CAMERA_SCALE 2
 
 #define FPS 60.0
 #define SECOND_TIMER 1.0

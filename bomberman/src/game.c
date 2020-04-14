@@ -59,26 +59,32 @@ static void updatePlayerPosition( Actor *player, LevelMap *level_map )
     enum Direction cdir;
 
     updatePositionX( player );
-    if( isOutOfBounds( player, level_map, &cdir ) )
+    
+    if( player->enabled_collision && isOutOfBounds( player, level_map, &cdir ) )
         handleOutOfBounds( player, level_map, cdir );
-    else if( isTerrainCollisionX( player, level_map, &cdir ) )
+    else if( player->enabled_collision && isTerrainCollisionX( player, level_map, &cdir ) )
         handleTerrainCollision( player, cdir );
+    
 
     updatePositionY( player );
-    if( isOutOfBounds( player, level_map, &cdir ) )
+    
+    if( player->enabled_collision && isOutOfBounds( player, level_map, &cdir ) )
         handleOutOfBounds( player, level_map, cdir );
-    else if( isTerrainCollisionY( player, level_map, &cdir ) )
+    else if( player->enabled_collision && isTerrainCollisionY( player, level_map, &cdir ) )
         handleTerrainCollision( player, cdir );
-
+    
     resolveDirection( player );
 }
 
 static bool isCollisionWithEnemies( Actor *player, Actor * *enemies, int enemy_num )
 {
-    for (int i = 0; i < enemy_num; i++)
+    if( player -> enabled_collision )
     {
-        if( isActorCollision( player, enemies[i] ) )
-            return true;
+        for (int i = 0; i < enemy_num; i++)
+        {
+            if( isActorCollision( player, enemies[i] ) )
+                return true;
+        }
     }
     return false;
 }
@@ -89,11 +95,14 @@ void updatePlayer( Actor *player, LevelMap *level_map, Actor * *enemies, int ene
     {
         updatePlayerPosition( player, level_map );
 
-        bool blown_up = isSFXAtTile( tileFromPixel( player->x + TILE_SIZE/2 ), tileFromPixel( player->y + TILE_SIZE/2 ), explosion_container, EXPLOSION_BUDGET );
-        bool touched_enemy = isCollisionWithEnemies( player, enemies, enemy_num );
+        if( player->enabled_collision )
+        {
+            bool blown_up = isSFXAtTile( tileFromPixel( player->x + TILE_SIZE/2 ), tileFromPixel( player->y + TILE_SIZE/2 ), explosion_container, EXPLOSION_BUDGET );
+            bool touched_enemy = isCollisionWithEnemies( player, enemies, enemy_num );
         
-        if( blown_up || touched_enemy )
-            killActor( player, corpse_container );
+            if( blown_up || touched_enemy )
+                killActor( player, corpse_container );
+        }
     }
 }
 

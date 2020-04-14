@@ -8,7 +8,7 @@ void doTitleScreen( ALLEGRO_FONT *font_big, ALLEGRO_FONT *font_small, float x, f
     al_rest( 2 );
     al_clear_to_color( al_map_rgb( 0, 0, 0 ) );
     if( condition == KILL_ALL_ENEMIES )
-        al_draw_text( font_small, al_map_rgb( 255, 255, 255 ), x, y, ALLEGRO_ALIGN_CENTER, "KILL ALL ENEMIES!!!" );
+        al_draw_text( font_small, al_map_rgb( 255, 255, 255 ), x, y + 10, ALLEGRO_ALIGN_CENTER, "KILL ALL ENEMIES!!!" );
     al_flip_display();
     al_rest( 2 );
 }
