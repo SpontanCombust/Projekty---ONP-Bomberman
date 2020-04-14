@@ -20,7 +20,7 @@ typedef struct S_Bomb
 #define DEFAULT_BLAST_RANGE 1
 
 
-// ======================== bomb_essentials.c =========================
+// =============================== bomb_essentials.c ==================================
 
 Bomb *createBomb( int tile_x, int tile_y, int fuse, int blast_range, ALLEGRO_BITMAP *bmp );
 void destroyBomb( Bomb **bomb );
@@ -30,6 +30,10 @@ void destroyBomb( Bomb **bomb );
 
 void handleBombInputKeyDown( char eventKeyboardKeycode, Actor *actor, Bomb **bomb_ptr );
 void setBombProperties( Bomb *bomb, int fuse, int blast_range, ALLEGRO_BITMAP *bmp );
+
+
+// ============================ bomb_container_manager.c ==============================
+
 bool isEmptyBombContainer( Bomb * container[], int max_size );
 void addBombToContainer( Bomb *container[], int max_size, Bomb *bomb );
 

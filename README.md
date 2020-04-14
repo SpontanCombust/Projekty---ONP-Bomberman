@@ -6,12 +6,12 @@ ONP:
 - [x] stos
 - [x] obsługa pojedynczego elementu działania ONP
 - [x] algorytm arytmetyczny
-- [ ] obsługa całego surowego działania w formie ONP
-- [ ] main demonstracyjny
-- [ ] okomentowanie
-- [ ] wyświetlanie znaczących kroków
-- [ ] analiza algorytmu - wstęp
-- [ ] teoria - wstęp
+- [x] obsługa całego surowego działania w formie ONP
+- [x] main demonstracyjny
+- [x] okomentowanie
+- [x] wyświetlanie znaczących kroków
+- [x] analiza algorytmu - wstęp
+- [x] teoria - wstęp
 
 Bomberman:
 - [x] system poruszania się
@@ -32,7 +32,7 @@ ONP:
 - [ ] GUI do obsługi programu
 
 Bomberman:
-- [ ] praca kamery
+- [x] praca kamery
 - [ ] menu główne
 - [ ] opcje
 - [ ] tryb PvP

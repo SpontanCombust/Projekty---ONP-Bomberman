@@ -20,10 +20,11 @@ void updatePositionY( Actor *actor );
 
 // ================================== collision_handler.c ==================================
 
-bool isOutOfBounds( Actor *actor, LevelMap *level_map, enum Direction *cdir, int cx, int cy, int cw, int ch );
-void handleOutOfBounds( Actor *actor, LevelMap *level_map, enum Direction cdir, int cx, int cy, int cw, int ch );
-bool isTerrainCollisionX( Actor *actor, LevelMap *level_map, enum Direction *cdir, int cx, int cy, int cw, int ch );
-bool isTerrainCollisionY( Actor *actor, LevelMap *level_map, enum Direction *cdir, int cx, int cy, int cw, int ch );
-void handleTerrainCollision( Actor *actor, enum Direction cdir, int cx, int cy, int cw, int ch );
+bool isOutOfBounds( Actor *actor, LevelMap *level_map, enum Direction *cdir );
+void handleOutOfBounds( Actor *actor, LevelMap *level_map, enum Direction cdir );
+bool isTerrainCollisionX( Actor *actor, LevelMap *level_map, enum Direction *cdir );
+bool isTerrainCollisionY( Actor *actor, LevelMap *level_map, enum Direction *cdir );
+void handleTerrainCollision( Actor *actor, enum Direction cdir );
+bool isActorCollision( Actor *actor1, Actor *actor2 );
 
 #endif

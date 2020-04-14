@@ -12,7 +12,7 @@ int **createLevelTileMatrix( FILE *map_file, int *rows, int *collumns );
 
 // ===================================== coordinate_translator.c =================================
 
-int pixelFromTile( int t );
-int tileFromPixel( int p );
+float pixelFromTile( int t );
+int tileFromPixel( float p );
 
 #endif

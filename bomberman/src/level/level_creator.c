@@ -34,12 +34,12 @@ Level *createLevel( int level_number, ALLEGRO_BITMAP *enemy_bmp )
     strcat( file_path, enemies_file_name );
     Path * enemy_paths = createPathArray( file_path, &enemy_num );
 
-    Actor ** enemies = (Actor **)malloc( enemy_num * sizeof( Actor * ) );
-    AIModule ** ai_modules = (AIModule **)malloc( enemy_num * sizeof( AIModule * ) );
+    Actor * *enemies = (Actor **)malloc( enemy_num * sizeof( Actor * ) );
+    AIModule * *ai_modules = (AIModule **)malloc( enemy_num * sizeof( AIModule * ) );
 
     for (int i = 0; i < enemy_num; i++)
     {
-        enemies[i] = createAIActor( enemy_paths[i], ENEMY_SPEED, DOWN, enemy_bmp );
+        enemies[i] = createAIActor( enemy_paths[i], ENEMY_SPEED, enemy_bmp );
         ai_modules[i] = createAIModule( enemies[i], enemy_paths[i] );
     }
 
@@ -48,7 +48,7 @@ Level *createLevel( int level_number, ALLEGRO_BITMAP *enemy_bmp )
     level -> enemy_paths = enemy_paths;
     level -> enemy_intit_count = enemy_num;
     level -> enemies = enemies;
-    level -> enemy_modules = ai_modules;
+    level -> ai_modules = ai_modules;
     // level -> block_count = countContentInMatrix( level_map->tile_matrix, level_map->rows, level_map->collumns, BRITTLE_BLOCK );
     // level -> enemy_count = enemy_num;
 
