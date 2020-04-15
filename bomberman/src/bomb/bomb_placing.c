@@ -4,18 +4,10 @@
 #include "../../headers/level_tile_matrix_tools.h"
 #include <allegro5/allegro.h>
 
-static Bomb *createBombAtActor( Actor *actor )
+Bomb *createEmptyBombAtActor( Actor *actor )
 {
     Bomb *bomb = createBomb( tileFromPixel( actor->x + TILE_SIZE/2 ), tileFromPixel( actor->y + TILE_SIZE/2 ), 0, 0, NULL );
     return bomb;
-}
-
-void handleBombInputKeyDown( char eventKeyboardKeycode, Actor *actor, Bomb **bomb_ptr )
-{
-    if( eventKeyboardKeycode == ALLEGRO_KEY_SPACE )
-    {
-        *bomb_ptr = createBombAtActor( actor );
-    }
 }
 
 void setBombProperties( Bomb *bomb, int fuse, int blast_range, ALLEGRO_BITMAP *bmp )

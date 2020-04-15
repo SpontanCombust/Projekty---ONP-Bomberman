@@ -22,15 +22,20 @@ static bool isTileTaken( Bomb * container[], int max_size, Bomb *bomb )
 
 void addBombToContainer( Bomb * container[], int max_size, Bomb *bomb )
 {
+    bool valid = false;
     if( !isTileTaken( container, max_size, bomb ) )
     {
         for (int i = 0; i < max_size; i++)
         {
             if( container[i] == NULL )
             {
+                valid = true;
                 container[i] = bomb;
                 break;
             }
         }
     }
+    
+    if( !valid )
+        destroyBomb( &bomb );
 }

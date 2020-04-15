@@ -6,7 +6,7 @@
 #include "sfx.h"
 #include <allegro5/allegro.h>
 
-typedef struct S_Bomb 
+typedef struct
 {
     int tile_x, tile_y;
     int fuse;
@@ -28,7 +28,7 @@ void destroyBomb( Bomb **bomb );
 
 // ================================ bomb_placing.c ====================================
 
-void handleBombInputKeyDown( char eventKeyboardKeycode, Actor *actor, Bomb **bomb_ptr );
+Bomb *createEmptyBombAtActor( Actor *actor );
 void setBombProperties( Bomb *bomb, int fuse, int blast_range, ALLEGRO_BITMAP *bmp );
 
 

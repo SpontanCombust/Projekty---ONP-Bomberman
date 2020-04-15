@@ -50,7 +50,6 @@ int main(void)
 
     Level *level = createLevel( 1, enemy_sprites );
 
-
     LevelMap *level_map = level->level_map;
 
     int enemy_num = level->enemy_intit_count;
@@ -63,6 +62,7 @@ int main(void)
     AIModule * *ai_modules = level->ai_modules;
 
     Bomb *bomb_container[ BOMB_BUDGET ] = { NULL };
+    int current_blast_range = DEFAULT_BLAST_RANGE;
     SFX *explosion_container[ EXPLOSION_BUDGET ] = { NULL };
     SFX *corpse_container[ CORPSE_BUDGET ] = { NULL };
 
@@ -88,9 +88,11 @@ int main(void)
         al_wait_for_event( eq, &events );
 
         if ( events.type == ALLEGRO_EVENT_DISPLAY_CLOSE )
-        {
             done = true;
-        }
+        else if( events.type == ALLEGRO_EVENT_KEY_DOWN)
+            handleInputKeyDown( events.keyboard.keycode, player, current_blast_range, bomb_bitmap, bomb_container, &done ); 
+        else if( events.type == ALLEGRO_EVENT_KEY_UP)
+            handleInputKeyUp( events.keyboard.keycode, player);
         else if ( events.type == ALLEGRO_EVENT_TIMER )
         {
             if( events.timer.source == game_timer )
@@ -111,24 +113,8 @@ int main(void)
                 updateContainers( bomb_container, explosion_container, corpse_container, level_map, enemies, enemy_num, explosion_bitmap, &map_update );
                 clean = areEmptyContainers( bomb_container, explosion_container, corpse_container );
             }
+            
         }
-        else if( events.type == ALLEGRO_EVENT_KEY_DOWN)
-        {
-            handleMovementInputKeyDown( events.keyboard.keycode, player, &done );
-
-            Bomb *bomb = NULL;
-            handleBombInputKeyDown( events.keyboard.keycode, player, &bomb);
-
-            if( bomb != NULL)
-            {
-                setBombProperties( bomb, DEFAULT_FUSE, DEFAULT_BLAST_RANGE, bomb_bitmap );
-                addBombToContainer( bomb_container, BOMB_BUDGET, bomb );
-            }
-        }
-        else if( events.type == ALLEGRO_EVENT_KEY_UP)
-        {
-            handleMovementInputKeyUp( events.keyboard.keycode, player);
-        }  
 
         if(render)
         {
@@ -142,9 +128,8 @@ int main(void)
             won = true;
         }
         else if( !player->alive )
-        {
             done = true;
-        }
+
     }
     al_rest(1);
     disableCamera( camera );

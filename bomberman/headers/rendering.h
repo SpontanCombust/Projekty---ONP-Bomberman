@@ -13,7 +13,7 @@
 // ======================== rendering.c =======================
 
 void drawBombs( Bomb *bomb_container[] );
-void drawSFX( SFX *sfx_container[], enum SFXType type );
+void drawSFX( SFX *sfx_container[], enum SFX_Type type );
 void drawPlayer( Actor *player );
 void drawEnemies( Actor * *enemies, int enemy_num );
 

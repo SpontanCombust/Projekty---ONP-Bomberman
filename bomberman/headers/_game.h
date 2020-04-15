@@ -8,6 +8,7 @@
 #include "direction.h"
 #include "level.h"
 #include "logic.h"
+#include "player_input.h"
 #include "rendering.h"
 #include "sfx.h"
 #include "sprite_properties.h"

@@ -19,6 +19,7 @@ SOURCES=-I./headers -I./src -I./libs \
 ./headers/level_tile_matrix_tools.h \
 ./headers/level.h \
 ./headers/logic.h \
+./headers/player_input.h \
 ./headers/rendering.h \
 ./headers/sfx.h \
 ./headers/sprite_properties.h \
@@ -31,6 +32,7 @@ SOURCES=-I./headers -I./src -I./libs \
 ./src/level/level_creator.c ./src/level/level_essentials.c \
 ./src/level_map/level_map_essentials.c ./src/level_map/level_map_gfx.c \
 ./src/logic/collision_handler.c ./src/logic/movement_handler.c \
+./src/player_input/input_handler.c \
 ./src/rendering/rendering.c \
 ./src/sfx/sfx_essentials.c ./src/sfx/sfx_container_manager.c \
 ./src/level_tile_matrix_tools/coordinate_translator.c ./src/level_tile_matrix_tools/level_tile_matrix_creator.c \
