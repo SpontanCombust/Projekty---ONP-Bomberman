@@ -49,3 +49,13 @@ void drawEnemies( Actor * *enemies, int enemy_num )
     }
     
 }
+
+void drawLevelMap( LevelMap *level_map )
+{
+    al_draw_bitmap( level_map->bmp, 0, 0, 0 );
+}
+
+void drawMenu( Menu *menu )
+{
+    al_draw_bitmap( menu->bmp, menu->bg_x, menu->bg_y, 0 );
+}

@@ -1,4 +1,4 @@
-#include "../headers/_game.h"
+#include "../../headers/_game.h"
 
 void updateContainers( Bomb *bomb_container[], SFX *explosion_container[], SFX *corpse_container[], LevelMap *level_map, Actor **enemies, int enemy_num, ALLEGRO_BITMAP *explosion_bmp, bool *map_update )
 {
@@ -134,14 +134,19 @@ void updateEnemies( AIModule * *enemy_modules, int enemy_num, SFX *explosion_con
 void updateGFX( Actor *player, Actor * *enemies, int enemy_num, LevelMap *level_map, Bomb *bomb_container[], SFX *explosion_container[], SFX *corpse_container[] )
 {
     al_clear_to_color( al_map_rgb( 0, 150, 0 ) );
-
-    al_draw_bitmap( level_map->bmp, 0, 0, 0 );
+    drawLevelMap( level_map );
     drawBombs( bomb_container );
     drawSFX( explosion_container, EXPLOSION );
     drawSFX( corpse_container, CORPSE );
     drawPlayer( player );
     drawEnemies( enemies, enemy_num );
+    al_flip_display();
+}
 
+void updateGFXOnPause( ALLEGRO_BITMAP *game_stop_frame, Menu *pause_menu )
+{
+    al_draw_bitmap( game_stop_frame, 0, 0, 0 );
+    drawMenu( pause_menu );
     al_flip_display();
 }
 

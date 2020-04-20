@@ -4,6 +4,8 @@
 #define SCREEN_HEIGHT 540
 #define SCREEN_WIDTH 720
 
+#define LEVELS_MADE 1
+
 #define CAMERA_SCALE 2
 
 #define FPS 60.0

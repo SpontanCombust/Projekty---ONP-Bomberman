@@ -3,7 +3,7 @@
 #include "../../headers/_game_rules.h"
 #include "../../headers/logic.h"
 
-void handleInputKeyDown( char keyboard_keycode, Actor *player, int bomb_blast_range, ALLEGRO_BITMAP *bomb_bmp, Bomb *bomb_container[], bool *done )
+void handleGameInputKeyDown( char keyboard_keycode, Actor *player, int bomb_blast_range, ALLEGRO_BITMAP *bomb_bmp, Bomb *bomb_container[], GameState *gs )
 {
     switch ( keyboard_keycode )
     {
@@ -25,12 +25,13 @@ void handleInputKeyDown( char keyboard_keycode, Actor *player, int bomb_blast_ra
             addBombToContainer( bomb_container, BOMB_BUDGET, bomb );
             break;
         case ALLEGRO_KEY_ESCAPE:
-            *done = true;
+        case ALLEGRO_KEY_P:
+            signalPausingGame( gs );
             break;
     }
 }
 
-void handleInputKeyUp( char keyboard_keycode, Actor *player )
+void handleGameInputKeyUp( char keyboard_keycode, Actor *player )
 {
     switch ( keyboard_keycode )
     {
@@ -45,6 +46,31 @@ void handleInputKeyUp( char keyboard_keycode, Actor *player )
             break;
         case ALLEGRO_KEY_RIGHT:
             updateVelocityX( player, player->vx[0], false );
+            break;
+    }
+}
+
+void handleMenuInputKeyDown( char keyboard_keycode, Menu *menu, GameState *gs )
+{
+    switch ( keyboard_keycode )
+    {
+        case ALLEGRO_KEY_DOWN:
+            updateCurrentlySelectedEntry( menu, 1 );
+            break;
+        case ALLEGRO_KEY_UP:
+            updateCurrentlySelectedEntry( menu, -1 );
+            break;
+        case ALLEGRO_KEY_LEFT:
+            executeLeftOperation( menu, gs );
+            break;
+        case ALLEGRO_KEY_RIGHT:
+            executeRightOperation( menu, gs );
+            break;
+        case ALLEGRO_KEY_ENTER:
+            executeSelectOperation( menu, gs );
+            break;
+        case ALLEGRO_KEY_ESCAPE:
+            executeEscOperation( menu, gs );
             break;
     }
 }

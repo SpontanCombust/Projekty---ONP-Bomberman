@@ -8,6 +8,7 @@ SOURCES=-I./headers -I./src -I./libs \
 ./libs/matrix.h ./libs/matrix/matrix.c \
 \
 ./headers/_game_rules.h \
+./headers/_game_state.h \
 ./headers/_game.h \
 ./headers/actor.h \
 ./headers/ai.h \
@@ -19,19 +20,21 @@ SOURCES=-I./headers -I./src -I./libs \
 ./headers/level_tile_matrix_tools.h \
 ./headers/level.h \
 ./headers/logic.h \
+./headers/menus.h \
 ./headers/player_input.h \
 ./headers/rendering.h \
 ./headers/sfx.h \
 ./headers/sprite_properties.h \
 \
-./src/game.c \
+./src/_game/game_functions.c ./src/_game/game_state_functions.c \
 ./src/actor/actor_essentials.c \
 ./src/ai/ai_essentials.c ./src/ai/ai_module_handler.c ./src/ai/path_array_creator.c \
 ./src/bomb/bomb_action.c ./src/bomb/bomb_container_manager.c ./src/bomb/bomb_essentials.c ./src/bomb/bomb_placing.c \
 ./src/camera/camera_essentials.c ./src/camera/camera_handler.c \
 ./src/level/level_creator.c ./src/level/level_essentials.c \
-./src/level_map/level_map_essentials.c ./src/level_map/level_map_gfx.c \
+./src/level_map/level_map_essentials.c ./src/level_map/level_map_rendering.c \
 ./src/logic/collision_handler.c ./src/logic/movement_handler.c \
+./src/menus/menu_essentials.c ./src/menus/menu_handler.c ./src/menus/menu_rendering.c ./src/menus/menu_templates.c \
 ./src/player_input/input_handler.c \
 ./src/rendering/rendering.c \
 ./src/sfx/sfx_essentials.c ./src/sfx/sfx_container_manager.c \

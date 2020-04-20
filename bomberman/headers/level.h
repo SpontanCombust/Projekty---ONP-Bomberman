@@ -6,12 +6,8 @@
 
 #include <allegro5/allegro_font.h>
 
-#define LEVELS_MADE 1
-
 typedef struct
 {
-    int level_id;
-
     LevelMap *level_map;
     Path * enemy_paths;
     int enemy_intit_count;

@@ -43,7 +43,6 @@ Level *createLevel( int level_number, ALLEGRO_BITMAP *enemy_bmp )
         ai_modules[i] = createAIModule( enemies[i], enemy_paths[i] );
     }
 
-    level -> level_id = level_number;
     level -> level_map = level_map;
     level -> enemy_paths = enemy_paths;
     level -> enemy_intit_count = enemy_num;
