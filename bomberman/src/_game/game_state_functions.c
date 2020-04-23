@@ -7,11 +7,14 @@ void initGameState( GameState *gs )
     gs -> selected_level = 1;
     gs -> game_on = false;
     gs -> pause = false;
+    gs -> game_mode = SINGLE_PLAYER;
     gs -> take_stop_frame = false;
     gs -> render_update = false;
+    gs -> menu_update = false; 
 }
 
-void signalShuttingDown( GameState *gs ) {
+void signalShuttingDown( GameState *gs ) 
+{
     gs -> pause = false;
     gs -> game_on = false;
     gs -> options = false;
@@ -22,7 +25,7 @@ bool isProgramRunning( GameState gs ) {
     return !gs.done;
 }
 
-void signalGoingToOptions( GameState *gs ) {
+void signalInOptions( GameState *gs ) {
     gs -> options = true;
 }
 
@@ -30,14 +33,16 @@ bool isInOptions( GameState gs ) {
     return gs.options;
 }
 
-void selectNextLevel( GameState *gs ) {
+void selectNextLevel( GameState *gs ) 
+{
     gs -> selected_level += 1;
 
     if( gs->selected_level > LEVELS_MADE )
         gs -> selected_level = LEVELS_MADE;
 }
 
-void selectPrevLevel( GameState *gs ) {
+void selectPrevLevel( GameState *gs ) 
+{
     gs -> selected_level -= 1;
 
     if( gs->selected_level < 1 )
@@ -48,9 +53,11 @@ int getSelectedLevel( GameState gs ) {
     return gs.selected_level;
 }
 
-void signalGoingToMainMenu( GameState *gs ) {
+void signalGoingToMainMenu( GameState *gs ) 
+{
     gs -> pause = false;
     gs -> options = false;
+    gs -> mode_selection = false;
     gs -> game_on = false;
 }
 
@@ -91,17 +98,53 @@ bool isRenderUpdate( GameState gs ) {
     return gs.render_update;
 }
 
-void signalTakingGameStopFrame( GameState *gs )
-{
+void signalTakingGameStopFrame( GameState *gs ) {
     gs -> take_stop_frame = true;
 }
 
-void signalNotTakingGameStopFrame( GameState *gs )
-{
+void signalNotTakingGameStopFrame( GameState *gs ) {
     gs -> take_stop_frame = false;
 }
 
-bool isTakingGameStopFrame( GameState gs )
-{
+bool isTakingGameStopFrame( GameState gs ) {
     return gs.take_stop_frame;
+}
+
+void signalMenuUpdate( GameState *gs ) {
+    gs -> menu_update = true;
+}
+
+void signalNoMenuUpdate( GameState *gs ) {
+    gs -> menu_update = false;
+}
+
+bool isMenuUpdate( GameState gs ) {
+    return gs.menu_update;
+}
+
+void signalSinglePlayerMode( GameState *gs ) {
+    gs -> game_mode = SINGLE_PLAYER;
+    gs -> game_on = true;
+}
+
+void signalCoopMode( GameState *gs ) {
+    gs -> game_mode = COOP;
+    gs -> game_on = true;
+}
+
+void signalPvPMode( GameState *gs ) {
+    gs -> game_mode = PvP;
+    gs -> game_on = true;
+}
+
+GameMode getGameMode( GameState gs ) {
+    return gs.game_mode;
+}
+
+void signalInModeSelection( GameState *gs ) {
+    gs -> mode_selection = true;
+}
+
+bool isInModeSelection( GameState gs ) {
+    return gs.mode_selection;
 }

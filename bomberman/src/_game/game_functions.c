@@ -131,14 +131,15 @@ void updateEnemies( AIModule * *enemy_modules, int enemy_num, SFX *explosion_con
     }
 }
 
-void updateGFX( Actor *player, Actor * *enemies, int enemy_num, LevelMap *level_map, Bomb *bomb_container[], SFX *explosion_container[], SFX *corpse_container[] )
+void updateGFX( Actor *player1, Actor *player2, Actor * *enemies, int enemy_num, LevelMap *level_map, Bomb *bomb_container[], SFX *explosion_container[], SFX *corpse_container[] )
 {
     al_clear_to_color( al_map_rgb( 0, 150, 0 ) );
     drawLevelMap( level_map );
     drawBombs( bomb_container );
     drawSFX( explosion_container, EXPLOSION );
     drawSFX( corpse_container, CORPSE );
-    drawPlayer( player );
+    drawPlayer( player1 );
+    if( player2 != NULL ) drawPlayer( player2 );
     drawEnemies( enemies, enemy_num );
     al_flip_display();
 }

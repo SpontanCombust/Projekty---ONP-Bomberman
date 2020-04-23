@@ -41,13 +41,14 @@ void setMenuTextData( Menu *menu, ALLEGRO_COLOR font_color, float entry_orig_x, 
     menu -> line_spacing = line_spacing;
 }
 
-void setMenuBg( Menu *menu, float bg_x, float bg_y, float bg_w, float bg_h, ALLEGRO_COLOR bg_color )
+void setMenuBgData( Menu *menu, ALLEGRO_COLOR bg_color, float bg_alpha, float bg_x, float bg_y, float bg_w, float bg_h )
 {
     menu -> bg_x = bg_x;
     menu -> bg_y = bg_y;
     menu -> bg_w = bg_w;
     menu -> bg_h = bg_h;
     menu -> bg_color = bg_color;
+    menu -> bg_alpha = bg_alpha;
     menu -> bmp = al_create_bitmap( bg_w, bg_h );
 }
 

@@ -26,11 +26,11 @@ SOURCES=-I./headers -I./src -I./libs \
 ./headers/sfx.h \
 ./headers/sprite_properties.h \
 \
-./src/_game/game_functions.c ./src/_game/game_state_functions.c \
+./src/_game/game_essentials.c ./src/_game/game_functions.c ./src/_game/game_state_functions.c \
 ./src/actor/actor_essentials.c \
 ./src/ai/ai_essentials.c ./src/ai/ai_module_handler.c ./src/ai/path_array_creator.c \
 ./src/bomb/bomb_action.c ./src/bomb/bomb_container_manager.c ./src/bomb/bomb_essentials.c ./src/bomb/bomb_placing.c \
-./src/camera/camera_essentials.c ./src/camera/camera_handler.c \
+./src/camera/camera_essentials.c ./src/camera/camera_handler.c ./src/camera/central_pivot.c \
 ./src/level/level_creator.c ./src/level/level_essentials.c \
 ./src/level_map/level_map_essentials.c ./src/level_map/level_map_rendering.c \
 ./src/logic/collision_handler.c ./src/logic/movement_handler.c \

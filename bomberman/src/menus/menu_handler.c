@@ -2,7 +2,7 @@
 
 void setEntryText( Menu *menu, int entry_index, char *entry_text )
 {
-    strncpy( menu->entries[ entry_index ].entry_text, entry_text, MAX_ENTRY_TEXT_LENGTH - 1 );
+    strncpy( menu->entries[ entry_index ].entry_text, entry_text, MAX_ENTRY_TEXT_LENGTH );
 }
 
 void setEntrySelectOperation( Menu *menu, int entry_index, void ( *operation_select )( GameState * ) )

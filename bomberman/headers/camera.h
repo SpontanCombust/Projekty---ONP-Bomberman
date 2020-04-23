@@ -14,6 +14,13 @@ typedef struct
 
 } Camera;
 
+typedef struct
+{
+    Actor *pivot;
+    Actor *actor1, *actor2;
+
+} CentralPivotModule;
+
 
 // =================== camera_essentials.c ====================
 
@@ -25,5 +32,11 @@ void destroyCamera( Camera **camera );
 
 void updateCamera( Camera *camera );
 void disableCamera( Camera *camera );
+
+
+// =================== central_pivot.c =======================
+
+void applyActorsToPivot( CentralPivotModule *cpm, Actor *actor1, Actor *actor2 );
+void updatePivot( CentralPivotModule *cpm );
 
 #endif

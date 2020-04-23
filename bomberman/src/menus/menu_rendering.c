@@ -15,9 +15,16 @@ static void drawEntryText( Menu *menu, float y, int i )
 void updateMenuBitmap( Menu *menu, ALLEGRO_DISPLAY *display )
 {
     al_set_target_bitmap( menu->bmp );
-    al_clear_to_color( al_map_rgba( 0, 0, 0, 0 ) );
+    al_clear_to_color( al_map_rgba_f(0,0,0,0));
+
+    ALLEGRO_BITMAP *bg = al_create_bitmap(menu->bg_w, menu->bg_h);
+    al_set_target_bitmap( bg );
     al_clear_to_color( menu->bg_color );
-    
+
+    al_set_target_bitmap( menu->bmp );
+    al_draw_tinted_bitmap( bg, al_map_rgba_f( 1, 1, 1, menu->bg_alpha ), 0, 0, 0 );
+    al_destroy_bitmap( bg );
+
     float current_y = menu->entry_orig_y;
     for (int i = 0; i < MAX_ENTRIES; i++)
     {

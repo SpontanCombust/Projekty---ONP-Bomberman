@@ -13,7 +13,7 @@
 typedef struct 
 {
     bool entry_set;
-    char entry_text[ MAX_ENTRY_TEXT_LENGTH ];
+    char entry_text[ MAX_ENTRY_TEXT_LENGTH + 1 ];
     void ( *operation_select )( GameState * );
     void ( *operation_left )( GameState * );
     void ( *operation_right )( GameState * );
@@ -34,6 +34,7 @@ typedef struct
 
     float bg_x, bg_y, bg_w, bg_h;
     ALLEGRO_COLOR bg_color;
+    float bg_alpha;
     ALLEGRO_BITMAP *bmp;
 
 } Menu;
@@ -43,7 +44,7 @@ typedef struct
 
 Menu *createMenu( ALLEGRO_FONT *font );
 void setMenuTextData( Menu *menu, ALLEGRO_COLOR font_color, float entry_orig_x, float entry_orig_y, float line_spacing );
-void setMenuBg( Menu *menu, float bg_x, float bg_y, float bg_w, float bg_h, ALLEGRO_COLOR bg_color );
+void setMenuBgData( Menu *menu, ALLEGRO_COLOR bg_color, float bg_alpha, float bg_x, float bg_y, float bg_w, float bg_h );
 void destroyMenu( Menu **menu );
 
 
@@ -72,5 +73,6 @@ void updateMenuBitmap( Menu *menu, ALLEGRO_DISPLAY *display );
 Menu *createMainMenu( ALLEGRO_FONT *font );
 Menu *createOptionsMenu( ALLEGRO_FONT *font );
 Menu *createPauseMenu( ALLEGRO_FONT *font );
+Menu *createModeSelectionMenu( ALLEGRO_FONT *font );
 
 #endif

@@ -33,7 +33,7 @@ ONP:
 
 Bomberman:
 - [x] praca kamery
-- [ ] menu główne
+- [x] menu główne
 - [ ] opcje
 - [ ] tryb PvP
 - [ ] tryb kooperacyjny
