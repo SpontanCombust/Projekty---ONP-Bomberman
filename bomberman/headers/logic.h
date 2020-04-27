@@ -11,8 +11,6 @@
 void updateVelocityX( Actor *actor, bool vx0, bool vx1 );
 void updateVelocityY( Actor *actor, bool vy0, bool vy1 );
 void resetVelocity( Actor *actor );
-void handleMovementInputKeyDown( char eventKeyboardKeycode, Actor *actor, bool *done );
-void handleMovementInputKeyUp( char eventKeyboardKeycode, Actor *actor );
 void resolveDirection( Actor *actor );
 void updatePositionX( Actor *actor );
 void updatePositionY( Actor *actor );

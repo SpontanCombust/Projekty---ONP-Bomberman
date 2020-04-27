@@ -13,7 +13,7 @@ vx[0]----0---> vx[1]
          \/ vy[1]
 */
 
-typedef struct S_Actor
+typedef struct
 {
     float x, y;
     bool vx[2], vy[2];

@@ -22,47 +22,6 @@ void resetVelocity( Actor *actor )
     actor -> vy[1] = false;
 }
 
-void handleMovementInputKeyDown( char eventKeyboardKeycode, Actor *actor, bool *done )
-{
-    switch (eventKeyboardKeycode)
-    {
-        case ALLEGRO_KEY_UP:
-            updateVelocityY( actor, true, actor->vy[1] );
-            break;
-        case ALLEGRO_KEY_DOWN:
-            updateVelocityY( actor, actor->vy[0], true );
-            break;
-        case ALLEGRO_KEY_LEFT:
-            updateVelocityX( actor, true, actor->vx[1] );
-            break;
-        case ALLEGRO_KEY_RIGHT:
-            updateVelocityX( actor, actor->vx[0], true );
-            break;
-        case ALLEGRO_KEY_ESCAPE:
-            *done = true;
-            break;
-    }
-}
-
-void handleMovementInputKeyUp( char eventKeyboardKeycode, Actor *actor ) 
-{
-    switch (eventKeyboardKeycode)
-    {
-        case ALLEGRO_KEY_UP:
-            updateVelocityY( actor, false, actor->vy[1] );
-            break;
-        case ALLEGRO_KEY_DOWN:
-            updateVelocityY( actor, actor->vy[0], false );
-            break;
-        case ALLEGRO_KEY_LEFT:
-            updateVelocityX( actor, false, actor->vx[1] );
-            break;
-        case ALLEGRO_KEY_RIGHT:
-            updateVelocityX( actor, actor->vx[0], false );
-            break;
-    }
-}
-
 void resolveDirection( Actor *actor )
 {
     if( actor->vy[0] & !( actor->vx[0] ) & !( actor->vx[1] ) )

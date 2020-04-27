@@ -3,17 +3,12 @@
 #include "../../libs/matrix.h"
 #include "../../headers/block_type.h"
 #include "../../headers/_game_rules.h"
+#include <allegro5/allegro_native_dialog.h>
 #include <stdio.h>
 #include <string.h>
 
 Level *createLevel( int level_number, ALLEGRO_BITMAP *enemy_bmp )
 {
-    if( level_number < 0 || level_number > LEVELS_MADE )
-    {
-        puts("This level foes not exist!");
-        return NULL;
-    }
-
     Level *level = ( Level * )malloc( sizeof( Level ) );
 
     char level_subfolder[10] = "";
@@ -34,6 +29,11 @@ Level *createLevel( int level_number, ALLEGRO_BITMAP *enemy_bmp )
     strcat( file_path, enemies_file_name );
     Path * enemy_paths = createPathArray( file_path, &enemy_num );
 
+    if( level_map == NULL || enemy_paths == NULL ) {
+        al_show_native_message_box( NULL, "ERROR", "ERROR!", "Level failed to load properly!", NULL, ALLEGRO_MESSAGEBOX_WARN );
+        return NULL;
+    }
+
     Actor * *enemies = (Actor **)malloc( enemy_num * sizeof( Actor * ) );
     AIModule * *ai_modules = (AIModule **)malloc( enemy_num * sizeof( AIModule * ) );
 
@@ -43,7 +43,6 @@ Level *createLevel( int level_number, ALLEGRO_BITMAP *enemy_bmp )
         ai_modules[i] = createAIModule( enemies[i], enemy_paths[i] );
     }
 
-    level -> level_id = level_number;
     level -> level_map = level_map;
     level -> enemy_paths = enemy_paths;
     level -> enemy_intit_count = enemy_num;

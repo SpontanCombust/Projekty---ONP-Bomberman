@@ -14,7 +14,7 @@ void drawBombs( Bomb *bomb_container[] )
     }
 }
 
-void drawSFX( SFX *sfx_container[], enum SFXType type )
+void drawSFX( SFX *sfx_container[], enum SFX_Type type )
 {
     if( type == EXPLOSION && !isEmptySFXContainer( sfx_container, EXPLOSION_BUDGET ) )
     {
@@ -37,7 +37,7 @@ void drawSFX( SFX *sfx_container[], enum SFXType type )
 void drawPlayer( Actor *player )
 {
     if( player->alive )
-        al_draw_bitmap_region( player->bmp, player->dir * TILE_SIZE, 0, TILE_SIZE, TILE_SIZE, (int) player->x, (int) player->y, 0 );
+        al_draw_bitmap_region( player->bmp, player->dir * TILE_SIZE, 0, TILE_SIZE, TILE_SIZE, player->x, player->y, 0 );
 }
 
 void drawEnemies( Actor * *enemies, int enemy_num )
@@ -48,4 +48,14 @@ void drawEnemies( Actor * *enemies, int enemy_num )
             al_draw_bitmap_region( enemies[i]->bmp, enemies[i]->dir * TILE_SIZE, 0, TILE_SIZE, TILE_SIZE, enemies[i]->x, enemies[i]->y, 0);
     }
     
+}
+
+void drawLevelMap( LevelMap *level_map )
+{
+    al_draw_bitmap( level_map->bmp, 0, 0, 0 );
+}
+
+void drawMenu( Menu *menu )
+{
+    al_draw_bitmap( menu->bmp, menu->bg_x, menu->bg_y, 0 );
 }

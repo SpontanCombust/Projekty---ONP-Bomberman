@@ -8,6 +8,7 @@ SOURCES=-I./headers -I./src -I./libs \
 ./libs/matrix.h ./libs/matrix/matrix.c \
 \
 ./headers/_game_rules.h \
+./headers/_game_state.h \
 ./headers/_game.h \
 ./headers/actor.h \
 ./headers/ai.h \
@@ -19,18 +20,22 @@ SOURCES=-I./headers -I./src -I./libs \
 ./headers/level_tile_matrix_tools.h \
 ./headers/level.h \
 ./headers/logic.h \
+./headers/menus.h \
+./headers/player_input.h \
 ./headers/rendering.h \
 ./headers/sfx.h \
 ./headers/sprite_properties.h \
 \
-./src/game.c \
+./src/_game/game_essentials.c ./src/_game/game_functions.c ./src/_game/game_state_functions.c \
 ./src/actor/actor_essentials.c \
 ./src/ai/ai_essentials.c ./src/ai/ai_module_handler.c ./src/ai/path_array_creator.c \
 ./src/bomb/bomb_action.c ./src/bomb/bomb_container_manager.c ./src/bomb/bomb_essentials.c ./src/bomb/bomb_placing.c \
-./src/camera/camera_essentials.c ./src/camera/camera_handler.c \
+./src/camera/camera_essentials.c ./src/camera/camera_handler.c ./src/camera/mp_camera_module.c \
 ./src/level/level_creator.c ./src/level/level_essentials.c \
-./src/level_map/level_map_essentials.c ./src/level_map/level_map_gfx.c \
+./src/level_map/level_map_essentials.c ./src/level_map/level_map_rendering.c \
 ./src/logic/collision_handler.c ./src/logic/movement_handler.c \
+./src/menus/menu_essentials.c ./src/menus/menu_handler.c ./src/menus/menu_rendering.c ./src/menus/menu_templates.c \
+./src/player_input/input_handler.c \
 ./src/rendering/rendering.c \
 ./src/sfx/sfx_essentials.c ./src/sfx/sfx_container_manager.c \
 ./src/level_tile_matrix_tools/coordinate_translator.c ./src/level_tile_matrix_tools/level_tile_matrix_creator.c \
@@ -45,8 +50,8 @@ LINUX_CFLAGS=-O2 -Wall
 WINDOWS_GCC=i686-w64-mingw32-gcc
 WINDOWS_CFLAGS=-O2 -Wall
 MATH=-lm -ldl
-ALLEGRO5_LINUX=`pkg-config --cflags --libs allegro-5 allegro_main-5 allegro_image-5 allegro_color-5 allegro_font-5 allegro_ttf-5`
-ALLEGRO5_WINDOWS=`pkg-config --cflags --libs allegro-5 allegro_main-5 allegro_image-5 allegro_color-5 allegro_font-5 allegro_ttf-5`
+ALLEGRO5_LINUX=`pkg-config --cflags --libs allegro-5 allegro_main-5 allegro_image-5 allegro_color-5 allegro_font-5 allegro_ttf-5 allegro_primitives-5 allegro_dialog-5`
+ALLEGRO5_WINDOWS=`pkg-config --cflags --libs allegro-5 allegro_main-5 allegro_image-5 allegro_color-5 allegro_font-5 allegro_ttf-5 allegro_primitives-5 allegro_dialog-5`
 export PKG_CONFIG_PATH=/usr/x86_64-w64-mingw32/lib/pkgconfig/
 ####################
 

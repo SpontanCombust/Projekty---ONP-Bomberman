@@ -10,6 +10,23 @@
         "bomb_handlers.h": "c",
         "sfx.h": "c",
         "string.h": "c",
-        "level_tile_matrix_tools.h": "c"
+        "level_tile_matrix_tools.h": "c",
+        "fstream": "cpp",
+        "cctype": "cpp",
+        "cerrno": "cpp",
+        "climits": "cpp",
+        "clocale": "cpp",
+        "cmath": "cpp",
+        "cstdarg": "cpp",
+        "cstddef": "cpp",
+        "cstdio": "cpp",
+        "cstdlib": "cpp",
+        "cwchar": "cpp",
+        "cwctype": "cpp",
+        "tuple": "cpp",
+        "_game.h": "c",
+        "player_input.h": "c",
+        "rendering.h": "c",
+        "math.h": "c"
     }
 }

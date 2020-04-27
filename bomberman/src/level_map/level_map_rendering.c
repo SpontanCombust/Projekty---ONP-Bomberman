@@ -16,7 +16,7 @@ void drawBrittleBlock( int x, int y, ALLEGRO_BITMAP *brittle_block_sprite )
 void updateLevelMapBitmap( LevelMap *level_map, ALLEGRO_BITMAP *solid_block_sprite, ALLEGRO_BITMAP *brittle_block_sprite, ALLEGRO_DISPLAY *display )
 {
     al_set_target_bitmap( level_map->bmp );
-    al_clear_to_color( al_map_rgba( 0, 0, 0, 0 ) );
+    al_clear_to_color( level_map->bg );
 
     for (int i = 0; i < level_map->rows; i++)
     {

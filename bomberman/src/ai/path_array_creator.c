@@ -58,14 +58,15 @@ Path * createPathArray( char *enemies_file_path, int *paths_num )
             {
                 if( fgets( buffer, 100, enemies_file ) != NULL )
                 {
-                    strncpy( subbuf, buffer + 1, strlen( buffer ) - 2);
+                    strncpy( subbuf, buffer + 2, strlen( buffer ) - 3);
                     subbuf[ strlen( subbuf ) ] = '\0';
 
-                    if( buffer[0] == 'n' )
+                    if( buffer[0] == 'n' && buffer[1] == '=' )
                         *paths_num = atoi( subbuf );
                 }
 
                 paths_array = (Path *)calloc( *paths_num, sizeof( Path ) );
+                memset( subbuf, '\0', 100 );
             }
 
             else if( strcmp( buffer, "[paths]\n" ) == 0 )

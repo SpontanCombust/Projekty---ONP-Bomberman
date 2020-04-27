@@ -5,7 +5,7 @@
 #include "level_map.h"
 #include <allegro5/allegro.h>
 
-typedef struct S_Camera 
+typedef struct
 {
     Actor *target;
     float x, y;
@@ -13,6 +13,13 @@ typedef struct S_Camera
     ALLEGRO_TRANSFORM transform;
 
 } Camera;
+
+typedef struct
+{
+    Actor *target;
+    Actor *actor1, *actor2;
+
+} MultiPlayerCameraModule;
 
 
 // =================== camera_essentials.c ====================
@@ -25,5 +32,11 @@ void destroyCamera( Camera **camera );
 
 void updateCamera( Camera *camera );
 void disableCamera( Camera *camera );
+
+
+// =================== central_pivot.c =======================
+
+void applyActorsToCameraModule( MultiPlayerCameraModule *mpcm, Actor *actor1, Actor *actor2 );
+void updateCameraModule( MultiPlayerCameraModule *mpcm );
 
 #endif

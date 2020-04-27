@@ -1,13 +1,19 @@
 ; To jest komentarz
 ; Jesli linia z poczatku pliku zaczyna sie od ';', zostanie ona zignorowana
 ; Dane powinny byc oznaczone przez odpowiedni naglowek
+; [background] - nagl. koloru tla
+; kolor tworzony wedlug standardu RGB (0-255) 
 ; [dimensions] - nagl. wymiarow, [data] - nagl. danych mapy
 ; Wymiary moga byc najwyzej trzycyfrowe i znajdowac sie przed danymi mapy
 ; r - rows (rzedy), c - collumns (kolumny)
 ; 0 - pusta przestrzen, 1 - blok twardy, 2 - blok kruchy
+[background]
+r=0
+g=150
+b=0
 [dimensions]
-r11
-c27
+r=11
+c=27
 [data]
 000002002002000020000000002
 010101012121010101012101010
