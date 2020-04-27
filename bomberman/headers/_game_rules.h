@@ -4,7 +4,7 @@
 #define SCREEN_HEIGHT 540
 #define SCREEN_WIDTH 720
 
-#define LEVELS_MADE 2
+#define MAX_LOADED_LEVELS 10
 
 #define CAMERA_SCALE 2
 
@@ -33,5 +33,10 @@
 #define EXPLOSION_SPRITES_SRC "./sprites/explosion.png"
 #define PLAYER_SPRITES_SRC "./sprites/player_sheet.png"
 #define ENEMY1_SPRITES_SRC "./sprites/enemy1_sheet.png"
+
+#define PLAYER_SPRITES_PINK_SRC "./sprites/player_sheet_pink.png"
+#define PLAYER_SPRITES_RED_SRC "./sprites/player_sheet_red.png"
+#define PLAYER_SPRITES_BLUE_SRC "./sprites/player_sheet_blue.png"
+
 
 #endif

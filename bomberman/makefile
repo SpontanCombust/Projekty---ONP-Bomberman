@@ -17,6 +17,7 @@ SOURCES=-I./headers -I./src -I./libs \
 ./headers/camera.h \
 ./headers/direction.h \
 ./headers/level_map.h \
+./headers/level_scan_tools.h \
 ./headers/level_tile_matrix_tools.h \
 ./headers/level.h \
 ./headers/logic.h \
@@ -33,6 +34,7 @@ SOURCES=-I./headers -I./src -I./libs \
 ./src/camera/camera_essentials.c ./src/camera/camera_handler.c ./src/camera/mp_camera_module.c \
 ./src/level/level_creator.c ./src/level/level_essentials.c \
 ./src/level_map/level_map_essentials.c ./src/level_map/level_map_rendering.c \
+./src/level_scan_tools/level_scanner.c \
 ./src/logic/collision_handler.c ./src/logic/movement_handler.c \
 ./src/menus/menu_essentials.c ./src/menus/menu_handler.c ./src/menus/menu_rendering.c ./src/menus/menu_templates.c \
 ./src/player_input/input_handler.c \

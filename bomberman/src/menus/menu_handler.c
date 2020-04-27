@@ -46,6 +46,6 @@ void switchEntry( Menu *menu, int step ) {
     menu -> currently_highlighted = getNextHighlightableEntryIndex( menu, step );
 }
 
-void updateCurrentEntryVar( Menu *menu, char *entry_var ) {
-    strncpy( menu->entries[ menu->currently_highlighted ].entry_var, entry_var, MAX_ENTRY_VAR_LENGTH );
+void updateEntryVar( Menu *menu, int var_index, char *entry_var ) {
+    strncpy( menu->entries[ var_index ].entry_var, entry_var, MAX_ENTRY_VAR_LENGTH );
 }

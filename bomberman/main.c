@@ -15,7 +15,7 @@ ALLEGRO_BITMAP *enemy1_sprites = NULL;
 
 GameState gs;
 
-void playLevel( int level_num );
+void playLevel( char *level_id );
 
 int main( void )
 {
@@ -32,10 +32,11 @@ int main( void )
     initGameState( &gs );
 
     Menu *main_menu = createMainMenu( font_big, font_small );
-    Menu *options_menu = createOptionsMenu( font_big, font_small );
+    Menu *options_menu = createOptionsMenu( font_small, font_vsmall );
+    updateSelectedSkinVars( options_menu );
     Menu *mode_menu = createModeSelectionMenu( font_small, font_vsmall );
     Menu *level_menu = createLevelSelectionMenu( font_small, font_vsmall );
-
+    updateSelectedLevelVar( level_menu );
     Menu *current_menu = main_menu;
 
     updateMenuBitmap( current_menu, display );
@@ -56,6 +57,10 @@ int main( void )
             if( wasLevelSelected( gs ) ) {
                 updateSelectedLevelVar( level_menu );
                 signalStopSelectedALevel( &gs );
+            }
+            else if( wasSkinSelected( gs ) ) {
+                updateSelectedSkinVars( options_menu );
+                signalStopSelectedASkin( &gs );
             }
             signalRenderUpdate( &gs );
         }
@@ -86,7 +91,7 @@ int main( void )
         if( isGameRunning( gs ) )
         {
             al_pause_event_queue( main_eq, true );
-            playLevel( getSelectedLevel( gs ) );
+            playLevel( getSelectedLevel( &gs ) );
             al_pause_event_queue( main_eq, false );
         }
     }
@@ -105,7 +110,7 @@ int main( void )
 
 
 
-void playLevel( int level_num )
+void playLevel( char *level_id )
 {
     ALLEGRO_EVENT_QUEUE *eq = NULL;
     ALLEGRO_TIMER *game_timer = NULL;
@@ -135,7 +140,7 @@ void playLevel( int level_num )
     bool map_update = false;
     bool won = false, sudden_exit = true;
 
-    Level *level = createLevel( level_num, enemy1_sprites );
+    Level *level = createLevel( level_id, enemy1_sprites );
 
     if( level != NULL )
     {
@@ -173,7 +178,7 @@ void playLevel( int level_num )
             camera = createCamera( mpcm.target, level_map );
 
         clear_cond = KILL_ALL_ENEMIES;
-        doTitleScreen( font_big, font_small, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 75, level_num, clear_cond );
+        doTitleScreen( font_big, font_small, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 75, level_id, clear_cond );
 
         updateLevelMapBitmap( level_map, solid_block_sprite, brittle_block_sprite, display );
 

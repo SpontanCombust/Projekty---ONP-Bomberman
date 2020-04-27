@@ -7,16 +7,16 @@
 #include <stdio.h>
 #include <string.h>
 
-Level *createLevel( int level_number, ALLEGRO_BITMAP *enemy_bmp )
+Level *createLevel( char *level_id, ALLEGRO_BITMAP *enemy_bmp )
 {
     Level *level = ( Level * )malloc( sizeof( Level ) );
 
     char level_subfolder[10] = "";
-    sprintf( level_subfolder, "/level%d", level_number );
+    sprintf( level_subfolder, "/level%s", level_id );
     char map_file_name[20] = "";
-    sprintf( map_file_name, "/level%d_map.txt", level_number );
+    sprintf( map_file_name, "/level%s_map.txt", level_id );
     char enemies_file_name[20] = "";
-    sprintf( enemies_file_name, "/level%d_enemies.txt", level_number );
+    sprintf( enemies_file_name, "/level%s_enemies.txt", level_id );
 
     char file_path[40] = LEVELS_FOLDER;
     strcat( file_path, level_subfolder );
@@ -30,7 +30,7 @@ Level *createLevel( int level_number, ALLEGRO_BITMAP *enemy_bmp )
     Path * enemy_paths = createPathArray( file_path, &enemy_num );
 
     if( level_map == NULL || enemy_paths == NULL ) {
-        al_show_native_message_box( NULL, "ERROR", "ERROR!", "Level failed to load properly!", NULL, ALLEGRO_MESSAGEBOX_WARN );
+        al_show_native_message_box( NULL, "ERROR", "Level load error!", "Level failed to load properly!", NULL, ALLEGRO_MESSAGEBOX_WARN );
         return NULL;
     }
 

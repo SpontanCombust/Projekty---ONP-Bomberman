@@ -53,6 +53,7 @@ void clearUp( void );
 // =========================================================== game_funtions.c =======================================================================
 
 void updateSelectedLevelVar( Menu *ls_menu );
+void updateSelectedSkinVars( Menu *opt_menu );
 void switchMenu( Menu **current, Menu *goal );
 void updateContainers( Bomb *bomb_container[], SFX *sfx_container[], LevelMap *level_map, Actor **enemies, int enemy_num, ALLEGRO_BITMAP *explosion_bmp, bool *map_update );
 bool areContainersEmpty( Bomb *bomb_container[], SFX *sfx_container[] );

@@ -1,9 +1,12 @@
 #include "../../headers/_game.h"
 
 void updateSelectedLevelVar( Menu *ls_menu ) {
-    char level_str[ MAX_ENTRY_VAR_LENGTH ];
-    sprintf( level_str, "%d", getSelectedLevel( gs ) );
-    updateCurrentEntryVar( ls_menu, level_str );
+    updateEntryVar( ls_menu, LEVEL_VAR_INDEX, getSelectedLevel( &gs ) );
+}
+
+void updateSelectedSkinVars( Menu *opt_menu ) {
+    updateEntryVar( opt_menu, SKIN_P1_VAR_INDEX, getSelectedSkinP1( &gs ) );
+    updateEntryVar( opt_menu, SKIN_P2_VAR_INDEX, getSelectedSkinP2( &gs ) );
 }
 
 void switchMenu( Menu **current, Menu *goal ) {

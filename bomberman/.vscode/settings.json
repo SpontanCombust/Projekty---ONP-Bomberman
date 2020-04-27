@@ -27,6 +27,8 @@
         "_game.h": "c",
         "player_input.h": "c",
         "rendering.h": "c",
-        "math.h": "c"
+        "math.h": "c",
+        "level_scan_tools.h": "c",
+        "allegro_native_dialog.h": "c"
     }
 }

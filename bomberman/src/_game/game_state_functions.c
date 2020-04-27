@@ -1,18 +1,38 @@
 #include "../../headers/_game.h"
 
+#include "../../headers/level_scan_tools.h"
+#include "../../headers/_game_rules.h"
+
+int levels_made;
+char levels[MAX_LOADED_LEVELS][10]; 
+#define SKINS_MADE 3
+char skins[SKINS_MADE][10] = { "PINK", "RED", "BLUE" };
+
 void initGameState( GameState *gs )
 {
+    scanForLevels( levels, &levels_made );
+
     gs -> done = false;
+
     gs -> options = false;
     gs -> mode_selection = false;
     gs -> level_selection = false;
-    gs -> pause = false;
-    gs -> current_level = 1;
     gs -> game_on = false;
+    gs -> pause = false;
+
     gs -> game_mode = SINGLE_PLAYER;
+    gs -> selected_a_level = false;
+    strcpy( gs -> current_level, levels[0] );
+
+    gs -> selected_a_skin = false;
+    strcpy( gs -> current_skinP1, skins[0] );
+    strcpy( gs -> current_skinP2, skins[1] );
+
     gs -> take_stop_frame = false;
-    gs -> render_update = false;
+    gs -> player_died = false;
+
     gs -> menu_update = false; 
+    gs -> render_update = false;
 }
 void signalShuttingDown( GameState *gs ) 
 {
@@ -31,20 +51,38 @@ bool isInOptions( GameState gs ) {
 }
 void selectNextLevel( GameState *gs ) 
 {
-    if( gs->current_level < LEVELS_MADE ) {
-        gs -> current_level += 1;
-        gs -> selected_a_level = true;
+    for (int i = 0; i < levels_made - 1; i++)
+    {
+        if( strcmp( gs->current_level, levels[i] ) == 0 )
+        {
+            memset( gs->current_level, '\0', 2 );
+            strcpy( gs->current_level, levels[i + 1] );
+            gs -> selected_a_level = true;
+            break;
+        }
     }
 }
 void selectPrevLevel( GameState *gs ) 
 {
-    if( gs->current_level > 1 ) {
-        gs -> current_level -= 1;
-        gs -> selected_a_level = true;
+    for (int i = 1; i < levels_made; i++)
+    {
+        if( strcmp( gs->current_level, levels[i] ) == 0 )
+        {
+            memset( gs->current_level, '\0', 2 );
+            strcpy( gs->current_level, levels[i - 1] );
+            gs -> selected_a_level = true;
+            break;
+        }
     }
 }
-int getSelectedLevel( GameState gs ) {
-    return gs.current_level;
+void signalStopSelectedALevel( GameState *gs ) {
+    gs -> selected_a_level = false;
+}
+bool wasLevelSelected( GameState gs ) {
+    return gs.selected_a_level;
+}
+char *getSelectedLevel( GameState *gs ) {
+    return gs->current_level;
 }
 void signalGoingToMainMenu( GameState *gs ) 
 {
@@ -139,15 +177,70 @@ bool didPlayerDie( GameState gs ) {
 bool isInLevelSelection( GameState gs ) {
     return gs.level_selection;
 }
-void signalStopSelectedALevel( GameState *gs ) {
-    gs -> selected_a_level = false;
-}
-bool wasLevelSelected( GameState gs ) {
-    return gs.selected_a_level;
-}
 void signalStopMenuSwitch( GameState *gs ) {
     gs -> menu_switch = false;
 }
 bool isMenuSwitch( GameState gs ) {
     return gs.menu_switch;
+}
+void selectNextSkinP1( GameState *gs )
+{
+    for (int i = 0; i < SKINS_MADE - 1; i++)
+    {
+        if( strcmp( gs->current_skinP1, skins[i] ) == 0 )
+        {
+            memset( gs->current_skinP1, '\0', 10 );
+            strcpy( gs->current_skinP1, skins[i + 1] );
+            gs -> selected_a_skin = true;
+            break;
+        }
+    }
+}
+void selectPrevSkinP1( GameState *gs )
+{
+    for (int i = 1; i < SKINS_MADE; i++)
+    {
+        if( strcmp( gs->current_skinP1, skins[i] ) == 0 ) {
+            memset( gs->current_skinP1, '\0', 10 );
+            strcpy( gs->current_skinP1, skins[i - 1] );
+            gs -> selected_a_skin = true;
+            break;
+        }
+    }
+}
+char *getSelectedSkinP1( GameState *gs ) {
+    return gs->current_skinP1;
+}
+void selectNextSkinP2( GameState *gs )
+{
+    for (int i = 0; i < SKINS_MADE - 1; i++)
+    {
+        if( strcmp( gs->current_skinP2, skins[i] ) == 0 ) {
+            memset( gs->current_skinP2, '\0', 10 );
+            strcpy( gs->current_skinP2, skins[i + 1] );
+            gs -> selected_a_skin = true;
+            break;
+        }
+    }
+}
+void selectPrevSkinP2( GameState *gs )
+{
+    for (int i = 1; i < SKINS_MADE; i++)
+    {
+        if( strcmp( gs->current_skinP2, skins[i] ) == 0 ) {
+            memset( gs->current_skinP2, '\0', 10 );
+            strcpy( gs->current_skinP2, skins[i - 1] );
+            gs -> selected_a_skin = true;
+            break;
+        }
+    }
+}
+char *getSelectedSkinP2( GameState *gs ) {
+    return gs->current_skinP2;
+}
+void signalStopSelectedASkin( GameState *gs ) {
+    gs -> selected_a_skin = false;
+}
+bool wasSkinSelected( GameState gs ) {
+    return gs.selected_a_skin;
 }

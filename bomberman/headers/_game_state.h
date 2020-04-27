@@ -16,10 +16,13 @@ typedef struct
     bool game_on;
     bool pause;
 
-    bool selected_a_level;
-    int current_level;
-
     GameMode game_mode;
+    bool selected_a_level;
+    char current_level[2];
+
+    bool selected_a_skin;
+    char current_skinP1[10];
+    char current_skinP2[10];
 
     bool take_stop_frame;
     bool player_died;
@@ -39,7 +42,9 @@ void signalGoingToOptions( GameState *gs );
 bool isInOptions( GameState gs );
 void selectNextLevel( GameState *gs );
 void selectPrevLevel( GameState *gs );
-int getSelectedLevel( GameState gs );
+char *getSelectedLevel( GameState *gs );
+void signalStopSelectedALevel( GameState *gs );
+bool wasLevelSelected( GameState gs );
 void signalGoingToMainMenu( GameState *gs );
 void signalStartingGame( GameState *gs );
 void signalEndingGame( GameState *gs );
@@ -65,10 +70,15 @@ void signalPlayerDied( GameState *gs );
 void signalStopPlayerDied( GameState *gs );
 bool didPlayerDie( GameState gs );
 bool isInLevelSelection( GameState gs );
-void signalStopSelectedALevel( GameState *gs );
-bool wasLevelSelected( GameState gs );
 void signalStopMenuSwitch( GameState *gs );
 bool isMenuSwitch( GameState gs );
-
+void selectNextSkinP1( GameState *gs );
+void selectPrevSkinP1( GameState *gs );
+char *getSelectedSkinP1( GameState *gs );
+void selectNextSkinP2( GameState *gs );
+void selectPrevSkinP2( GameState *gs );
+char *getSelectedSkinP2( GameState *gs );
+void signalStopSelectedASkin( GameState *gs );
+bool wasSkinSelected( GameState gs );
 
 #endif
