@@ -1,5 +1,17 @@
 #include "../../headers/_game.h"
 
+void updateSelectedLevelVar( Menu *ls_menu ) {
+    char level_str[ MAX_ENTRY_VAR_LENGTH ];
+    sprintf( level_str, "%d", getSelectedLevel( gs ) );
+    updateCurrentEntryVar( ls_menu, level_str );
+}
+
+void switchMenu( Menu **current, Menu *goal ) {
+    *current = goal;
+    resetToDefaultHighlighted( *current );
+    signalStopMenuSwitch( &gs );
+}
+
 void updateContainers( Bomb *bomb_container[], SFX *explosion_container[], SFX *corpse_container[], LevelMap *level_map, Actor **enemies, int enemy_num, ALLEGRO_BITMAP *explosion_bmp, bool *map_update )
 {
     for (int i = 0; i < BOMB_BUDGET; i++)
@@ -100,8 +112,10 @@ void updatePlayer( Actor *player, LevelMap *level_map, Actor * *enemies, int ene
             bool blown_up = isSFXAtTile( tileFromPixel( player->x + TILE_SIZE/2 ), tileFromPixel( player->y + TILE_SIZE/2 ), explosion_container, EXPLOSION_BUDGET );
             bool touched_enemy = isCollisionWithEnemies( player, enemies, enemy_num );
         
-            if( blown_up || touched_enemy )
+            if( blown_up || touched_enemy ) {
                 killActor( player, corpse_container );
+                signalPlayerDied( &gs );
+            }
         }
     }
 }
@@ -133,7 +147,6 @@ void updateEnemies( AIModule * *enemy_modules, int enemy_num, SFX *explosion_con
 
 void updateGFX( Actor *player1, Actor *player2, Actor * *enemies, int enemy_num, LevelMap *level_map, Bomb *bomb_container[], SFX *explosion_container[], SFX *corpse_container[] )
 {
-    al_clear_to_color( al_map_rgb( 0, 150, 0 ) );
     drawLevelMap( level_map );
     drawBombs( bomb_container );
     drawSFX( explosion_container, EXPLOSION );
@@ -159,4 +172,31 @@ bool areAllEnemiesDead( Actor * *enemies, int enemy_num )
             return false;
     }
     return true;
+}
+
+void handleCameraOnPlayerDeath( Camera *camera, Actor *player1, Actor *player2 )
+{
+    if( player2 != NULL ) {
+        if( !player1->alive && player2->alive )
+            camera -> target = player2;
+        else if( !player2->alive && player1->alive )
+            camera -> target = player1;
+    }
+}
+
+void handleTakingGameStopFrame( ALLEGRO_BITMAP **gsf, Camera *camera, Actor *player1, Actor *player2, ALLEGRO_EVENT_QUEUE *eq, GameState *gs )
+{
+    *gsf = al_get_backbuffer( display );
+
+    disableCamera( camera );
+    resetVelocity( player1 );
+    if( player2 != NULL ) resetVelocity( player2 );
+
+    al_flush_event_queue( eq );
+    signalStopTakingGameStopFrame( gs );
+}
+
+bool areAllPlayersDead( Actor *player1, Actor *player2 )
+{
+    return !player1->alive && ( player2 == NULL || !player2->alive );
 }

@@ -47,11 +47,11 @@ void handleMenuInputKeyDown( char keyboard_keycode, Menu *menu, GameState *gs )
     switch ( keyboard_keycode )
     {
         case ALLEGRO_KEY_DOWN:
-            updateCurrentlySelectedEntry( menu, 1 );
+            switchEntry( menu, 1 );
             signalMenuUpdate( gs );
             break;
         case ALLEGRO_KEY_UP:
-            updateCurrentlySelectedEntry( menu, -1 );
+            switchEntry( menu, -1 );
             signalMenuUpdate( gs );
             break;
         case ALLEGRO_KEY_LEFT:

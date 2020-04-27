@@ -7,6 +7,7 @@ typedef struct
 {
     int rows, collumns;
     int **tile_matrix;
+    ALLEGRO_COLOR bg;
     ALLEGRO_BITMAP *bmp;
 
 } LevelMap;

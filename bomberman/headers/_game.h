@@ -20,6 +20,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_native_dialog.h>
+#include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_font.h>
@@ -37,6 +39,7 @@ extern ALLEGRO_BITMAP *explosion_sprite;
 extern ALLEGRO_BITMAP *player_sprites;
 extern ALLEGRO_BITMAP *enemy1_sprites;
 
+extern GameState gs;
 
 // ========================================================= game_essentials.c =======================================================================
 
@@ -47,6 +50,8 @@ void clearUp( void );
 
 // =========================================================== game_funtions.c =======================================================================
 
+void updateSelectedLevelVar( Menu *ls_menu );
+void switchMenu( Menu **current, Menu *goal );
 void updateContainers( Bomb *bomb_container[], SFX *explosion_container[], SFX *corpse_container[], LevelMap *level_map, Actor **enemies, int enemy_num, ALLEGRO_BITMAP *explosion_bmp, bool *map_update );
 bool areEmptyContainers( Bomb *bomb_container[], SFX *explosion_container[], SFX *corpse_container[] );
 void updatePlayer( Actor *player, LevelMap *level_map, Actor * *enemies, int enemy_num, SFX *explosion_container[], SFX *corpse_container[] );
@@ -54,6 +59,8 @@ void updateEnemies( AIModule * *enemy_modules, int enemy_num, SFX *explosion_con
 void updateGFX( Actor *player1, Actor *player2, Actor * *enemies, int enemy_num, LevelMap *level_map, Bomb *bomb_container[], SFX *explosion_container[], SFX *corpse_container[] );
 void updateGFXOnPause( ALLEGRO_BITMAP *game_stop_frame, Menu *pause_menu );
 bool areAllEnemiesDead( Actor ** enemies, int enemy_num );
-
+void handleCameraOnPlayerDeath( Camera *camera, Actor *player1, Actor *player2 );
+void handleTakingGameStopFrame( ALLEGRO_BITMAP **gsf, Camera *camera, Actor *player1, Actor *player2, ALLEGRO_EVENT_QUEUE *eq, GameState *gs );
+bool areAllPlayersDead( Actor *player1, Actor *player2 );
 
 #endif

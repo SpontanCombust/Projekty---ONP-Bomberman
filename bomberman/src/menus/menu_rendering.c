@@ -1,15 +1,36 @@
 #include "../../headers/menus.h"
 
+#include <allegro5/allegro_primitives.h>
 
-static void drawEntryText( Menu *menu, float y, int i )
+static void drawEntryContent( Menu *menu, float y, int i )
 {
-    if( menu->currently_selected == i ) {
-        float cursor_w = al_get_text_width( menu->font, ">" );
-        float cursor_x = menu->entry_orig_x - al_get_text_width( menu->font, menu->entries[i].entry_text )/2 - cursor_w - 10;
-        al_draw_text( menu->font, menu->font_color, cursor_x, y, 0, ">" );
-    }
+    al_draw_text( menu->main_font, menu->main_font_color, menu->entry_orig_x, y, ALLEGRO_ALIGN_CENTER, menu->entries[i].entry_text );
 
-    al_draw_text( menu->font, menu->font_color, menu->entry_orig_x, y, ALLEGRO_ALIGN_CENTER, menu->entries[i].entry_text );
+    float entry_text_width = al_get_text_width( menu->main_font, menu->entries[i].entry_text );
+    if( !menu->entries[i].highlightable ) {
+        float line_y = y + al_get_font_ascent( menu->main_font ) + 5;
+        al_draw_line( menu->entry_orig_x - entry_text_width/2, line_y, menu->entry_orig_x + entry_text_width/2, line_y, menu->main_font_color, 2 );
+    }
+    if( menu->currently_highlighted == i ) {
+        float cursor_x = menu->entry_orig_x - entry_text_width/2 - 10;
+        al_draw_text( menu->main_font, menu->sub_font_color, cursor_x, y, ALLEGRO_ALIGN_RIGHT, ">" );
+    }
+    if( menu->entries[i].has_var )
+    {
+        float left_arrow_x = menu->entry_orig_x + entry_text_width/2 + 10;
+        float arrow_w = al_get_text_width( menu->sub_font, "<" );
+        float var_width = al_get_text_width( menu->main_font, menu->entries[i].entry_var );
+        float arrow_y = y + al_get_font_ascent( menu->main_font )/2 - al_get_font_ascent( menu->sub_font )/4;
+        al_draw_text( menu->main_font, menu->main_font_color, left_arrow_x + arrow_w + 5, y, 0, menu->entries[i].entry_var );
+
+        if( menu->currently_highlighted == i ) {
+            al_draw_text( menu->sub_font, menu->sub_font_color, left_arrow_x, arrow_y, 0, "<" );
+            al_draw_text( menu->sub_font, menu->sub_font_color, left_arrow_x + arrow_w + 5 + var_width + 5, arrow_y, 0, ">" );
+        } else {
+            al_draw_text( menu->sub_font, menu->main_font_color, left_arrow_x, arrow_y, 0, "<" );
+            al_draw_text( menu->sub_font, menu->main_font_color, left_arrow_x + arrow_w + 5 + var_width + 5, arrow_y, 0, ">" );
+        }
+    }
 }
 
 void updateMenuBitmap( Menu *menu, ALLEGRO_DISPLAY *display )
@@ -29,8 +50,8 @@ void updateMenuBitmap( Menu *menu, ALLEGRO_DISPLAY *display )
     for (int i = 0; i < MAX_ENTRIES; i++)
     {
         if( menu->entries[i].entry_set )
-            drawEntryText( menu, current_y, i );
-        current_y += menu->line_spacing + al_get_font_ascent( menu->font ); 
+            drawEntryContent( menu, current_y, i );
+        current_y += menu->line_spacing + al_get_font_ascent( menu->main_font ); 
     }
 
     al_set_target_backbuffer( display );

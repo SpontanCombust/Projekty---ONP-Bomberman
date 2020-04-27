@@ -7,7 +7,7 @@
 
 // ======================== tile_matrix_creator.c =======================
 
-int **createLevelTileMatrix( FILE *map_file, int *rows, int *collumns );
+int **createLevelTileMatrix( FILE *map_file, int *rows, int *collumns, unsigned char *r, unsigned char *g, unsigned char *b );
 
 
 // ===================================== coordinate_translator.c =================================

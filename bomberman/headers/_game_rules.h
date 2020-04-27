@@ -4,7 +4,7 @@
 #define SCREEN_HEIGHT 540
 #define SCREEN_WIDTH 720
 
-#define LEVELS_MADE 1
+#define LEVELS_MADE 2
 
 #define CAMERA_SCALE 2
 
@@ -20,6 +20,10 @@
 
 #define PLAYER_SPEED 1.3
 #define ENEMY_SPEED 1.2
+
+#define COLOR_BLACK al_map_rgb( 0, 0, 0 )
+#define COLOR_WHITE al_map_rgb( 255, 255, 255 )
+#define COLOR_YELLOW al_map_rgb( 255, 255, 0 )
 
 #define FONT_SRC "./fonts/PixelFJVerdana12pt.ttf"
 #define LEVELS_FOLDER "./levels"

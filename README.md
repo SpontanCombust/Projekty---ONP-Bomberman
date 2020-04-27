@@ -36,6 +36,6 @@ Bomberman:
 - [x] menu główne
 - [ ] opcje
 - [ ] tryb PvP
-- [ ] tryb kooperacyjny
+- [x] tryb kooperacyjny
 - [ ] dodanie kilku nowych poziomów
 - [ ] ulepszona szata graficzna

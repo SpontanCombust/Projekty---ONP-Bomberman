@@ -6,7 +6,7 @@
 ; formula linii sciezki: 
 ; ilosc_krokow krok1x,krok2y krok2x,krok2y ... kroknx,krokny
 [quantity]
-n8
+n=8
 [paths]
 2 0,10 5,10
 3 6,8 8,8 8,10

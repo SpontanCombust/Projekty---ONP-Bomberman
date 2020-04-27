@@ -21,11 +21,29 @@ int initAllegro( void )
     al_set_window_position( display, 600, 300 );
 
     al_install_keyboard();
+    al_init_primitives_addon();
+    al_init_native_dialog_addon();
     al_init_image_addon();
     al_init_font_addon();
     al_init_ttf_addon();
 
     return 0;
+}
+
+int initAssets( void )
+{
+    font_big = al_load_font( FONT_SRC, 40, 0 );
+    font_small = al_load_font( FONT_SRC, 30, 0 );
+    font_vsmall = al_load_font( FONT_SRC, 12, 0 );
+
+    solid_block_sprite = al_load_bitmap( SOLID_BLOCK_SPRITES_SRC );
+    brittle_block_sprite = al_load_bitmap( BRITTLE_BLOCK_SPRITES_SRC );    
+    bomb_sprite = al_load_bitmap( BOMB_SPRITES_SRC );
+    explosion_sprite = al_load_bitmap( EXPLOSION_SPRITES_SRC );
+    player_sprites = al_load_bitmap( PLAYER_SPRITES_SRC );
+    enemy1_sprites = al_load_bitmap( ENEMY1_SPRITES_SRC );
+
+    return validateAssets();
 }
 
 int validateAssets( void )
@@ -61,22 +79,6 @@ int validateAssets( void )
     return 0;
 }
 
-int initAssets( void )
-{
-    font_big = al_load_font( FONT_SRC, 40, 0 );
-    font_small = al_load_font( FONT_SRC, 30, 0 );
-    font_vsmall = al_load_font( FONT_SRC, 12, 0 );
-
-    solid_block_sprite = al_load_bitmap( SOLID_BLOCK_SPRITES_SRC );
-    brittle_block_sprite = al_load_bitmap( BRITTLE_BLOCK_SPRITES_SRC );    
-    bomb_sprite = al_load_bitmap( BOMB_SPRITES_SRC );
-    explosion_sprite = al_load_bitmap( EXPLOSION_SPRITES_SRC );
-    player_sprites = al_load_bitmap( PLAYER_SPRITES_SRC );
-    enemy1_sprites = al_load_bitmap( ENEMY1_SPRITES_SRC );
-
-    return validateAssets();
-}
-
 void clearUp( void )
 {
     al_destroy_bitmap( solid_block_sprite );
@@ -87,5 +89,12 @@ void clearUp( void )
     al_destroy_bitmap( enemy1_sprites );
     al_destroy_font( font_big );
     al_destroy_font( font_small );
+    al_destroy_font( font_vsmall );
     al_destroy_display( display ); 
+
+    al_uninstall_keyboard();
+    al_shutdown_native_dialog_addon();
+    al_shutdown_image_addon();
+    al_shutdown_font_addon();
+    al_shutdown_ttf_addon();
 }

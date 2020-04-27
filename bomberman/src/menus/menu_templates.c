@@ -3,84 +3,137 @@
 #include "../../headers/_game_rules.h"
 #include "../../headers/_game_state.h"
 
-Menu *createMainMenu( ALLEGRO_FONT *font )
+Menu *createMainMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
 {
-    Menu *main_menu = createMenu( font );
-    setMenuBgData( main_menu, al_map_rgb( 0, 0, 0 ), 1, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
-    setMenuTextData( main_menu, al_map_rgb( 255, 255, 255 ), SCREEN_WIDTH/2, SCREEN_HEIGHT/4, DEFAULT_LINE_SPACING );
+    Menu *menu = createMenu( main_font, sub_font );
+    setMenuBgData( menu, COLOR_BLACK, 1, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+    setMenuTextData( menu, COLOR_WHITE, COLOR_YELLOW, SCREEN_WIDTH/2, SCREEN_HEIGHT/4, DEFAULT_LINE_SPACING );
 
-    setEntryText( main_menu, 0, "PLAY" );
-    setEntrySelectOperation( main_menu, 0, signalInModeSelection );
-    enableEntry( main_menu, 0 );
+    setEntryText( menu, 0, "PLAY" );
+    setEntrySelectOperation( menu, 0, signalGoingToModeSelection );
+    setHighlightable( menu, 0 );
+    enableEntry( menu, 0 );
 
-    setEntryText( main_menu, 1, "OPTIONS" );
-    setEntrySelectOperation( main_menu, 1, signalInOptions );
-    enableEntry( main_menu, 1 );
+    setEntryText( menu, 1, "OPTIONS" );
+    setEntrySelectOperation( menu, 1, signalGoingToOptions );
+    setHighlightable( menu, 1 );
+    enableEntry( menu, 1 );
 
-    setEntryText( main_menu, 3, "EXIT" );
-    setEntrySelectOperation( main_menu, 3, signalShuttingDown );
-    enableEntry( main_menu, 3 );
+    setEntryText( menu, 3, "EXIT" );
+    setEntrySelectOperation( menu, 3, signalShuttingDown );
+    setHighlightable( menu, 3 );
+    enableEntry( menu, 3 );
 
-    return main_menu;
+    setDefaultHighlighted( menu, 0 );
+
+    return menu;
 }
 
-Menu *createOptionsMenu( ALLEGRO_FONT *font )
+Menu *createOptionsMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
 {
-    Menu *options = createMenu( font );
-    setMenuBgData( options, al_map_rgb( 0, 0, 0 ), 1, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
-    setMenuTextData( options, al_map_rgb( 255, 255, 255 ), SCREEN_WIDTH/2, SCREEN_HEIGHT/4, DEFAULT_LINE_SPACING );
+    Menu *menu = createMenu( main_font, sub_font );
+    setMenuBgData( menu, COLOR_BLACK, 1, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+    setMenuTextData( menu, COLOR_WHITE, COLOR_YELLOW, SCREEN_WIDTH/2, SCREEN_HEIGHT/4, DEFAULT_LINE_SPACING );
 
-    setEntryText( options, 3, "GO BACK" );
-    setEntrySelectOperation( options, 3, signalGoingToMainMenu );
-    enableEntry( options, 3 );
+    setEntryText( menu, 3, "GO BACK" );
+    setEntrySelectOperation( menu, 3, signalGoingToMainMenu );
+    setHighlightable( menu, 3 );
+    enableEntry( menu, 3 );
 
-    setMenuEscOperation( options, signalGoingToMainMenu );
+    setMenuEscOperation( menu, signalGoingToMainMenu );
+    setDefaultHighlighted( menu, 3 );
 
-    return options;
+    return menu;
 }
 
-Menu *createPauseMenu( ALLEGRO_FONT *font )
+Menu *createPauseMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
 {
-    Menu *pause = createMenu( font );
-    setMenuBgData( pause,  al_map_rgb( 0, 0, 0 ), 0.5, 0, 0, SCREEN_WIDTH/3, SCREEN_HEIGHT );
-    setMenuTextData( pause, al_map_rgb( 255, 255, 255 ), pause->bg_w/2, pause->bg_h/8, DEFAULT_LINE_SPACING );
+    Menu *menu = createMenu( main_font, sub_font );
+    setMenuBgData( menu,  COLOR_BLACK, 0.5, 0, 0, SCREEN_WIDTH/3, SCREEN_HEIGHT );
+    setMenuTextData( menu, COLOR_WHITE, COLOR_YELLOW, menu->bg_w/2, menu->bg_h/8, DEFAULT_LINE_SPACING );
 
-    setEntryText( pause, 0, "RESUME" );
-    setEntrySelectOperation( pause, 0, signalUnpausingGame );
-    enableEntry( pause, 0 );
+    setEntryText( menu, 0, "PAUSE" );
+    enableEntry( menu, 0 );
 
-    setEntryText( pause, 1, "TO MAIN MENU");
-    setEntrySelectOperation( pause, 1, signalGoingToMainMenu );
-    enableEntry( pause, 1 );
+    setEntryText( menu, 2, "RESUME" );
+    setEntrySelectOperation( menu, 2, signalUnpausingGame );
+    setHighlightable( menu, 2 );
+    enableEntry( menu, 2 );
 
-    setMenuEscOperation( pause, signalUnpausingGame );
+    setEntryText( menu, 3, "TO MAIN MENU");
+    setEntrySelectOperation( menu, 3, signalEndingGame );
+    setHighlightable( menu, 3 );
+    enableEntry( menu, 3 );
 
-    return pause;
+    setMenuEscOperation( menu, signalUnpausingGame );
+    setDefaultHighlighted( menu, 2 );
+
+    return menu;
 }
 
-Menu *createModeSelectionMenu( ALLEGRO_FONT *font )
+Menu *createModeSelectionMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
 {
-    Menu *mode = createMenu( font );
-    setMenuBgData( mode, al_map_rgb( 0, 0, 0 ), 1, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
-    setMenuTextData( mode, al_map_rgb( 255, 255, 255 ), SCREEN_WIDTH/2, SCREEN_HEIGHT/8, DEFAULT_LINE_SPACING );
+    Menu *menu = createMenu( main_font, sub_font );
+    setMenuBgData( menu, COLOR_BLACK, 1, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+    setMenuTextData( menu, COLOR_WHITE, COLOR_YELLOW, SCREEN_WIDTH/2, 10, DEFAULT_LINE_SPACING );
 
-    setEntryText( mode, 0, "SINGLE PLAYER" );
-    setEntrySelectOperation( mode, 0, signalSinglePlayerMode );
-    enableEntry( mode, 0 );
+    setEntryText( menu, 0, "MODE SELECTION" );
+    enableEntry( menu, 0 );
 
-    setEntryText( mode, 1, "CO-OP");
-    setEntrySelectOperation( mode, 1, signalCoopMode );
-    enableEntry( mode, 1 );
+    setEntryText( menu, 2, "SINGLE PLAYER" );
+    setEntrySelectOperation( menu, 2, signalChoosingSinglePlayerMode );
+    setHighlightable( menu, 2 );
+    enableEntry( menu, 2 );
 
-    setEntryText( mode, 2, "PvP" );
-    setEntrySelectOperation( mode, 2, signalPvPMode );
-    enableEntry( mode, 2 );
+    setEntryText( menu, 3, "CO-OP");
+    setEntrySelectOperation( menu, 3, signalChoosingCoopMode );
+    setHighlightable( menu, 3 );
+    enableEntry( menu, 3 );
 
-    setEntryText( mode, 4, "GO BACK" );
-    setEntrySelectOperation( mode, 4, signalGoingToMainMenu );
-    enableEntry( mode, 4 );
+    setEntryText( menu, 4, "PvP" );
+    setEntrySelectOperation( menu, 4, signalChoosingPvPMode );
+    setHighlightable( menu, 4 );
+    enableEntry( menu, 4 );
 
-    setMenuEscOperation( mode, signalGoingToMainMenu );
+    setEntryText( menu, 6, "GO BACK" );
+    setEntrySelectOperation( menu, 6, signalGoingToMainMenu );
+    setHighlightable( menu, 6 );
+    enableEntry( menu, 6 );
 
-    return mode;
+    setMenuEscOperation( menu, signalGoingToMainMenu );
+    setDefaultHighlighted( menu, 2 );
+
+    return menu;
+}
+
+Menu *createLevelSelectionMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
+{
+    Menu *menu = createMenu( main_font, sub_font );
+    setMenuBgData( menu, COLOR_BLACK, 1, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+    setMenuTextData( menu, COLOR_WHITE, COLOR_YELLOW, SCREEN_WIDTH/2, SCREEN_HEIGHT/8, DEFAULT_LINE_SPACING );
+    setDefaultHighlighted( menu, 2 );
+
+    setEntryText( menu, 0, "SELECT LEVEL" );
+    enableEntry( menu, 0 );
+
+    setEntryText( menu, 2, "START!" );
+    setEntrySelectOperation( menu, 2, signalStartingGame );
+    setHighlightable( menu, 2 );
+    enableEntry( menu, 2 );
+
+    setEntryText( menu, 3, "LEVEL:" );
+    setEntryVar( menu, 3, "1" );
+    setEntryLeftOperation( menu, 3, selectPrevLevel );
+    setEntryRightOperation( menu, 3, selectNextLevel );
+    setHighlightable( menu, 3 );
+    enableEntry( menu, 3 );
+
+    setEntryText( menu, 5, "GO BACK" );
+    setEntrySelectOperation( menu, 5, signalGoingToModeSelection );
+    setHighlightable( menu, 5 );
+    enableEntry( menu, 5 );
+
+    setMenuEscOperation( menu, signalGoingToModeSelection );
+
+    return menu;
 }

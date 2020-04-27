@@ -26,6 +26,7 @@
         "tuple": "cpp",
         "_game.h": "c",
         "player_input.h": "c",
-        "rendering.h": "c"
+        "rendering.h": "c",
+        "math.h": "c"
     }
 }
