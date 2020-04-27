@@ -8,6 +8,7 @@ int initAllegro( void )
         return -1;
     }
 
+    al_set_new_display_flags( ALLEGRO_WINDOWED );
     display = al_create_display( SCREEN_WIDTH, SCREEN_HEIGHT );
 
     if( !display )
@@ -16,7 +17,6 @@ int initAllegro( void )
         return -2;
     }
 
-    al_set_new_display_flags( ALLEGRO_WINDOWED );
     al_set_window_title( display, "BOMBERMAN" );
     al_set_window_position( display, 600, 300 );
 

@@ -15,9 +15,8 @@
 // ======================== rendering.c =======================
 
 void drawBombs( Bomb *bomb_container[] );
-void drawSFX( SFX *sfx_container[], enum SFX_Type type );
-void drawPlayer( Actor *player );
-void drawEnemies( Actor * *enemies, int enemy_num );
+void drawSFX( SFX *sfx_container[] );
+void drawActor( Actor *actor );
 void drawLevelMap( LevelMap *level_map );
 void drawMenu( Menu *menu );
 

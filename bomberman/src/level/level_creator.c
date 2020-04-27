@@ -48,8 +48,6 @@ Level *createLevel( int level_number, ALLEGRO_BITMAP *enemy_bmp )
     level -> enemy_intit_count = enemy_num;
     level -> enemies = enemies;
     level -> ai_modules = ai_modules;
-    // level -> block_count = countContentInMatrix( level_map->tile_matrix, level_map->rows, level_map->collumns, BRITTLE_BLOCK );
-    // level -> enemy_count = enemy_num;
 
     return level;
 }

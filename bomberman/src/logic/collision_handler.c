@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <math.h>
 
-bool isOutOfBounds( Actor *actor, LevelMap *level_map, enum Direction *cdir )
+bool isOutOfBounds( Actor *actor, LevelMap *level_map, Direction *cdir )
 {
     bool outOfBounds = false;
 
@@ -33,7 +33,7 @@ bool isOutOfBounds( Actor *actor, LevelMap *level_map, enum Direction *cdir )
     return outOfBounds;
 }
 
-void handleOutOfBounds( Actor *actor, LevelMap *level_map, enum Direction cdir )
+void handleOutOfBounds( Actor *actor, LevelMap *level_map, Direction cdir )
 {
     switch ( cdir )
     {
@@ -59,7 +59,7 @@ static bool isCollidedVertexOnTerrain( float vertex_x, float vertex_y, LevelMap 
     return false;
 }
 
-bool isTerrainCollisionX( Actor *actor, LevelMap *level_map, enum Direction *cdir )
+bool isTerrainCollisionX( Actor *actor, LevelMap *level_map, Direction *cdir )
 {
     bool terrainCollision = false;
 
@@ -79,7 +79,7 @@ bool isTerrainCollisionX( Actor *actor, LevelMap *level_map, enum Direction *cdi
     return terrainCollision;
 }
 
-bool isTerrainCollisionY( Actor *actor, LevelMap *level_map, enum Direction *cdir )
+bool isTerrainCollisionY( Actor *actor, LevelMap *level_map, Direction *cdir )
 {
     bool terrainCollision = false;
 
@@ -99,7 +99,7 @@ bool isTerrainCollisionY( Actor *actor, LevelMap *level_map, enum Direction *cdi
     return terrainCollision;
 }
 
-void handleTerrainCollision( Actor *actor, enum Direction cdir )
+void handleTerrainCollision( Actor *actor, Direction cdir )
 {
     int head_coord;
     switch( cdir )
@@ -142,10 +142,12 @@ bool isActorCollision( Actor *actor1, Actor *actor2 )
 {
     if( getActorsDistance( actor1, actor2 ) > TILE_SIZE * 1.41 )
         return false;
-    else if( actor2->alive && ( isCollidedVertexOnActor( actor1->x + actor1->cx,                    actor1->y + actor1->cy,                     actor2 ) ||     // lewy gorny wierzcholek 
-                                isCollidedVertexOnActor( actor1->x + actor1->cx + actor1->cw - 1,   actor1->y + actor1->cy,                     actor2 ) ||     // prawy gorny wierzcholek
-                                isCollidedVertexOnActor( actor1->x + actor1->cx,                    actor1->y + actor1->cy + actor1->ch - 1,    actor2 ) ||     // lewy dolny wierzcholek
-                                isCollidedVertexOnActor( actor1->x + actor1->cx + actor1->cw - 1,   actor1->y + actor1->cy + actor1->ch - 1,    actor2 ) ) )    // prawy dolny wierzcholek
+    else if( isActorAlive( actor2 ) && 
+            ( isCollidedVertexOnActor( actor1->x + actor1->cx,                    actor1->y + actor1->cy,                     actor2 ) ||   // lewy gorny wierzcholek 
+              isCollidedVertexOnActor( actor1->x + actor1->cx + actor1->cw - 1,   actor1->y + actor1->cy,                     actor2 ) ||   // prawy gorny wierzcholek
+              isCollidedVertexOnActor( actor1->x + actor1->cx,                    actor1->y + actor1->cy + actor1->ch - 1,    actor2 ) ||   // lewy dolny wierzcholek
+              isCollidedVertexOnActor( actor1->x + actor1->cx + actor1->cw - 1,   actor1->y + actor1->cy + actor1->ch - 1,    actor2 )      // prawy dolny wierzcholek
+            ) )    
     {
         return true;
     }

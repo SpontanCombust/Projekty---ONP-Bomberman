@@ -62,7 +62,7 @@ int main( void )
 
         if( isMenuSwitch( gs ) )
         {
-            if( isInOptions( gs ) )
+            if( isInOptions( gs ) ) 
                 switchMenu( &current_menu, options_menu );
             else if( isInModeSelection( gs ) )
                 switchMenu( &current_menu, mode_menu );
@@ -125,12 +125,11 @@ void playLevel( int level_num )
 
     Bomb *bomb_container[ BOMB_BUDGET ] = { NULL };
     int current_blast_range = DEFAULT_BLAST_RANGE;
-    SFX *explosion_container[ EXPLOSION_BUDGET ] = { NULL };
-    SFX *corpse_container[ CORPSE_BUDGET ] = { NULL };
+    SFX *sfx_container[ SFX_BUDGET ] = { NULL };
 
     Camera *camera = NULL;
 
-    enum LevelClearCondition clear_cond = 0;
+    LevelClearCondition clear_cond = 0;
 
     bool clean = true;
     bool map_update = false;
@@ -211,7 +210,7 @@ void playLevel( int level_num )
         }
 
         if( isTakingGameStopFrame( gs ) ) {
-            handleTakingGameStopFrame( &game_stop_frame, camera, player1, player2, eq, &gs );
+            handleTakingGameStopFrame( &game_stop_frame, camera, player1, player2, eq );
         }
 
         if ( events.type == ALLEGRO_EVENT_TIMER )
@@ -220,12 +219,12 @@ void playLevel( int level_num )
             {
                 if( events.timer.source == game_timer )
                 {
-                    updatePlayer( player1, level_map, enemies, enemy_num, explosion_container, corpse_container );
+                    updatePlayer( player1, level_map, enemies, enemy_num, sfx_container );
                     if( player2 != NULL ) {
-                        updatePlayer( player2, level_map, enemies, enemy_num, explosion_container, corpse_container );
+                        updatePlayer( player2, level_map, enemies, enemy_num, sfx_container );
                         updateCameraModule( &mpcm );
                     }
-                    updateEnemies( ai_modules, enemy_num, explosion_container, corpse_container );
+                    updateEnemies( ai_modules, enemy_num, sfx_container );
 
                     if( map_update ) {
                         updateLevelMapBitmap( level_map, solid_block_sprite, brittle_block_sprite, display );
@@ -238,8 +237,8 @@ void playLevel( int level_num )
 
                 if( events.timer.source == second_timer )
                 {
-                    updateContainers( bomb_container, explosion_container, corpse_container, level_map, enemies, enemy_num, explosion_sprite, &map_update );
-                    clean = areEmptyContainers( bomb_container, explosion_container, corpse_container );
+                    updateContainers( bomb_container, sfx_container, level_map, enemies, enemy_num, explosion_sprite, &map_update );
+                    clean = areContainersEmpty( bomb_container, sfx_container );
                 }
             }
             else
@@ -259,7 +258,7 @@ void playLevel( int level_num )
         if( isRenderUpdate( gs ) )
         {
             if( !isGamePaused( gs ) )
-                updateGFX( player1, player2, enemies, enemy_num, level_map, bomb_container, explosion_container, corpse_container );
+                updateGFX( player1, player2, enemies, enemy_num, level_map, bomb_container, sfx_container );
             else
                 updateGFXOnPause( game_stop_frame, pause_menu );
 

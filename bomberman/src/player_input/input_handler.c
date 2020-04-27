@@ -23,7 +23,7 @@ void handleGameInputKeyDown( char keyboard_keycode, InputScheme is, Actor *playe
     else if ( keyboard_keycode == bomb  ) {
         Bomb *bomb = createEmptyBombAtActor( player );
         setBombProperties( bomb, DEFAULT_FUSE, bomb_blast_range, bomb_bmp );
-        addBombToContainer( bomb_container, BOMB_BUDGET, bomb ); 
+        addBombToContainer( &bomb, bomb_container ); 
     }
     else if ( keyboard_keycode == ALLEGRO_KEY_ESCAPE || keyboard_keycode == ALLEGRO_KEY_P ) {
         signalPausingGame( gs );

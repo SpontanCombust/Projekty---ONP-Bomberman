@@ -12,8 +12,7 @@
 #define SECOND_TIMER 1.0
 
 #define BOMB_BUDGET 5
-#define EXPLOSION_BUDGET 30
-#define CORPSE_BUDGET 5
+#define SFX_BUDGET 50
 
 #define EXPLOSION_LIFESPAN 2
 #define CORPSE_LIFESPAN 2
@@ -24,6 +23,7 @@
 #define COLOR_BLACK al_map_rgb( 0, 0, 0 )
 #define COLOR_WHITE al_map_rgb( 255, 255, 255 )
 #define COLOR_YELLOW al_map_rgb( 255, 255, 0 )
+#define COLOR_RED al_map_rgb( 255, 0, 0 )
 
 #define FONT_SRC "./fonts/PixelFJVerdana12pt.ttf"
 #define LEVELS_FOLDER "./levels"

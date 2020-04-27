@@ -1,6 +1,6 @@
 #include "../../headers/level.h"
 
-void doTitleScreen( ALLEGRO_FONT *font_big, ALLEGRO_FONT *font_small, float x, float y, int level_number, enum LevelClearCondition condition )
+void doTitleScreen( ALLEGRO_FONT *font_big, ALLEGRO_FONT *font_small, float x, float y, int level_number, LevelClearCondition condition )
 {
     al_clear_to_color( al_map_rgb( 0, 0, 0 ) );
     al_draw_textf( font_big, al_map_rgb( 255, 255, 255 ), x, y, ALLEGRO_ALIGN_CENTER, "LEVEL %d", level_number );

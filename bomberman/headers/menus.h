@@ -11,7 +11,7 @@
 #define MAX_ENTRY_VAR_LENGTH 10
 #define DEFAULT_LINE_SPACING 5
 
-typedef struct 
+typedef struct S_MenuEntry
 {
     bool entry_set;
     bool highlightable;
@@ -24,7 +24,7 @@ typedef struct
 
 } MenuEntry;
 
-typedef struct
+typedef struct S_Menu
 {
     void ( *operation_esc )( GameState * );
 

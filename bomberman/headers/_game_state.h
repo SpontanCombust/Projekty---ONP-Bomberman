@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 
-typedef enum { SINGLE_PLAYER, COOP, PVP } GameMode; 
+typedef enum E_GameMode { SINGLE_PLAYER, COOP, PVP } GameMode; 
 
 typedef struct 
 {

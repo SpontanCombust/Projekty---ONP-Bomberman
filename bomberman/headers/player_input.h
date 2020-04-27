@@ -5,7 +5,7 @@
 #include "bomb.h"
 #include "menus.h"
 
-typedef enum e_InputScheme { STANDARD, ALTERNATIVE } InputScheme;
+typedef enum E_InputScheme { STANDARD, ALTERNATIVE } InputScheme;
 
 // ==================== input_handler.c ====================
 

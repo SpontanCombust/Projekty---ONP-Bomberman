@@ -6,7 +6,7 @@
 #include "sfx.h"
 #include <allegro5/allegro.h>
 
-typedef struct
+typedef struct S_Bomb
 {
     int tile_x, tile_y;
     int fuse;
@@ -34,12 +34,12 @@ void setBombProperties( Bomb *bomb, int fuse, int blast_range, ALLEGRO_BITMAP *b
 
 // ============================ bomb_container_manager.c ==============================
 
-bool isEmptyBombContainer( Bomb * container[], int max_size );
-void addBombToContainer( Bomb *container[], int max_size, Bomb *bomb );
+bool isBombContainerEmpty( Bomb * container[] );
+void addBombToContainer( Bomb **bomb, Bomb *container[] );
 
 
 // ================================= bomb_action.c ====================================
 
-void explodeBomb( Bomb *bomb, LevelMap *level_map, SFX * sfx_container[], int container_size, ALLEGRO_BITMAP *explosion_bmp );
+void explodeBomb( Bomb *bomb, LevelMap *level_map, SFX * explosion_container[], ALLEGRO_BITMAP *explosion_bmp );
 
 #endif

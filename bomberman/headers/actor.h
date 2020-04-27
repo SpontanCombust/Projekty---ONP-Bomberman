@@ -20,8 +20,8 @@ typedef struct
     float speed;
     float cx, cy, cw, ch;
     bool enabled_collision;
-    bool alive;
-    enum Direction dir;
+    int lives;
+    Direction dir;
     ALLEGRO_BITMAP *bmp;
     
 } Actor; 
@@ -32,6 +32,8 @@ typedef struct
 Actor *createActor( float x, float y, float speed, ALLEGRO_BITMAP *bmp );
 void applyCollisionToActor( Actor *actor, float cx, float cy, float cw, float ch );
 void applyCollisionToActorArray( Actor * *actors, int actor_num, float cx, float cy, float cw, float ch );
+void damageActor( Actor *actor );
+bool isActorAlive( Actor *actor );
 void destroyActor( Actor **actor );
 void destroyActorArray( Actor ** *actors, int actors_num );
 

@@ -1,35 +1,41 @@
 #include "../../headers/sfx.h"
 
 #include "../../headers/level_tile_matrix_tools.h"
+#include "../../headers/_game_rules.h"
 
-bool isEmptySFXContainer( SFX * container[], int max_size )
+bool isSFXContainerEmpty( SFX * container[] )
 {
-    for (int i = 0; i < max_size; i++)
+    for (int i = 0; i < SFX_BUDGET; i++)
         if( container[i] != NULL )
             return false;
 
     return true;
 }
 
-void addSFXToContainer(SFX * container[], int max_size, SFX *sfx )
+void addSFXToContainer( SFX **sfx, SFX * container[] )
 {
-    for (int i = 0; i < max_size; i++)
+    bool valid = false;
+    for (int i = 0; i < SFX_BUDGET; i++)
     {
         if ( container[i] == NULL )
         {
-            container[i] = sfx;
+            valid = true;
+            container[i] = *sfx;
             break;
         }     
     }
+
+    if( !valid )
+        destroySFX( sfx );
 }
 
-bool isSFXAtTile( int tile_x, int tile_y, SFX *sfx_container[], int max_size )
+bool isSFXAtTile( int tile_x, int tile_y, SFX *sfx_container[], SFX_Type type )
 {
-    if( !isEmptySFXContainer( sfx_container, max_size ) )
+    if( !isSFXContainerEmpty( sfx_container ) )
     {
-        for (int i = 0; i < max_size; i++)
+        for (int i = 0; i < SFX_BUDGET; i++)
         {
-            if( sfx_container[i] != NULL)
+            if( sfx_container[i] != NULL && sfx_container[i]->type == type )
             {
                 if( tileFromPixel( sfx_container[i]->x ) == tile_x && tileFromPixel( sfx_container[i]->y ) == tile_y )
                     return true;   
