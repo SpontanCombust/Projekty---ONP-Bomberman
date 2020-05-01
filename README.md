@@ -37,5 +37,5 @@ Bomberman:
 - [x] opcje
 - [x] tryb PvP
 - [x] tryb kooperacyjny
-- [ ] dodanie kilku nowych poziomów
+- [x] dodanie kilku nowych poziomów
 - [x] ulepszona szata graficzna
