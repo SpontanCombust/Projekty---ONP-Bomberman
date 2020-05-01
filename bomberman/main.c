@@ -190,6 +190,7 @@ void playLevel( char *level_id )
         doTitleScreen( font_big, font_small, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 75, level_id, clear_cond );
 
         updateLevelMapBitmap( level_map, solid_block_sprite, brittle_block_sprite, display );
+        // al_save_bitmap( "./map_screencap.png", level_map->bmp );
 
         al_start_timer( game_timer );
         al_start_timer( second_timer );
@@ -289,6 +290,7 @@ void playLevel( char *level_id )
             if( areAllPlayersDead( player1, player2 ) ) {
                 signalEndingGame( &gs );
                 sudden_exit = false;
+                won = false;
             }
             else if( clear_cond == KILL_OPPONENT ) {
                 signalEndingGame( &gs );
@@ -314,7 +316,7 @@ void playLevel( char *level_id )
         if( !isActorAlive( player1 ) ) 
             id = '2';
         else 
-            id = '2';
+            id = '1';
 
         doEndScreen( font_big, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 75, won, id, clear_cond );
     }
