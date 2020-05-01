@@ -44,3 +44,12 @@ bool isSFXAtTile( int tile_x, int tile_y, SFX *sfx_container[], SFX_Type type )
     }
     return false;
 }
+
+void updateAnimFrameForSFXContainer( SFX *sfx_container[] )
+{
+    for (int i = 0; i < SFX_BUDGET; i++)
+    {
+        if( sfx_container[i] != NULL )
+            updateAnimFrameForSFX( sfx_container[i] );
+    }
+}

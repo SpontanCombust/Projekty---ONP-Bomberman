@@ -25,7 +25,7 @@ Bomberman:
 - [x] pełny uproszczony interfejs graficzny
 
 
-## Kamień milowy 2 - TBA
+## Kamień milowy 2 - 01.05.2020
 ONP:
 - [ ] analiza algorytmu - ufinalnienie
 - [ ] tabele i wykresy na podstawie analizy i testów
@@ -34,8 +34,8 @@ ONP:
 Bomberman:
 - [x] praca kamery
 - [x] menu główne
-- [ ] opcje
-- [ ] tryb PvP
+- [x] opcje
+- [x] tryb PvP
 - [x] tryb kooperacyjny
 - [ ] dodanie kilku nowych poziomów
-- [ ] ulepszona szata graficzna
+- [x] ulepszona szata graficzna

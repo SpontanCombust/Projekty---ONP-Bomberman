@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-SFX *createSFX( float x, float y, int lifespan, SFX_Type type, ALLEGRO_BITMAP *bmp )
+SFX *createSFX( float x, float y, int lifespan, SFX_Type type, SFX_Orientation orientation, ALLEGRO_BITMAP *bmp )
 {
     SFX *sfx = (SFX *)malloc( sizeof( SFX ) );
 
@@ -13,6 +13,8 @@ SFX *createSFX( float x, float y, int lifespan, SFX_Type type, ALLEGRO_BITMAP *b
         sfx -> y = y;
         sfx -> lifespan = lifespan;
         sfx -> type = type;
+        sfx -> orientation = orientation;
+        sfx -> anim_frame = 0;
         sfx -> bmp = bmp;
     }
     else

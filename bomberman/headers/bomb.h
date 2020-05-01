@@ -11,8 +11,8 @@ typedef struct S_Bomb
     int tile_x, tile_y;
     int fuse;
     int blast_range;
-    ALLEGRO_BITMAP *bomb_bmp;
-    ALLEGRO_BITMAP *explosion_bmp;
+    int anim_frame;
+    ALLEGRO_BITMAP *bmp;
 
 } Bomb;
 
@@ -40,6 +40,7 @@ void addBombToContainer( Bomb **bomb, Bomb *container[] );
 
 // ================================= bomb_action.c ====================================
 
-void explodeBomb( Bomb *bomb, LevelMap *level_map, SFX * explosion_container[], ALLEGRO_BITMAP *explosion_bmp );
+void explodeBomb( Bomb *bomb, LevelMap *level_map, SFX * sfx_container[], ALLEGRO_BITMAP *explosion_bmp );
+void updateAnimFrameForBomb( Bomb *bomb );
 
 #endif

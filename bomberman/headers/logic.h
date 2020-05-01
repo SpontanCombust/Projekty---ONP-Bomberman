@@ -11,6 +11,7 @@
 void updateVelocityX( Actor *actor, bool vx0, bool vx1 );
 void updateVelocityY( Actor *actor, bool vy0, bool vy1 );
 void resetVelocity( Actor *actor );
+bool isActorMoving( Actor *actor );
 void resolveDirection( Actor *actor );
 void updatePositionX( Actor *actor );
 void updatePositionY( Actor *actor );

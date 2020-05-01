@@ -2,8 +2,10 @@
 
 void updateCameraModule( MultiPlayerCameraModule *mpcm )
 {
-    mpcm->target -> x = ( mpcm->actor1->x + mpcm->actor2->x ) / 2;
-    mpcm->target -> y = ( mpcm->actor1->y + mpcm->actor2->y ) / 2;
+    if( mpcm->target != NULL ) {
+        mpcm->target -> x = ( mpcm->actor1->x + mpcm->actor2->x ) / 2;
+        mpcm->target -> y = ( mpcm->actor1->y + mpcm->actor2->y ) / 2;
+    }
 }
 
 void applyActorsToCameraModule( MultiPlayerCameraModule *mpcm, Actor *actor1, Actor *actor2 )

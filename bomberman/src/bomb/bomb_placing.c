@@ -14,5 +14,5 @@ void setBombProperties( Bomb *bomb, int fuse, int blast_range, ALLEGRO_BITMAP *b
 {
     bomb -> fuse = fuse;
     bomb -> blast_range = blast_range;
-    bomb -> bomb_bmp = bmp;
+    bomb -> bmp = bmp;
 }

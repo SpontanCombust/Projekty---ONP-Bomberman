@@ -29,6 +29,8 @@
         "rendering.h": "c",
         "math.h": "c",
         "level_scan_tools.h": "c",
-        "allegro_native_dialog.h": "c"
+        "allegro_native_dialog.h": "c",
+        "camera.h": "c",
+        "allegro_ttf.h": "c"
     }
 }

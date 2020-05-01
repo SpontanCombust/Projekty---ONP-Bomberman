@@ -13,7 +13,8 @@ Bomb *createBomb( int tile_x, int tile_y, int fuse, int blast_range, ALLEGRO_BIT
         bomb -> tile_y = tile_y;
         bomb -> fuse = fuse;
         bomb -> blast_range = blast_range;
-        bomb -> bomb_bmp = bmp;
+        bomb -> anim_frame = 0;
+        bomb -> bmp = bmp;
     }
     else
     {

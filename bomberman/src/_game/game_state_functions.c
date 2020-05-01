@@ -6,7 +6,7 @@
 int levels_made;
 char levels[MAX_LOADED_LEVELS][10]; 
 #define SKINS_MADE 3
-char skins[SKINS_MADE][10] = { "PINK", "RED", "BLUE" };
+char skins[SKINS_MADE][10] = { "ORIG", "ALT1", "ALT2" };
 
 void initGameState( GameState *gs )
 {

@@ -16,13 +16,13 @@ typedef struct S_Level
 
 } Level;
 
-typedef enum E_LevelClearCondition { DESTROY_ALL_BLOCKS, KILL_ALL_ENEMIES } LevelClearCondition;
+typedef enum E_LevelClearCondition { DESTROY_ALL_BLOCKS, KILL_ALL_ENEMIES, KILL_OPPONENT } LevelClearCondition;
 
 
 // ======================== level_essentials.c ===========================
 
 void doTitleScreen( ALLEGRO_FONT *font_big, ALLEGRO_FONT *font_small, float x, float y, char *level_id, LevelClearCondition condition );
-void doEndScreen( ALLEGRO_FONT *font, float x, float y, bool won );
+void doEndScreen( ALLEGRO_FONT *font, float x, float y, bool won, char player_id, LevelClearCondition condition );
 void destroyLevel( Level **level );
 
 // ========================== level_creator.c ============================
