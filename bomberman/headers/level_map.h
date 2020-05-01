@@ -3,7 +3,7 @@
 
 #include <allegro5/allegro.h>
 
-typedef struct
+typedef struct S_LevelMap
 {
     int rows, collumns;
     int **tile_matrix;

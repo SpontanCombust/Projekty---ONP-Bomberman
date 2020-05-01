@@ -11,7 +11,7 @@
 #define MAX_ENTRY_VAR_LENGTH 10
 #define DEFAULT_LINE_SPACING 5
 
-typedef struct 
+typedef struct S_MenuEntry
 {
     bool entry_set;
     bool highlightable;
@@ -24,7 +24,7 @@ typedef struct
 
 } MenuEntry;
 
-typedef struct
+typedef struct S_Menu
 {
     void ( *operation_esc )( GameState * );
 
@@ -72,7 +72,7 @@ void executeLeftOperation( Menu *menu, GameState *gs );
 void executeRightOperation( Menu *menu, GameState *gs );
 void executeEscOperation( Menu *menu, GameState *gs );
 void switchEntry( Menu *menu, int step );
-void updateCurrentEntryVar( Menu *menu, char *entry_var );
+void updateEntryVar( Menu *menu, int var_index, char *entry_var );
 
 
 // ===================== menu_rendering.c ===================
@@ -83,9 +83,12 @@ void updateMenuBitmap( Menu *menu, ALLEGRO_DISPLAY *display );
 // ===================== menu_templates.c ===================
 
 Menu *createMainMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font );
+#define SKIN_P1_VAR_INDEX 2
+#define SKIN_P2_VAR_INDEX 3
 Menu *createOptionsMenu( ALLEGRO_FONT *font, ALLEGRO_FONT *sub_font );
 Menu *createPauseMenu( ALLEGRO_FONT *font, ALLEGRO_FONT *sub_font );
 Menu *createModeSelectionMenu( ALLEGRO_FONT *font, ALLEGRO_FONT *sub_font );
+#define LEVEL_VAR_INDEX 3
 Menu *createLevelSelectionMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font );
 
 #endif

@@ -6,7 +6,7 @@
 static void updateCameraPosition( Camera *camera )
 {
     camera -> x = ( camera->target->x + TILE_SIZE/2 ) - ( SCREEN_WIDTH/2 / CAMERA_SCALE );
-    camera -> y = ( camera->target->y + TILE_SIZE/2 ) - ( SCREEN_HEIGHT/2 / CAMERA_SCALE );
+    camera -> y = ( camera->target->y + TILE_SIZE/2 ) - ( ( SCREEN_HEIGHT - GAME_WINDOW_Y_OFFSET )/2 / CAMERA_SCALE );
 
     if( camera->x < 0 )
         camera -> x = 0;
@@ -15,8 +15,8 @@ static void updateCameraPosition( Camera *camera )
     
     if( camera->y < 0 )
         camera -> y = 0;
-    else if( camera->y > camera->max_y - SCREEN_HEIGHT / CAMERA_SCALE + 1)
-        camera -> y = camera->max_y - SCREEN_HEIGHT / CAMERA_SCALE + 1;
+    else if( camera->y > camera->max_y - ( SCREEN_HEIGHT - GAME_WINDOW_Y_OFFSET ) / CAMERA_SCALE + 1 )
+        camera -> y = camera->max_y - ( SCREEN_HEIGHT - GAME_WINDOW_Y_OFFSET ) / CAMERA_SCALE + 1;
 }
 
 void updateCamera( Camera *camera )

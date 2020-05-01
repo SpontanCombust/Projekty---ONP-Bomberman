@@ -1,17 +1,19 @@
 #include "../../headers/bomb.h"
 
-bool isEmptyBombContainer( Bomb * container[], int max_size )
+#include "../../headers/_game_rules.h"
+
+bool isBombContainerEmpty( Bomb * container[] )
 {
-    for (int i = 0; i < max_size; i++)
+    for (int i = 0; i < BOMB_BUDGET; i++)
         if( container[i] != NULL )
             return false;
 
     return true;
 }
 
-static bool isTileTaken( Bomb * container[], int max_size, Bomb *bomb )
+static bool isTileTaken( Bomb * container[], Bomb *bomb )
 {
-    for (int i = 0; i < max_size; i++)
+    for (int i = 0; i < BOMB_BUDGET; i++)
     {
         if( container[i] != NULL  && container[i]->tile_x == bomb->tile_x && container[i]->tile_y == bomb->tile_y)
             return true;
@@ -20,22 +22,22 @@ static bool isTileTaken( Bomb * container[], int max_size, Bomb *bomb )
     return false;
 }
 
-void addBombToContainer( Bomb * container[], int max_size, Bomb *bomb )
+void addBombToContainer( Bomb **bomb, Bomb * container[] )
 {
     bool valid = false;
-    if( !isTileTaken( container, max_size, bomb ) )
+    if( !isTileTaken( container, *bomb ) )
     {
-        for (int i = 0; i < max_size; i++)
+        for (int i = 0; i < BOMB_BUDGET; i++)
         {
             if( container[i] == NULL )
             {
                 valid = true;
-                container[i] = bomb;
+                container[i] = *bomb;
                 break;
             }
         }
     }
     
     if( !valid )
-        destroyBomb( &bomb );
+        destroyBomb( bomb );
 }

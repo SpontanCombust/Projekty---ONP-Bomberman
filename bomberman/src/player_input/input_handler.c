@@ -13,33 +13,39 @@ static void retrieveInput( InputScheme is, char *down, char *up, char *left, cha
 
 void handleGameInputKeyDown( char keyboard_keycode, InputScheme is, Actor *player, int bomb_blast_range, ALLEGRO_BITMAP *bomb_bmp, Bomb *bomb_container[], GameState *gs )
 {
-    char down = 0, up = 0, left = 0, right = 0, bomb = 0;
-    retrieveInput( is, &down, &up, &left, &right, &bomb );
+    if( player != NULL && isActorAlive( player ) )
+    {
+        char down = 0, up = 0, left = 0, right = 0, bomb = 0;
+        retrieveInput( is, &down, &up, &left, &right, &bomb );
 
-    if      ( keyboard_keycode == down  )   updateVelocityY( player, player->vy[0], true );
-    else if ( keyboard_keycode == up    )   updateVelocityY( player, true, player->vy[1] );
-    else if ( keyboard_keycode == left  )   updateVelocityX( player, true, player->vx[1] );
-    else if ( keyboard_keycode == right )   updateVelocityX( player, player->vx[0], true );
-    else if ( keyboard_keycode == bomb  ) {
-        Bomb *bomb = createEmptyBombAtActor( player );
-        setBombProperties( bomb, DEFAULT_FUSE, bomb_blast_range, bomb_bmp );
-        addBombToContainer( bomb_container, BOMB_BUDGET, bomb ); 
-    }
-    else if ( keyboard_keycode == ALLEGRO_KEY_ESCAPE || keyboard_keycode == ALLEGRO_KEY_P ) {
-        signalPausingGame( gs );
-        signalMenuUpdate( gs );
+        if      ( keyboard_keycode == down  )   updateVelocityY( player, player->vy[0], true );
+        else if ( keyboard_keycode == up    )   updateVelocityY( player, true, player->vy[1] );
+        else if ( keyboard_keycode == left  )   updateVelocityX( player, true, player->vx[1] );
+        else if ( keyboard_keycode == right )   updateVelocityX( player, player->vx[0], true );
+        else if ( keyboard_keycode == bomb  ) {
+            Bomb *bomb = createEmptyBombAtActor( player );
+            setBombProperties( bomb, DEFAULT_FUSE, bomb_blast_range, bomb_bmp );
+            addBombToContainer( &bomb, bomb_container ); 
+        }
+        else if ( keyboard_keycode == ALLEGRO_KEY_ESCAPE || keyboard_keycode == ALLEGRO_KEY_P ) {
+            signalPausingGame( gs );
+            signalMenuUpdate( gs );
+        }
     }
 }
 
 void handleGameInputKeyUp( char keyboard_keycode, InputScheme is, Actor *player )
 {
-    char down = 0, up = 0, left = 0, right = 0, bomb = 0;
-    retrieveInput( is, &down, &up, &left, &right, &bomb );
+    if( player != NULL && isActorAlive( player ) )
+    {
+        char down = 0, up = 0, left = 0, right = 0, bomb = 0;
+        retrieveInput( is, &down, &up, &left, &right, &bomb );
 
-    if      ( keyboard_keycode == down  )   updateVelocityY( player, player->vy[0], false );
-    else if ( keyboard_keycode == up    )   updateVelocityY( player, false, player->vy[1] );
-    else if ( keyboard_keycode == left  )   updateVelocityX( player, false, player->vx[1] );
-    else if ( keyboard_keycode == right )   updateVelocityX( player, player->vx[0], false );
+        if      ( keyboard_keycode == down  )   updateVelocityY( player, player->vy[0], false );
+        else if ( keyboard_keycode == up    )   updateVelocityY( player, false, player->vy[1] );
+        else if ( keyboard_keycode == left  )   updateVelocityX( player, false, player->vx[1] );
+        else if ( keyboard_keycode == right )   updateVelocityX( player, player->vx[0], false );
+    }
 }
 
 void handleMenuInputKeyDown( char keyboard_keycode, Menu *menu, GameState *gs )

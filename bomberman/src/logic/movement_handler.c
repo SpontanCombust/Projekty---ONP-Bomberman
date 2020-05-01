@@ -1,5 +1,6 @@
 #include "../../headers/logic.h"
 
+#include "../../headers/_game_rules.h"
 #include <allegro5/allegro.h>
 
 void updateVelocityX( Actor *actor, bool vx0, bool vx1 )
@@ -20,6 +21,10 @@ void resetVelocity( Actor *actor )
     actor -> vx[1] = false;
     actor -> vy[0] = false;
     actor -> vy[1] = false;
+}
+
+bool isActorMoving( Actor *actor ) {
+    return actor->vx[0] || actor->vx[1] || actor->vy[0] || actor->vy[1];
 }
 
 void resolveDirection( Actor *actor )

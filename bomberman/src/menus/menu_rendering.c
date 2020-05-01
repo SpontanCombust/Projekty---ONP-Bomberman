@@ -4,33 +4,46 @@
 
 static void drawEntryContent( Menu *menu, float y, int i )
 {
-    al_draw_text( menu->main_font, menu->main_font_color, menu->entry_orig_x, y, ALLEGRO_ALIGN_CENTER, menu->entries[i].entry_text );
-
+    // al_draw_text( menu->main_font, menu->main_font_color, menu->entry_orig_x, y, ALLEGRO_ALIGN_CENTER, menu->entries[i].entry_text );
     float entry_text_width = al_get_text_width( menu->main_font, menu->entries[i].entry_text );
-    if( !menu->entries[i].highlightable ) {
-        float line_y = y + al_get_font_ascent( menu->main_font ) + 5;
-        al_draw_line( menu->entry_orig_x - entry_text_width/2, line_y, menu->entry_orig_x + entry_text_width/2, line_y, menu->main_font_color, 2 );
-    }
-    if( menu->currently_highlighted == i ) {
-        float cursor_x = menu->entry_orig_x - entry_text_width/2 - 10;
-        al_draw_text( menu->main_font, menu->sub_font_color, cursor_x, y, ALLEGRO_ALIGN_RIGHT, ">" );
-    }
+    
     if( menu->entries[i].has_var )
     {
-        float left_arrow_x = menu->entry_orig_x + entry_text_width/2 + 10;
         float arrow_w = al_get_text_width( menu->sub_font, "<" );
         float var_width = al_get_text_width( menu->main_font, menu->entries[i].entry_var );
+        float line_w = entry_text_width + 20 + var_width + 2 * arrow_w;
+        float line_x = menu->entry_orig_x - line_w/2;
         float arrow_y = y + al_get_font_ascent( menu->main_font )/2 - al_get_font_ascent( menu->sub_font )/4;
-        al_draw_text( menu->main_font, menu->main_font_color, left_arrow_x + arrow_w + 5, y, 0, menu->entries[i].entry_var );
+        float left_arrow_x = line_x + entry_text_width + 10;
 
-        if( menu->currently_highlighted == i ) {
-            al_draw_text( menu->sub_font, menu->sub_font_color, left_arrow_x, arrow_y, 0, "<" );
-            al_draw_text( menu->sub_font, menu->sub_font_color, left_arrow_x + arrow_w + 5 + var_width + 5, arrow_y, 0, ">" );
+        al_draw_text( menu->main_font, menu->main_font_color, line_x, y, ALLEGRO_ALIGN_LEFT, menu->entries[i].entry_text );
+        al_draw_text( menu->main_font, menu->main_font_color, left_arrow_x + arrow_w + 5, y, ALLEGRO_ALIGN_LEFT, menu->entries[i].entry_var );
+
+        if( menu->currently_highlighted == i )
+        {
+            float cursor_x = line_x - 10;
+            al_draw_text( menu->main_font, menu->sub_font_color, cursor_x, y, ALLEGRO_ALIGN_RIGHT, ">" );
+            al_draw_text( menu->sub_font, menu->sub_font_color, left_arrow_x, arrow_y, ALLEGRO_ALIGN_LEFT, "<" );
+            al_draw_text( menu->sub_font, menu->sub_font_color, left_arrow_x + arrow_w + 5 + var_width + 5, arrow_y, ALLEGRO_ALIGN_LEFT, ">" );
         } else {
-            al_draw_text( menu->sub_font, menu->main_font_color, left_arrow_x, arrow_y, 0, "<" );
-            al_draw_text( menu->sub_font, menu->main_font_color, left_arrow_x + arrow_w + 5 + var_width + 5, arrow_y, 0, ">" );
+            al_draw_text( menu->sub_font, menu->main_font_color, left_arrow_x, arrow_y, ALLEGRO_ALIGN_LEFT, "<" );
+            al_draw_text( menu->sub_font, menu->main_font_color, left_arrow_x + arrow_w + 5 + var_width + 5, arrow_y, ALLEGRO_ALIGN_LEFT, ">" );
         }
     }
+    else
+    {
+        al_draw_text( menu->main_font, menu->main_font_color, menu->entry_orig_x, y, ALLEGRO_ALIGN_CENTER, menu->entries[i].entry_text );
+
+        if( !menu->entries[i].highlightable ) {
+            float line_y = y + al_get_font_ascent( menu->main_font ) + 5;
+            al_draw_line( menu->entry_orig_x - entry_text_width/2, line_y, menu->entry_orig_x + entry_text_width/2, line_y, menu->main_font_color, 2 );
+        }
+        else if( menu->currently_highlighted == i ) {
+            float cursor_x = menu->entry_orig_x - entry_text_width/2 - 10;
+            al_draw_text( menu->main_font, menu->sub_font_color, cursor_x, y, ALLEGRO_ALIGN_RIGHT, ">" );
+        }
+    }
+    
 }
 
 void updateMenuBitmap( Menu *menu, ALLEGRO_DISPLAY *display )

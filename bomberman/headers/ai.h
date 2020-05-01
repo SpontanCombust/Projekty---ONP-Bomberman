@@ -4,7 +4,7 @@
 #include "actor.h"
 #include "logic.h"
 
-typedef struct
+typedef struct S_PathStep
 {
     float dest_x, dest_y;
 

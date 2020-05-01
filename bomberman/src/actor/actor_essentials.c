@@ -20,8 +20,9 @@ Actor *createActor( float x, float y, float speed, ALLEGRO_BITMAP *bmp )
         actor -> cw = 0;
         actor -> ch = 0;
         actor -> enabled_collision = false;
-        actor -> alive = true;
+        actor -> lives = 1;
         actor -> dir = DOWN;
+        actor -> anim_frame = 0;
         actor -> bmp = bmp;
     } 
     else
@@ -32,21 +33,6 @@ Actor *createActor( float x, float y, float speed, ALLEGRO_BITMAP *bmp )
     
     
     return actor;
-}
-
-void applyCollisionToActor( Actor *actor, float cx, float cy, float cw, float ch )
-{
-    actor -> enabled_collision = true;
-    actor -> cx = cx;
-    actor -> cy = cy;
-    actor -> cw = cw;
-    actor -> ch = ch;
-}
-
-void applyCollisionToActorArray( Actor * *actors, int actor_num, float cx, float cy, float cw, float ch )
-{
-    for (int i = 0; i < actor_num; i++)
-        applyCollisionToActor( actors[i], cx, cy, cw, ch );
 }
 
 void destroyActor( Actor **actor )

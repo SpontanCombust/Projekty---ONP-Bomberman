@@ -8,7 +8,9 @@ int initAllegro( void )
         return -1;
     }
 
+    al_set_new_display_flags( ALLEGRO_WINDOWED );
     display = al_create_display( SCREEN_WIDTH, SCREEN_HEIGHT );
+    game_window = al_create_bitmap( SCREEN_WIDTH, SCREEN_HEIGHT - GAME_WINDOW_Y_OFFSET );
 
     if( !display )
     {
@@ -16,7 +18,6 @@ int initAllegro( void )
         return -2;
     }
 
-    al_set_new_display_flags( ALLEGRO_WINDOWED );
     al_set_window_title( display, "BOMBERMAN" );
     al_set_window_position( display, 600, 300 );
 
@@ -40,7 +41,8 @@ int initAssets( void )
     brittle_block_sprite = al_load_bitmap( BRITTLE_BLOCK_SPRITES_SRC );    
     bomb_sprite = al_load_bitmap( BOMB_SPRITES_SRC );
     explosion_sprite = al_load_bitmap( EXPLOSION_SPRITES_SRC );
-    player_sprites = al_load_bitmap( PLAYER_SPRITES_SRC );
+    player1_sprites = al_load_bitmap( PLAYER_SPRITES_ORIG_SRC );
+    player2_sprites = al_load_bitmap( PLAYER_SPRITES_ALT1_SRC );
     enemy1_sprites = al_load_bitmap( ENEMY1_SPRITES_SRC );
 
     return validateAssets();
@@ -68,13 +70,17 @@ int validateAssets( void )
         fprintf(stderr, "Failed to load explosion bitmap!\n");
         return -7;
     }
-    else if( player_sprites == NULL ){
+    else if( player1_sprites == NULL ){
         fprintf(stderr, "Failed to load player bitmap!\n");
         return -8;
     }
+    else if( player2_sprites == NULL ){
+        fprintf(stderr, "Failed to load player bitmap!\n");
+        return -9;
+    }
     else if( enemy1_sprites == NULL ){
         fprintf(stderr, "Failed to load enemy1 bitmap!\n");
-        return -9;
+        return -10;
     }
     return 0;
 }
@@ -85,11 +91,13 @@ void clearUp( void )
     al_destroy_bitmap( brittle_block_sprite );
     al_destroy_bitmap( bomb_sprite );
     al_destroy_bitmap( explosion_sprite );
-    al_destroy_bitmap( player_sprites );
+    al_destroy_bitmap( player1_sprites );
+    al_destroy_bitmap( player2_sprites );
     al_destroy_bitmap( enemy1_sprites );
     al_destroy_font( font_big );
     al_destroy_font( font_small );
     al_destroy_font( font_vsmall );
+    al_destroy_bitmap( game_window );
     al_destroy_display( display ); 
 
     al_uninstall_keyboard();

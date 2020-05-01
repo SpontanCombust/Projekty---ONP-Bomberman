@@ -5,7 +5,7 @@
 #include "level_map.h"
 #include <allegro5/allegro.h>
 
-typedef struct
+typedef struct S_Camera
 {
     Actor *target;
     float x, y;
@@ -14,7 +14,7 @@ typedef struct
 
 } Camera;
 
-typedef struct
+typedef struct S_MultiPlayerCameraModule
 {
     Actor *target;
     Actor *actor1, *actor2;

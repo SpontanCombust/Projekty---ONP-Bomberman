@@ -1,6 +1,7 @@
 #include "./headers/_game.h"
 
 ALLEGRO_DISPLAY *display = NULL;
+ALLEGRO_BITMAP *game_window = NULL;
 
 ALLEGRO_FONT *font_big = NULL;
 ALLEGRO_FONT *font_small = NULL;
@@ -10,17 +11,18 @@ ALLEGRO_BITMAP *solid_block_sprite = NULL;
 ALLEGRO_BITMAP *brittle_block_sprite = NULL;
 ALLEGRO_BITMAP *bomb_sprite = NULL;
 ALLEGRO_BITMAP *explosion_sprite = NULL;
-ALLEGRO_BITMAP *player_sprites = NULL;
+ALLEGRO_BITMAP *player1_sprites = NULL;
+ALLEGRO_BITMAP *player2_sprites = NULL;
 ALLEGRO_BITMAP *enemy1_sprites = NULL;
 
 GameState gs;
 
-void playLevel( int level_num );
+void playLevel( char *level_id );
 
 int main( void )
 {
     if( initAllegro() != 0 || initAssets() != 0 ){
-        fprintf( stderr, "ERROR!\n" );
+        al_show_native_message_box( NULL, "ERROR", "ALLEGRO ERROR!", "Allegro 5 failed to initialize!", NULL, ALLEGRO_MESSAGEBOX_ERROR );
         return -1;
     }
 
@@ -32,10 +34,11 @@ int main( void )
     initGameState( &gs );
 
     Menu *main_menu = createMainMenu( font_big, font_small );
-    Menu *options_menu = createOptionsMenu( font_big, font_small );
+    Menu *options_menu = createOptionsMenu( font_small, font_vsmall );
+    updateSelectedSkinVars( options_menu );
     Menu *mode_menu = createModeSelectionMenu( font_small, font_vsmall );
     Menu *level_menu = createLevelSelectionMenu( font_small, font_vsmall );
-
+    updateSelectedLevelVar( level_menu );
     Menu *current_menu = main_menu;
 
     updateMenuBitmap( current_menu, display );
@@ -57,12 +60,16 @@ int main( void )
                 updateSelectedLevelVar( level_menu );
                 signalStopSelectedALevel( &gs );
             }
+            else if( wasSkinSelected( gs ) ) {
+                updateSelectedSkinVars( options_menu );
+                signalStopSelectedASkin( &gs );
+            }
             signalRenderUpdate( &gs );
         }
 
         if( isMenuSwitch( gs ) )
         {
-            if( isInOptions( gs ) )
+            if( isInOptions( gs ) ) 
                 switchMenu( &current_menu, options_menu );
             else if( isInModeSelection( gs ) )
                 switchMenu( &current_menu, mode_menu );
@@ -83,10 +90,10 @@ int main( void )
             signalStopRenderUpdate( &gs );
         }
 
-        if( isGameRunning( gs ) )
+        if( isGameRunning( gs ) && loadSelectedSkins() != -1 )
         {
             al_pause_event_queue( main_eq, true );
-            playLevel( getSelectedLevel( gs ) );
+            playLevel( getSelectedLevel( &gs ) );
             al_pause_event_queue( main_eq, false );
         }
     }
@@ -105,11 +112,12 @@ int main( void )
 
 
 
-void playLevel( int level_num )
+void playLevel( char *level_id )
 {
     ALLEGRO_EVENT_QUEUE *eq = NULL;
     ALLEGRO_TIMER *game_timer = NULL;
     ALLEGRO_TIMER *second_timer = NULL;
+    ALLEGRO_TIMER *anim_timer = NULL;
 
     Menu *pause_menu = NULL;
     ALLEGRO_BITMAP *game_stop_frame = NULL;
@@ -125,18 +133,17 @@ void playLevel( int level_num )
 
     Bomb *bomb_container[ BOMB_BUDGET ] = { NULL };
     int current_blast_range = DEFAULT_BLAST_RANGE;
-    SFX *explosion_container[ EXPLOSION_BUDGET ] = { NULL };
-    SFX *corpse_container[ CORPSE_BUDGET ] = { NULL };
+    SFX *sfx_container[ SFX_BUDGET ] = { NULL };
 
     Camera *camera = NULL;
 
-    enum LevelClearCondition clear_cond = 0;
+    LevelClearCondition clear_cond = 0;
 
     bool clean = true;
     bool map_update = false;
     bool won = false, sudden_exit = true;
 
-    Level *level = createLevel( level_num, enemy1_sprites );
+    Level *level = createLevel( level_id, enemy1_sprites );
 
     if( level != NULL )
     {
@@ -144,10 +151,12 @@ void playLevel( int level_num )
 
         game_timer = al_create_timer( 1.0 / FPS );
         second_timer = al_create_timer( 1.0 / SECOND_TIMER );
+        anim_timer = al_create_timer( 1.0 / ANIM_TIMER );
 
         al_register_event_source( eq, al_get_keyboard_event_source() );
         al_register_event_source( eq, al_get_timer_event_source( game_timer ) );
         al_register_event_source( eq, al_get_timer_event_source( second_timer ) );
+        al_register_event_source( eq, al_get_timer_event_source( anim_timer ) );
         al_register_event_source( eq, al_get_display_event_source( display ) );
 
         pause_menu = createPauseMenu( font_vsmall, font_vsmall );
@@ -159,11 +168,11 @@ void playLevel( int level_num )
         applyCollisionToActorArray( enemies, enemy_num, CBX_ENEMY1, CBY_ENEMY1, CBW_ENEMY1, CBH_ENEMY1 );
         ai_modules = level->ai_modules;
 
-        player1 = createActor(0, 0, PLAYER_SPEED, player_sprites);
+        player1 = createActor(0, 0, PLAYER_SPEED, player1_sprites);
         applyCollisionToActor( player1, CBX_PLAYER, CBY_PLAYER, CBW_PLAYER, CBH_PLAYER );
 
         if( getGameMode( gs ) != SINGLE_PLAYER ) {
-            player2 = createActor( 0, 0, PLAYER_SPEED, player_sprites );
+            player2 = createActor( 0, 0, PLAYER_SPEED, player2_sprites );
             applyCollisionToActor( player2, CBX_PLAYER, CBY_PLAYER, CBW_PLAYER, CBH_PLAYER );
             applyActorsToCameraModule( &mpcm, player1, player2 );
         }
@@ -173,13 +182,19 @@ void playLevel( int level_num )
         else
             camera = createCamera( mpcm.target, level_map );
 
-        clear_cond = KILL_ALL_ENEMIES;
-        doTitleScreen( font_big, font_small, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 75, level_num, clear_cond );
+        if( getGameMode( gs ) != PVP )
+            clear_cond = KILL_ALL_ENEMIES;
+        else
+            clear_cond = KILL_OPPONENT;
+
+        doTitleScreen( font_big, font_small, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 75, level_id, clear_cond );
 
         updateLevelMapBitmap( level_map, solid_block_sprite, brittle_block_sprite, display );
+        // al_save_bitmap( "./map_screencap.png", level_map->bmp );
 
         al_start_timer( game_timer );
         al_start_timer( second_timer );
+        al_start_timer( anim_timer );
 
     } else signalEndingGame( &gs );
 
@@ -194,8 +209,7 @@ void playLevel( int level_num )
         else if( events.type == ALLEGRO_EVENT_KEY_DOWN)
         {
             if( !isGamePaused( gs ) ) {
-                if( player2 != NULL ) 
-                    handleGameInputKeyDown( events.keyboard.keycode, ALTERNATIVE, player2, current_blast_range, bomb_sprite, bomb_container, &gs );
+                handleGameInputKeyDown( events.keyboard.keycode, ALTERNATIVE, player2, current_blast_range, bomb_sprite, bomb_container, &gs );
                 handleGameInputKeyDown( events.keyboard.keycode, STANDARD, player1, current_blast_range, bomb_sprite, bomb_container, &gs );
             }
             else
@@ -204,14 +218,13 @@ void playLevel( int level_num )
         else if( events.type == ALLEGRO_EVENT_KEY_UP)
         {
             if( !isGamePaused( gs ) ) {
-                if( player2 != NULL ) 
-                    handleGameInputKeyUp( events.keyboard.keycode, ALTERNATIVE, player2 );
+                handleGameInputKeyUp( events.keyboard.keycode, ALTERNATIVE, player2 );
                 handleGameInputKeyUp( events.keyboard.keycode, STANDARD, player1 );
             }
         }
 
         if( isTakingGameStopFrame( gs ) ) {
-            handleTakingGameStopFrame( &game_stop_frame, camera, player1, player2, eq, &gs );
+            handleTakingGameStopFrame( &game_stop_frame, camera, player1, player2, eq );
         }
 
         if ( events.type == ALLEGRO_EVENT_TIMER )
@@ -220,26 +233,32 @@ void playLevel( int level_num )
             {
                 if( events.timer.source == game_timer )
                 {
-                    updatePlayer( player1, level_map, enemies, enemy_num, explosion_container, corpse_container );
-                    if( player2 != NULL ) {
-                        updatePlayer( player2, level_map, enemies, enemy_num, explosion_container, corpse_container );
+                    updatePlayer( player1, level_map, enemies, enemy_num, sfx_container );
+                    updatePlayer( player2, level_map, enemies, enemy_num, sfx_container );
+                    updateEnemies( ai_modules, enemy_num, sfx_container );
+                    if( getGameMode( gs ) != SINGLE_PLAYER ) {
                         updateCameraModule( &mpcm );
                     }
-                    updateEnemies( ai_modules, enemy_num, explosion_container, corpse_container );
-
                     if( map_update ) {
                         updateLevelMapBitmap( level_map, solid_block_sprite, brittle_block_sprite, display );
                         map_update = false;
                     }
+
+                    al_set_target_bitmap( game_window );
                     updateCamera( camera );
 
                     signalRenderUpdate( &gs );  
                 }
-
-                if( events.timer.source == second_timer )
+                else if( events.timer.source == second_timer )
                 {
-                    updateContainers( bomb_container, explosion_container, corpse_container, level_map, enemies, enemy_num, explosion_sprite, &map_update );
-                    clean = areEmptyContainers( bomb_container, explosion_container, corpse_container );
+                    updateContainers( bomb_container, sfx_container, level_map, enemies, enemy_num, explosion_sprite, &map_update );
+                    clean = areContainersEmpty( bomb_container, sfx_container );
+                }
+                else if( events.timer.source == anim_timer )
+                {
+                    updateAnimFrameForPlayers( player1, player2 );
+                    updateAnimFrameForEnemies( enemies, enemy_num );
+                    updateAnimFrameForSFXContainer( sfx_container );
                 }
             }
             else
@@ -259,7 +278,7 @@ void playLevel( int level_num )
         if( isRenderUpdate( gs ) )
         {
             if( !isGamePaused( gs ) )
-                updateGFX( player1, player2, enemies, enemy_num, level_map, bomb_container, explosion_container, corpse_container );
+                updateGFX( camera, player1, player2, enemies, enemy_num, level_map, bomb_container, sfx_container );
             else
                 updateGFXOnPause( game_stop_frame, pause_menu );
 
@@ -267,14 +286,21 @@ void playLevel( int level_num )
         }
 
         if( didPlayerDie( gs ) ) {
-            handleCameraOnPlayerDeath( camera, player1, player2 );
+            handleCameraOnPlayerDeath( camera, &mpcm, player1, player2 );
             if( areAllPlayersDead( player1, player2 ) ) {
                 signalEndingGame( &gs );
                 sudden_exit = false;
+                won = false;
+            }
+            else if( clear_cond == KILL_OPPONENT ) {
+                signalEndingGame( &gs );
+                sudden_exit = false;
+                won = true;
             }
             signalStopPlayerDied( &gs );
         }
-        if( areAllEnemiesDead( enemies, enemy_num ) ) {
+
+        if( clear_cond == KILL_ALL_ENEMIES && areAllEnemiesDead( enemies, enemy_num ) ) {
             signalEndingGame( &gs );
             sudden_exit = false;
             won = true;
@@ -285,21 +311,27 @@ void playLevel( int level_num )
     {
         disableCamera( camera );
         al_rest(1);
-        doEndScreen( font_big, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 75, won );
+
+        char id;
+        if( !isActorAlive( player1 ) ) 
+            id = '2';
+        else 
+            id = '1';
+
+        doEndScreen( font_big, SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - 75, won, id, clear_cond );
     }
 
 
     if( eq != NULL ) al_destroy_event_queue( eq );
     if( game_timer != NULL ) al_destroy_timer( game_timer );
     if( second_timer != NULL ) al_destroy_timer( second_timer );
+    if( anim_timer != NULL ) al_destroy_timer( anim_timer );
 
     if( pause_menu != NULL ) destroyMenu( &pause_menu );
     if( level_map != NULL ) destroyLevelMap( &level_map );
     if( player1 != NULL ) destroyActor( &player1 );
-    if( player2 != NULL ) {
-        destroyActor( &player2 );
-        destroyActor( &mpcm.target );
-    }
+    if( player2 != NULL ) destroyActor( &player2 );
+    if( &mpcm.target != NULL ) destroyActor( &mpcm.target );         
     if( level != NULL ) {
         destroyLevel( &level );
         destroyPathArray( &enemy_paths );
