@@ -1,5 +1,5 @@
-#ifndef STACK_H
-#define STACK_H
+#ifndef __STACK_H
+#define __STACK_H
 
 //Struktura rekurencyjna "stack_node" pelniaca role elementu stosu.
 struct s_stack_node

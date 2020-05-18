@@ -1,0 +1,34 @@
+; Provided by SpontanCombust
+;
+; Every line until the key content in file will be automatically
+; skipped over if it begins with ';'
+; You can then add your credentials here and so on
+; File needs to have a strict structure atm
+; I don't think I'll have time to make it more approachable
+; Headers have to be there and content has to be written correctly
+; 
+; 1st header - [quantity]
+; Below it you write 'n=x', where x is the number of available paths
+; You can add any amount of enemy paths you want
+; 2nd header - [paths]
+; Below it you write paths one by one
+; Paths line begins with a number that says how many steps does a path have
+; After the step quantity you write your steps
+; Step is 'x,y' where x and y are tile coordinates on the map
+; 0,0 is the tile in the upper left corner
+; By going right from it you go in positive x axis
+; By going down from it you go in positive y axis
+;
+; Here's an example taken from Level 1
+;
+[quantity]
+n=8
+[paths]
+2 0,10 5,10
+3 6,8 8,8 8,10
+5 6,2 6,4 14,4 14,2 6,2
+3 15,4 14,4 14,8
+4 17,10 20,10 18,10 18,8
+5 26,5 26,8 24,8 24,4 20,4
+2 17,0 25,0
+2 4,3 4,5

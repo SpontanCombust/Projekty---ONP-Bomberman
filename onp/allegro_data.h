@@ -1,0 +1,23 @@
+#ifndef __ALLEGRO_DATA_H
+#define __ALLEGRO_DATA_H
+
+#define SCRREN_W 640
+#define SCREEN_H 480
+
+#define BTN_TEXT_LENGTH 5
+#define BUTTON_BORDER_THICKNESS 1
+#define BUTTON_DEFAULT_W 20
+#define BUTTON_DEFAULT_H 20
+#define BUTTON_BORDER_COLOR al_map_rgb( 0, 0, 0 )
+#define BUTTON_FILL_COLOR al_map_rgb( 200, 200, 200 )
+#define BUTTON_FILL_HIGHLIGHTED_COLOR al_map_rgb( 220, 220, 220 )
+#define BUTTON_FILL_CLICKED_COLOR al_map_rgb( 150, 150, 150 )
+
+#define LABEL_TEXT_LENGTH 20
+
+#define BUTTONS_ORIGIN_X 100
+#define BUTTONS_ORIGIN_Y 100
+#define BUTTONS_NUMBER 18
+
+
+#endif

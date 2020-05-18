@@ -1,0 +1,45 @@
+; Provided by SpontanCombust
+;
+; Every line until the key content in file will be automatically
+; skipped over if it begins with ';'
+; You can then add your credentials here and so on
+; File needs to have a strict structure atm
+; I don't think I'll have time to make it more approachable
+; Headers have to be there and content has to be written correctly
+; 
+; 1st header - [background]
+; Below it you specify the RGB color of map background
+; list r, b and b in any order, one under another
+; Write channel's value after the '='
+; 2nd header - [dimensions]
+; Below it you write how many collumns and rows does
+; a map have, one under another in any order
+; 'r=x' is for rows, 'c=x' is for collumns
+; 3rd header - [data]
+; Below it you layout you whole map
+; Make sure not to write less collumns/rows than you previously specifies
+; 0 is for empty space
+; 1 is for solid block
+; 2 is for brittle (destructible) block
+;
+; Here's an example taken from Level 1
+;
+[background]
+r=0
+g=150
+b=0
+[dimensions]
+r=11
+c=27
+[data]
+000002002002000020000000002
+010101012121010101012101010
+200020000000000000200000000
+012101010121210101010101012
+200200000000000020000000022
+212101010101010121012101010
+002020000000020220002000000
+012101210101010101210121010
+200020000020200000000000000
+010101210121212101012101010
+000000200020202020000200002

@@ -1,8 +1,8 @@
-#ifndef ONP_H
-#define ONP_H
+#ifndef __ONP_H
+#define __ONP_H
 
-#include "stdbool.h"
 #include "stack.h"
+#include "stdbool.h"
 
 float get_operation_result( float, float, char, bool );
 void handle_element( char *, stack_node ** , bool);
