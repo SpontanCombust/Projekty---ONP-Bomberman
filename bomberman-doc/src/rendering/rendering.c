@@ -1,7 +1,25 @@
+/** @file rendering.c
+ * 
+ * @brief Plik zawiera metody rysowania bitmap gry na ekran
+ * 
+ * Zawiera metody odpowiadajace za rysowanie bomb, SFX, aktorow,\n
+ * mapy gry i menu na tylnim buforze
+ * 
+ * @author  Przemyslaw Cedro
+ * @date    2020.05.19
+*/
+
 #include "../../headers/rendering.h"
 
 #include "../../headers/level_tile_matrix_tools.h"
 
+/** @brief Rysuje bomby
+ * 
+ * Iteruje po tablicy wskaznikow na zmienne typu Bomb i dla kazdej nie-NULLowej bomby\n
+ * rysuje na tylnim buforze jej bitmape na okreslonej pozycji i o okreslonej klatce animacji
+ * 
+ * @param bomb_container tablica wskaznikow na zmienne typu Bomb
+*/
 void drawBombs( Bomb *bomb_container[] )
 {
     Bomb *bomb = NULL;
@@ -14,6 +32,14 @@ void drawBombs( Bomb *bomb_container[] )
     }
 }
 
+/** @brief Rysuje specjalne efekty SFX
+ * 
+ * Iteruje po tablicy wskaznikow na zmienne typu SFX i dla kazdego nie-NULLowego SFX\n
+ * rysuje na tylnim buforze jego bitmape na okreslonej pozycji i o okreslonej klatce animacji,\n
+ * kierujac sie rowniez jego typem i orientacja 
+ * 
+ * @param sfx_container tablica wskaznikow na zmienne typu SFX
+*/
 void drawSFX( SFX *sfx_container[] )
 {
     SFX *sfx = NULL;
@@ -64,14 +90,33 @@ void drawSFX( SFX *sfx_container[] )
     }
 }
 
+/** @brief Rysuje aktora
+ * 
+ * Rysuje na tylnim buforze bitmape aktora na okreslonej pozycji,\n
+ * o okreslonej klatce animacji oraz kierujac sie tym, w ktora strone jest skierowany
+ * 
+ * @param actor wskaznikow na aktora
+*/
 void drawActor( Actor *actor ) {
     al_draw_bitmap_region( actor->bmp, actor->anim_frame * TILE_SIZE, actor->dir * TILE_SIZE, TILE_SIZE, TILE_SIZE, actor->x, actor->y, 0 );
 }
 
+/** @brief Rysuje mape poziomu
+ * 
+ * Rysuje na tylnim buforze bitmape mapy poziomu
+ * 
+ * @param level_map wskaznikow na mape poziomu
+*/
 void drawLevelMap( LevelMap *level_map ) {
     al_draw_bitmap( level_map->bmp, 0, 0, 0 );
 }
 
+/** @brief Rysuje menu
+ * 
+ * Rysuje na tylnim buforze bitmape danego menu
+ * 
+ * @param menu wskaznik na menu
+*/
 void drawMenu( Menu *menu ) {
     al_draw_bitmap( menu->bmp, menu->bg_x, menu->bg_y, 0 );
 }
