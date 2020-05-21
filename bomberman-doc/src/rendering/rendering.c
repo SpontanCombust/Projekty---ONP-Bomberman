@@ -1,13 +1,14 @@
 /** @file rendering.c
  * 
- * @brief Plik zawiera metody rysowania bitmap gry na ekran
+ * @brief Plik zawiera metody rysowania bitmap elementow gry na ekran
  * 
- * Zawiera metody odpowiadajace za rysowanie bomb, SFX, aktorow,\n
- * mapy gry i menu na tylnim buforze
+ * Zawiera metody odpowiadające za rysowanie bomb, SFX, aktorów,\n
+ * mapy gry i menu na tylnim buforze.
  * 
- * @author  Przemyslaw Cedro
+ * @author  Przemysław Cedro
  * @date    2020.05.19
 */
+
 
 #include "../../headers/rendering.h"
 
@@ -15,10 +16,10 @@
 
 /** @brief Rysuje bomby
  * 
- * Iteruje po tablicy wskaznikow na zmienne typu Bomb i dla kazdej nie-NULLowej bomby\n
- * rysuje na tylnim buforze jej bitmape na okreslonej pozycji i o okreslonej klatce animacji
+ * Iteruje po tablicy wskaźników na zmienne typu Bomb i dla każdej nie-NULLowej bomby\n
+ * rysuje na tylnim buforze jej bitmapę na określonej pozycji i o określonej klatce animacji.
  * 
- * @param bomb_container tablica wskaznikow na zmienne typu Bomb
+ * @param bomb_container tablica wskaźników na bomby
 */
 void drawBombs( Bomb *bomb_container[] )
 {
@@ -34,11 +35,14 @@ void drawBombs( Bomb *bomb_container[] )
 
 /** @brief Rysuje specjalne efekty SFX
  * 
- * Iteruje po tablicy wskaznikow na zmienne typu SFX i dla kazdego nie-NULLowego SFX\n
- * rysuje na tylnim buforze jego bitmape na okreslonej pozycji i o okreslonej klatce animacji,\n
- * kierujac sie rowniez jego typem i orientacja 
+ * Iteruje po tablicy wskaźnikow na zmienne typu SFX i dla każdego nie-NULLowego SFX\n
+ * rysuje na tylnim buforze jego bitmapę na określonej pozycji i o okreslonej klatce animacji,\n
+ * kierując sie również jego typem i orientacja.
+ * Jeśli typ to eksplozja, bada orientację SFX i według niej w razie konieczności obraca pobierane\n
+ * subbitmapy explozji. Jeśli typ to zwłoki, rysuje pokolorowaną na czerwono bitmapę aktora,\n
+ * która została przekazana do tablicy SFX.
  * 
- * @param sfx_container tablica wskaznikow na zmienne typu SFX
+ * @param sfx_container tablica wskaźników na zmienne typu SFX
 */
 void drawSFX( SFX *sfx_container[] )
 {
@@ -92,20 +96,20 @@ void drawSFX( SFX *sfx_container[] )
 
 /** @brief Rysuje aktora
  * 
- * Rysuje na tylnim buforze bitmape aktora na okreslonej pozycji,\n
- * o okreslonej klatce animacji oraz kierujac sie tym, w ktora strone jest skierowany
+ * Rysuje na tylnim buforze bitmapę aktora na określonej pozycji,\n
+ * o określonej klatce animacji oraz kierując sie tym, w którą stronę jest skierowany.
  * 
- * @param actor wskaznikow na aktora
+ * @param actor wskaźnik na aktora
 */
 void drawActor( Actor *actor ) {
     al_draw_bitmap_region( actor->bmp, actor->anim_frame * TILE_SIZE, actor->dir * TILE_SIZE, TILE_SIZE, TILE_SIZE, actor->x, actor->y, 0 );
 }
 
-/** @brief Rysuje mape poziomu
+/** @brief Rysuje mapę poziomu
  * 
- * Rysuje na tylnim buforze bitmape mapy poziomu
+ * Rysuje na tylnim buforze bitmapę mapy poziomu.
  * 
- * @param level_map wskaznikow na mape poziomu
+ * @param level_map wskaźnik na mapę poziomu
 */
 void drawLevelMap( LevelMap *level_map ) {
     al_draw_bitmap( level_map->bmp, 0, 0, 0 );
@@ -113,9 +117,9 @@ void drawLevelMap( LevelMap *level_map ) {
 
 /** @brief Rysuje menu
  * 
- * Rysuje na tylnim buforze bitmape danego menu
+ * Rysuje na tylnim buforze bitmapę danego menu.
  * 
- * @param menu wskaznik na menu
+ * @param menu wskaźnik na menu
 */
 void drawMenu( Menu *menu ) {
     al_draw_bitmap( menu->bmp, menu->bg_x, menu->bg_y, 0 );

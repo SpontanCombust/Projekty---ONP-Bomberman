@@ -1,13 +1,14 @@
 /** @file sfx_container_manager.c
  * 
- * @brief Plik zawiera metody do obslugi tablicy wskaznikow na zmienne typu SFX
+ * @brief Plik zawiera metody do obsługi tablicy wskaźnikow na zmienne typu SFX
  * 
- * Plik zawiera metody do obslugi tablicy wskaznikow na zmienne typu SFX o wielkosci zdefiniowanej\n
+ * Plik zawiera metody do obsługi tablicy wskaźnikow na zmienne typu SFX o wielkosci zdefiniowanej\n
  * przez SFX_BUDGET w _game_rules.h.
  * 
- * @author  Przemyslaw Cedro
+ * @author  Przemysław Cedro
  * @date    2020.05.19
 */
+
 
 #include "../../headers/sfx.h"
 
@@ -16,11 +17,11 @@
 
 /** @brief Zwraca, czy tablica SFX jest pusta
 *   
-*   Iteruje po tablicy wskaznikow na zmienne typu SFX i porownuje kazdy wskaznik do NULLa
+*   Iteruje po tablicy wskaźnikow na zmienne typu SFX i porównuje każdy wskaźnik do NULLa
 *
-*   @param container tablica wskaznikow na SFX
+*   @param container tablica wskaźnikow na SFX
 *
-*   @return true jesli tablica zawiera same NULLe, false w przeciwnym wypadku
+*   @return true jeśli tablica zawiera same NULLe, false w przeciwnym wypadku
 */
 bool isSFXContainerEmpty( SFX * container[] )
 {
@@ -33,12 +34,12 @@ bool isSFXContainerEmpty( SFX * container[] )
 
 /** @brief Dodaje SFX do tablicy SFX
  * 
- * Jesli dana tablica wskaznikow na zmienne typu SFX nie jest pelna, przypisuje pierwszemu\n
- * napotkanemu nie-NULLowemu elementowi wskaznik na dana zmienna typu SFX. W przeciwnym wypadku\n
- * zwalnia pamiec z danej dynamicznie zalokowanej zmiennej typu SFX.
+ * Jesli dana tablica wskaźnikow na zmienne typu SFX nie jest pełna, przypisuje pierwszemu\n
+ * napotkanemu nie-NULLowemu elementowi wskaźnik na daną zmienną typu SFX. W przeciwnym wypadku\n
+ * zwalnia pamięć z danej dynamicznie alokowanej zmiennej typu SFX.
  * 
- * @param sfx       wskaznik na wskaznik na SFX
- * @param container tablica wskaznikow na SFX
+ * @param sfx       wskaźnik na wskaźnik na SFX
+ * @param container tablica wskaźnikow na SFX
  */
 void addSFXToContainer( SFX **sfx, SFX * container[] )
 {
@@ -57,15 +58,15 @@ void addSFXToContainer( SFX **sfx, SFX * container[] )
         destroySFX( sfx );
 }
 
-/** @brief Sprawdza, czy na danych koordynatach mapy poziomu znajduje sie SFX danego typu
+/** @brief Sprawdza, czy na danych koordynatach mapy poziomu znajduje się SFX danego typu
  * 
- * Jesli tablica wskaznikow na SFX jest niepusta, iteruje po jej elementach\n
- * i sprawdza, czy ktorys ze wskaznikow o wartości nie-NULLowej, ktore przechowuje tablica,\n
- * wskazuje na zmienna typu SFX o podanym typie, ktorej pola wspolrzednych wskazuja na podana pozycje
+ * Jeśli tablica wskaźników na SFX jest niepusta, iteruje po jej elementach\n
+ * i sprawdza, czy któryś ze wskaźnikow o wartości nie-NULLowej, które przechowuje tablica,\n
+ * wskazuje na zmienną typu SFX o podanym typie, której pola wspólrzędnych wskazują na podaną pozycję.
  * 
- * @param tile_x        wspolrzedna kafelkowa x na mapie poziomu
- * @param tile_y        wspolrzedna kafelkowa y na mapie poziomu
- * @param sfx_container tablica wskazikow na SFX
+ * @param tile_x        współrzędna kafelkowa x na mapie poziomu
+ * @param tile_y        współrzędna kafelkowa y na mapie poziomu
+ * @param sfx_container tablica wskaźników na SFX
  * @param type          typ SFX
  * 
  * @return true jesli na danych koordynatach znajduje sie SFX, false w przeciwnym wypadku
@@ -86,9 +87,9 @@ bool isSFXAtTile( int tile_x, int tile_y, SFX *sfx_container[], SFX_Type type )
     return false;
 }
 
-/** @brief Aktualizuje klatke animacji elementow tablicy SFX
+/** @brief Aktualizuje klatkę animacji elementów tablicy SFX
  * 
- * Iteruje po elementach tablicy wskaznikow na zmienne typu SFX i aktualizuje stan ich pola anim_frame.
+ * Iteruje po elementach tablicy wskaźników na zmienne typu SFX i aktualizuje stan ich pola anim_frame.
  * 
  * @param sfx_container tablica wskaznikow na SFX
 */

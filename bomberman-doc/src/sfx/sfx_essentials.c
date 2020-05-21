@@ -2,12 +2,13 @@
  * 
  * @brief Plik zawiera podstawowe metody dla SFX
  * 
- * Zawiera metody dla specjalnych efektow SFX odpowiadajace za tworzenie i zwalnianie pamieci\n
+ * Zawiera metody dla specjalnych efektów SFX odpowiadajace za tworzenie i zwalnianie pamięci\n
  * z dynamicznie alokowanych zmiennych typu SFX.
  *
- * @author  Przemyslaw Cedro
+ * @author  Przemysław Cedro
  * @date    2020.05.19
 */
+
 
 #include "../../headers/sfx.h"
 
@@ -16,15 +17,15 @@
 
 /** @brief Tworzy i zwraca SFX o danej zawartosci
  * 
- * Dynamicznie alokuje pamiec na zmienna typu SFX i przypisuje do pol jej struktury wartosci\n
+ * Dynamicznie alokuje pamięc na zmienną typu SFX i przypisuje do pól jej struktury wartości\n
  * podane w parametrach.
  * 
- * @param x             wspolrzedna pikselowa x na mapie poziomu
- * @param y             wspolrzedna pikselowa y na mapie poziomu
+ * @param x             wspólrzędna pikselowa x na mapie poziomu
+ * @param y             wspólrzędna pikselowa y na mapie poziomu
  * @param lifespan      czas istnienia SFX
  * @param type          typ SFX
  * @param orientation   orientacja SFX
- * @param bmp           wskaznik na bitmape, jaka ma uzyc SFX
+ * @param bmp           wskaźnik na bitmape, jaka ma użyc SFX
  * 
  * @return wskaznik na utworzone SFX 
 */
@@ -51,11 +52,11 @@ SFX *createSFX( float x, float y, int lifespan, SFX_Type type, SFX_Orientation o
     return sfx;
 }
 
-/** @brief Zwalnia pamiec z SFX
+/** @brief Zwalnia pamięć z SFX
  * 
- * Zwalnia pamiec z dynamicznie zalokowanej zmiennej typu SFX.
+ * Zwalnia pamięć z dynamicznie alokowanej zmiennej typu SFX.
  * 
- * @param sfx wskaznik na wskaznik na SFX
+ * @param sfx podwójny wskaźnik na SFX
 */
 void destroySFX( SFX **sfx )
 {

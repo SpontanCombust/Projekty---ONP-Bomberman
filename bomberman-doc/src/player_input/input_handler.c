@@ -1,13 +1,14 @@
 /** @file input_handler.c 
  * 
- * @brief Zawiera metody do obslugi wejsc uzytkownika
+ * @brief Zawiera metody do obslugi wejść użytkownika
  * 
- * Zawiera metody obslugi wejsc z klawiatury odpowiednio dla obecnosci w menu\n
+ * Zawiera metody obsługi wejść z klawiatury odpowiednio dla obecności w menu\n
  * jak i w trakcie rozgrywki.
  * 
- * @author  Przemyslaw Cedro
+ * @author  Przemysław Cedro
  * @date    2020.05.19
 */
+
 
 #include "../../headers/player_input.h"
 
@@ -16,14 +17,16 @@
 
 /** @brief Ustawia odpowiedni input dla akcji
  * 
- * Ustawia odpowiedni input dla akcji w menu i podczas rozgrywki w zaleznosci od podanego schematu wejscia
+ * Ustawia odpowiedni input dla akcji w menu i podczas rozgrywki w zależnosci od podanego schematu wejścia.\n
+ * Schemat STANDARD: GÓRA, DÓŁ, LEWO, PRAWO, SPACJA
+ * Schemat ALTERNATIVE: W, S, A, D, LCtrl
  * 
- * @param is    schemat sterowania wskazujacy na dany zestaw wejsc z klawiatury
- * @param down  wskaznik na wartosc klawisza odpowiadajacemu akcji 'na dol'
- * @param up    wskaznik na wartosc klawisza odpowiadajacemu akcji 'w gore'
- * @param left  wskaznik na wartosc klawisza odpowiadajacemu akcji 'w lewo'
- * @param right wskaznik na wartosc klawisza odpowiadajacemu akcji 'w prawo'
- * @param bomb  wskaznik na wartosc klawisza odpowiadajacemu akcji 'podloz bombe'
+ * @param is    schemat sterowania wskazujący na dany zestaw wejść z klawiatury
+ * @param down  wskaźnik na wartość klawisza odpowiadającemu akcji 'na dól'
+ * @param up    wskaźnik na wartość klawisza odpowiadającemu akcji 'w górę'
+ * @param left  wskaźnik na wartość klawisza odpowiadającemu akcji 'w lewo'
+ * @param right wskaźnik na wartość klawisza odpowiadającemu akcji 'w prawo'
+ * @param bomb  wskaźnik na wartość klawisza odpowiadającemu akcji 'podlóż bombę'
 */
 static void retrieveInput( InputScheme is, char *down, char *up, char *left, char *right, char *bomb )
 {
@@ -33,18 +36,18 @@ static void retrieveInput( InputScheme is, char *down, char *up, char *left, cha
         *up = ALLEGRO_KEY_W, *down = ALLEGRO_KEY_S, *left = ALLEGRO_KEY_A, *right = ALLEGRO_KEY_D, *bomb = ALLEGRO_KEY_LCTRL;
 }
 
-/** @brief Obsluguje nacisniecie danego klawisza w trakcie rozgrywki
+/** @brief Obsługuje naciśnięcie danego klawisza w trakcie rozgrywki
  * 
- * Podejmuje odpowiednie akcje w zaleznosci od nacisniecia i trzymania danego przycisku klawiatury\n
- * w trakcie przechodzenia poziomu. Odpowiednio wysyla komendy o zmiane wektorow predkosci,\n
- * podlozenie bomby lub zapauzowanie gry.
+ * Podejmuje odpowiednie akcje w zależności od naciśnięcia i trzymania danego przycisku klawiatury\n
+ * w trakcie przechodzenia poziomu. Odpowiednio wysyła komendy o zmiane wektorów predkości,\n
+ * podłożeniu bomby lub zapauzowaniu gry.
  * 
- * @param keyboard_keycode  kod klawisza zdefiniowany przez biblioteke Allegro
- * @param is                schemat sterowania wskazujacy na dany zestaw wejsc z klawiatury
- * @param player            wskaznik na aktora danego gracza
- * @param bomb_blast_range  zasieg wybuchu bomby dla danego gracza
- * @param bomb_bmp          bitmapa bomby, ktora ta ma uzyc
- * @param bomb_container    tablica wskaznikow na bomby
+ * @param keyboard_keycode  kod klawisza zdefiniowany przez bibliotekę Allegro
+ * @param is                schemat sterowania wskazujący na dany zestaw wejść z klawiatury
+ * @param player            wskaźnik na aktora danego gracza
+ * @param bomb_blast_range  zasięg wybuchu bomby dla danego gracza
+ * @param bomb_bmp          bitmapa bomby, którą ta ma użyć
+ * @param bomb_container    tablica wskaźników na bomby
  * @param gs                stan gry                   
 */
 void handleGameInputKeyDown( char keyboard_keycode, InputScheme is, Actor *player, int bomb_blast_range, ALLEGRO_BITMAP *bomb_bmp, Bomb *bomb_container[], GameState *gs )
@@ -70,14 +73,14 @@ void handleGameInputKeyDown( char keyboard_keycode, InputScheme is, Actor *playe
     }
 }
 
-/** @brief Obsluguje zwolnienie danego klawisza w trakcie rozgrywki
+/** @brief Obsługuje zwolnienie danego klawisza w trakcie rozgrywki
  * 
- * Podejmuje odpowiednie akcje w zaleznosci od zwolnienia danego przycisku klawiatury\n
- * w trakcie przechodzenia poziomu. Odpowiednio wysyla komendy o zmiane wektorow predkosci.
+ * Podejmuje odpowiednie akcje w zależności od zwolnienia danego przycisku klawiatury\n
+ * w trakcie przechodzenia poziomu. Odpowiednio wysyła komendy o zmiane wektorow predkosci.
  * 
  * @param keyboard_keycode  kod klawisza zdefiniowany przez biblioteke Allegro
- * @param is                schemat sterowania wskazujacy na dany zestaw wejsc z klawiatury
- * @param player            wskaznik na aktora danego gracza
+ * @param is                schemat sterowania wskazujący na dany zestaw wejść z klawiatury
+ * @param player            wskaźnik na aktora danego gracza
 */
 void handleGameInputKeyUp( char keyboard_keycode, InputScheme is, Actor *player )
 {
@@ -93,14 +96,14 @@ void handleGameInputKeyUp( char keyboard_keycode, InputScheme is, Actor *player 
     }
 }
 
-/** @brief Obsluguje nacisniecie danego klawisza w trakcie pobytu w menu
+/** @brief Obsługuje naciśnięcie danego klawisza w trakcie pobytu w menu
  * 
- * Podejmuje odpowiednie akcje w zaleznosci od nacisniecia i trzymania danego przycisku klawiatury\n
- * w trakcie pobytu w menu. Odpowiednio wysyla komendy o zmianie wybranego wpisu w menu\n
+ * Podejmuje odpowiednie akcje w zależności od nacisnięcia i trzymania danego przycisku klawiatury\n
+ * w trakcie pobytu w menu. Odpowiednio wysyła komendy o zmianie wybranego wpisu w menu\n
  * lub zmianie zmiennej przechowywanej w wpisie.
  * 
  * @param keyboard_keycode  kod klawisza zdefiniowany przez biblioteke Allegro
- * @param menu              wskaznik na obecne menu
+ * @param menu              wskaźnik na obecne menu
  * @param gs                stan gry                   
 */
 void handleMenuInputKeyDown( char keyboard_keycode, Menu *menu, GameState *gs )

@@ -4,8 +4,8 @@
  * 
  * 
  * 
- * @author  Przemyslaw Cedro
- * @date    2020.05.19
+ * @author  Przemysław Cedro
+ * @date    2020.05.21
 */
 
 /** @brief 

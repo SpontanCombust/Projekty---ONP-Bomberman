@@ -1,10 +1,39 @@
+/** @file menu_rendering.c
+ * 
+ * @brief Plik zawiera funkcje renderowania bitmapy menu
+ * 
+ * Plik zawiera funkcje tworzenia i aktualizowania zawartości bitmapy menu analizując jego zawartość\n
+ * i rysując odpowiedni tekst w odpowiednim miejscu.
+ * 
+ * @author  Przemysław Cedro
+ * @date    2020.05.21
+*/
+
+
 #include "../../headers/menus.h"
 
 #include <allegro5/allegro_primitives.h>
 
+/** @brief Rysuje tekst zawarty we wpisie
+ * 
+ * Nanosi na bitmapę menu zawartość konkretnego wpisu.\n
+ * Jeśli wpis jest oznaczony jako posiadający zmienną, rysuje zarówno tekst etykiety jak i zmiennej\n
+ * w taki sposób, by calość była wyśrodkowana względem szerokości calości tekstu. Narysowany wpis\n
+ * wygląda wtedy nastepująco: "tekst_etykiety: <tekst_zmiennej>". Podczas zaznaczenia tego wpisu strzałki\n
+ * (nawiasy ostre) przyjmują kolor poboczny czcionek sugerujący możliwosc zmiany zmiennej za pomocą strzałek\n
+ * w lewo i w prawo.\n
+ * Jeśli wpis jest oznaczony jako nieposiadający zmiennej, rysowany jest tylko tekst etykiety. Jeśli\n
+ * taki wpis jest niemożliwy do zaznaczenia, zostaje traktowany jako naglówek menu i podkreślany jest\n
+ * linią pod jego tekstem. Narysowany wpis: "tekst_etykiety" - ten również jest wypośrodkowany.
+ * W obu przypadkach warunku obecności zmiennej, gdy dany wpis będzie obecnie zaznaczony przez kursor,\n
+ * po jego lewej stronie pojawi sie właśnie ten kursor (">") o kolorze pobocznym czcionek.
+ * 
+ * @param menu  wskaźnik na menu
+ * @param y     obecna współrzędna do rysowania napisu na osi y
+ * @param i     obecnie badany indeks tablicy wpisów
+*/
 static void drawEntryContent( Menu *menu, float y, int i )
 {
-    // al_draw_text( menu->main_font, menu->main_font_color, menu->entry_orig_x, y, ALLEGRO_ALIGN_CENTER, menu->entries[i].entry_text );
     float entry_text_width = al_get_text_width( menu->main_font, menu->entries[i].entry_text );
     
     if( menu->entries[i].has_var )
@@ -46,6 +75,15 @@ static void drawEntryContent( Menu *menu, float y, int i )
     
 }
 
+/** @brief Renderuje bitmapę menu
+ * 
+ * Jako docelową bitmapę ustawia bitmapę menu, czyści ją, a następnie rysuje na niej najpierw tło\n
+ * posługując się tymczasową bitmapą, a następnie w pętli rysuje kolejne wpisy (jeśli są aktywne).
+ * Po tym ustawia docelową bitmapę rysowania dla Allegro z powrotem na tylni bufor wyświetlacza.
+ * 
+ * @param menu wskaźnik na menu
+ * @param display wskaźnik na wyświetlacz Allegro
+*/
 void updateMenuBitmap( Menu *menu, ALLEGRO_DISPLAY *display )
 {
     al_set_target_bitmap( menu->bmp );

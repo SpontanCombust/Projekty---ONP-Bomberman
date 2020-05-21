@@ -1,8 +1,33 @@
+/** @file menu_templates.c
+ * 
+ * @brief Plik zawiera funkcje tworzenia menu wzorców menu
+ * 
+ * Plik zawiera funkcje tworzące już gotowe wzorce konkretnych menu: menu głównego, menu opcji,\n
+ * menu wyboru trybu gry, menu wyboru poziomu i menu pauzy.
+ * 
+ * @author  Przemysław Cedro
+ * @date    2020.05.21
+*/
+
+
 #include "../../headers/menus.h"
 
 #include "../../headers/_game_rules.h"
 #include "../../headers/_game_state.h"
 
+/** @brief Zwraca wzorzec menu głównego
+ * 
+ * Tworzy menu główne, którego konstrukcja to:\n
+ * 1. czarne tło na cały ekran\n
+ * 2. wpis z etykietą "PLAY" prowadzący do menu wyboru trybu gry\n
+ * 3. wpis z etykietą "OPTIONS" prowadzący do menu opcji\n
+ * 4. wpis z etykietą "EXIT" zamykający program\n
+ *
+ * @param main_font wskaźnik na główną czcionkę
+ * @param sub_font  wskaźnik na poboczną czcionkę
+ * 
+ * @return wskaźnik na utworzone menu główne
+*/
 Menu *createMainMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
 {
     Menu *menu = createMenu( main_font, sub_font );
@@ -29,6 +54,23 @@ Menu *createMainMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
     return menu;
 }
 
+/** @brief Zwraca wzorzec menu opcji
+ * 
+ * Tworzy menu opcji, którego konstrukcja to:\n
+ * 1. czarne tło na cały ekran\n
+ * 2. wpis z etykietą "OPTIONS" będący nagłówkiem menu\n
+ * 3. wpis z etykietą "PLAYER1 SKIN:" i zmienną z zawartością nazwy skórki dla Gracza 1\n
+ *    wpis ten dla operacji poprzedniej i następnej zawartości argumentu przegląda skórki dla graczy\n
+ * 4. wpis z etykietą "PLAYER2 SKIN:" i zmienną z zawartością nazwy skórki dla Gracza 2\n
+ *    wpis ten dla operacji poprzedniej i następnej zawartości argumentu przegląda skórki dla graczy\n
+ * 5. wpis z etykietą "GO BACK" prowadzący z powrotem do menu głównego\n
+ * 6. operacja pod klawisz ESC prowadząca z powrotem do menu głównego\n
+ *
+ * @param main_font wskaźnik na główną czcionkę
+ * @param sub_font  wskaźnik na poboczną czcionkę
+ * 
+ * @return wskaźnik na utworzone menu opcji
+*/
 Menu *createOptionsMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
 {
     Menu *menu = createMenu( main_font, sub_font );
@@ -63,6 +105,20 @@ Menu *createOptionsMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
     return menu;
 }
 
+/** @brief Zwraca wzorzec menu pauzy
+ * 
+ * Tworzy menu główne, którego konstrukcja to:\n
+ * 1. czarne, półprzezroczyste tło na 1/3 szerokości ekranu\n
+ * 2. wpis z etykietą "PAUSE" będący nagłówkiem menu\n
+ * 3. wpis z etykietą "RESUME" wznawiający grę\n
+ * 4. wpis z etykietą "TO MAIN MENU" kończący rozgrywkę i prowadzący do menu głównego\n
+ * 5. operacja pod klawisz ESC wznawiająca grę\n
+ *
+ * @param main_font wskaźnik na główną czcionkę
+ * @param sub_font  wskaźnik na poboczną czcionkę
+ * 
+ * @return wskaźnik na utworzone menu pauzy
+*/
 Menu *createPauseMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
 {
     Menu *menu = createMenu( main_font, sub_font );
@@ -88,6 +144,25 @@ Menu *createPauseMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
     return menu;
 }
 
+/** @brief Zwraca wzorzec menu wyboru trybu gry
+ * 
+ * Tworzy menu główne, którego konstrukcja to:\n
+ * 1. czarne tło na cały ekran\n
+ * 2. wpis z etykietą "MODE SELECTION" będący nagłówkiem menu\n
+ * 3. wpis z etykietą "SINGLE PLAYER" ustawiający tryb gry na tryb pojedynczego gracza\n
+ *    i prowadzący do menu wyboru poziomu\n
+ * 4. wpis z etykietą "CO-OP" ustawiający tryb gry na tryb kooperacyjny\n
+ *    i prowadzący do menu wyboru poziomu\n
+ * 5. wpis z etykietą "PvP" ustawiający tryb gry na tryb gracz przeciw graczowi\n
+ *    i prowadzący do menu wyboru poziomu\n
+ * 6. wpis z etykietą "GO BACK" prowadzący z powrotem do menu głównego
+ * 7. operacja pod klawisz ESC prowadząca z powrotem do menu głównego
+ *
+ * @param main_font wskaźnik na główną czcionkę
+ * @param sub_font  wskaźnik na poboczną czcionkę
+ * 
+ * @return wskaźnik na utworzone menu wyboru trybu gry
+*/
 Menu *createModeSelectionMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
 {
     Menu *menu = createMenu( main_font, sub_font );
@@ -123,6 +198,22 @@ Menu *createModeSelectionMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
     return menu;
 }
 
+/** @brief Zwraca wzorzec menu wyboru poziomu
+ * 
+ * Tworzy menu opcji, którego konstrukcja to:\n
+ * 1. czarne tło na cały ekran\n
+ * 2. wpis z etykietą "SELECT_LEVEL" będący nagłówkiem menu\n
+ * 3. wpis z etykietą "START!" prowadzący do rozpoczęcia rozgrywki
+ * 4. wpis z etykietą "LEVEL:" i zmienną z zawartością nazwy poziomu\n
+ *    wpis ten dla operacji poprzedniej i następnej zawartości argumentu przegląda dostępne poziomy\n
+ * 5. wpis z etykietą "GO BACK" prowadzący z powrotem do menu wyboru trybu gry\n
+ * 6. operacja pod klawisz ESC prowadząca z powrotem do menu wyboru trybu gry\n
+ *
+ * @param main_font wskaźnik na główną czcionkę
+ * @param sub_font  wskaźnik na poboczną czcionkę
+ * 
+ * @return wskaźnik na utworzone menu opcji
+*/
 Menu *createLevelSelectionMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
 {
     Menu *menu = createMenu( main_font, sub_font );

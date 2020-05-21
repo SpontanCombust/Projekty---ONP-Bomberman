@@ -3,21 +3,22 @@
  * @brief Plik zawiera podstawowe metody dla menu
  * 
  * Plik zawiera podstawowe metody dla tworzenia, ustawiania zawartości i cech oraz zwalniania\n
- * pamieci z menu.
+ * pamięci z menu.
  * 
- * @author  Przemyslaw Cedro
+ * @author  Przemysław Cedro
  * @date    2020.05.19
 */
+
 
 #include "../../headers/menus.h"
 
 #include "../../headers/_game_rules.h"
 
-/** @brief Inicjuje wartosci dla wpisu w menu
+/** @brief Inicjuje wartości dla wpisu w menu
  * 
- * Przypisuje domyslne wartosci i zawartosci dla pol kazdego wpisu (Entry) w menu
+ * Przypisuje domyślne wartości i zawartości dla pól każdego wpisu w menu
  * 
- * @param menu menu, ktore ma zostac wyzerowane
+ * @param menu menu, które ma zostać wyzerowane
 */
 static void initEntries( Menu *menu )
 {
@@ -34,16 +35,15 @@ static void initEntries( Menu *menu )
     }
 }
 
-/** @brief Tworzy i zwraca menu o danej zawartosci
+/** @brief Tworzy i zwraca menu o danej zawartości
  *
- * Dynamicznie alokuje pamiec na zmienna typu Menu, przypisuje wiekoszci jej pol domyslne wartosci,
- * inicujuje wpisy w menu oraz ustawia dla menu czcionki podane w parametrach.
- * Maksymalna liczba wpisow zdefiniowana jest przez MAX_ENTRIES w _game_rules.h.
+ * Dynamicznie alokuje pamięć na zmienną typu Menu, przypisuje jej polom domyślne wartości,
+ * inicjuje wpisy w menu oraz ustawia dla menu czcionki podane w parametrach.
  * 
- * @param main_font glowna czcionka uzywana w menu
- * @param sub_font  poboczna czcionka uzywana w menu
+ * @param main_font główna czcionka używana w menu
+ * @param sub_font  poboczna czcionka używana w menu
  * 
- * @return wskaznik na utworzone menu
+ * @return wskaźnik na utworzone menu
 */
 Menu *createMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
 {
@@ -70,17 +70,17 @@ Menu *createMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
     return menu;
 }
 
-/** @brief Ustawia dla danego menu pola odpowiadajace za wyglad i rozmieszczenie tekstu
+/** @brief Ustawia dla danego menu pola odpowiadające za wygląd i rozmieszczenie tekstu
  * 
- * Ustawia dla danego menu pola odpowiadajace za kolor glownej i pobocznej czcionki,\n
- * punkt poczatkowy dla wpisow wzgledem tla menu oraz odleglosc miedzy wpisami w menu.
+ * Ustawia dla danego menu pola odpowiadające za kolor glównej i pobocznej czcionki,\n
+ * punkt początkowy dla wpisów wzgledem tła menu oraz odległość miedzy wpisami w menu.
  *
- * @param menu              menu
- * @param main_font_color   kolor glownej czcionki
- * @param sub_font_color    kolor pobocznej czcionki
- * @param entry_orig_x      wspolrzedna pikselowa x punktu poczatkowego dla wpisow w menu wzgledem punktu poczotkowego tla
- * @param entry_orig_y      wspolrzedna pikselowa y punktu poczatkowego dla wpisow w menu wzgledem punktu poczotkowego tla
- * @param line_spacing      odleglosc miedzy wpisami w menu
+ * @param menu              wskaźnik na menu
+ * @param main_font_color   kolor główny dla czcionek
+ * @param sub_font_color    kolor poboczny dla czcionek
+ * @param entry_orig_x      współrzędna pikselowa x punktu początkowego dla wpisów w menu względem punktu początkowego tła
+ * @param entry_orig_y      współrzędna pikselowa y punktu początkowego dla wpisów w menu względem punktu początkowego tła
+ * @param line_spacing      odleglość miedzy wpisami w menu
 */
 void setMenuTextData( Menu *menu, ALLEGRO_COLOR main_font_color, ALLEGRO_COLOR sub_font_color, float entry_orig_x, float entry_orig_y, float line_spacing )
 {
@@ -91,18 +91,19 @@ void setMenuTextData( Menu *menu, ALLEGRO_COLOR main_font_color, ALLEGRO_COLOR s
     menu -> line_spacing = line_spacing;
 }
 
-/** @brief Ustawia dla danego menu pola odpowiadajace za wyglad i rozmieszczenie tla
+/** @brief Ustawia dla danego menu pola odpowiadające za wygląd i rozmieszczenie tła
  * 
- * Ustawia dla danego menu pola odpowiadajace za kolor tla, kanal alfa tla,\n
- * punkt poczatkowy umieszczenia tla oraz jego wymiary
+ * Ustawia dla danego menu pola odpowiadające za kolor tła, kanał alfa tła,\n
+ * punkt początkowy umieszczenia tła oraz jego wymiary. Tworzy bitmapę menu,\n
+ * której rozmiar zdefiniowany jest przez rozmiar tła.
  *
- * @param menu      menu
- * @param bg_color  kolor tla
- * @param bg_alpha  kanal alfa tla
- * @param bg_x      wspolrzedna pikselowa x punktu poczatkowego dla tla menu
- * @param bg_y      wspolrzedna pikselowa y punktu poczatkowego dla tla menu
- * @param bg_w      szerokosc tla menu
- * @param bg_h      wysokosc tla menu
+ * @param menu      wskaźnik na menu
+ * @param bg_color  kolor tła
+ * @param bg_alpha  kanał alfa tła
+ * @param bg_x      współrzędna pikselowa x punktu początkowego dla tła menu
+ * @param bg_y      współrzędna pikselowa y punktu początkowego dla tła menu
+ * @param bg_w      szerokość tła menu
+ * @param bg_h      wysokość tła menu
 */
 void setMenuBgData( Menu *menu, ALLEGRO_COLOR bg_color, float bg_alpha, float bg_x, float bg_y, float bg_w, float bg_h )
 {
@@ -117,9 +118,9 @@ void setMenuBgData( Menu *menu, ALLEGRO_COLOR bg_color, float bg_alpha, float bg
 
 /** @brief Ustawia tekst wpisu w menu
  * 
- *  Dla wpisu o danym indeksie w menu ustawia tekst etykiety, jaki bedzie wyswietlany w tym wpisie
+ *  Dla wpisu o danym indeksie w menu ustawia tekst etykiety, jaki będzie wyświetlany w tym wpisie.
  *
- * @param menu          menu
+ * @param menu          wskaźnik na menu
  * @param entry_index   indeks wpisu w menu
  * @param entry_text    tekst etykiety wpisu
 */
@@ -127,11 +128,11 @@ void setEntryText( Menu *menu, int entry_index, char *entry_text ) {
     strncpy( menu->entries[ entry_index ].entry_text, entry_text, MAX_ENTRY_TEXT_LENGTH );
 }
 
-/** @brief Ustawia zmienna wpisu w menu
+/** @brief Ustawia zmienną wpisu w menu
  * 
- *  Dla wpisu o danym indeksie w menu ustawia tekst zmiennej, jaki bedzie wyswietlany w tym wpisie
+ *  Dla wpisu o danym indeksie w menu ustawia tekst zmiennej, jaki bedzie wyświetlany w tym wpisie
  *
- * @param menu          menu
+ * @param menu          wskaźnik na menu
  * @param entry_index   indeks wpisu w menu
  * @param entry_var     tekst zmiennej wpisu
 */
@@ -140,80 +141,80 @@ void setEntryVar( Menu *menu, int entry_index, char *entry_var ) {
     menu->entries[ entry_index ].has_var = true;
 }
 
-/** @brief Ustawia operacje wyboru dla wpisu w menu
+/** @brief Ustawia operację wyboru dla wpisu w menu
  * 
- * Dla wpisu o danym indeksie w menu ustawia funkcje sygnalizacyjna stanu gry dla operacji wybierania tego wpisu.
+ * Dla wpisu o danym indeksie w menu ustawia funkcję sygnalizacyjną stanu gry dla operacji wybierania tego wpisu.
  *
- * @param menu              menu
+ * @param menu              wskaźnik na menu
  * @param entry_index       indeks wpisu w menu
- * @param operation_select  wskaznik na funkcje sygnalizacyjna stanu gry dla operacji wybierania tego wpisu
+ * @param operation_select  wskaźnik na funkcję sygnalizacyjną stanu gry dla operacji wybierania tego wpisu
 */
 void setEntrySelectOperation( Menu *menu, int entry_index, void ( *operation_select )( GameState * ) ) {
     menu -> entries[ entry_index ].operation_select = operation_select;
 }
 
-/** @brief Ustawia operacje zmiany zmiennej w lewo dla wpisu w menu
+/** @brief Ustawia operację zmiany zmiennej wpisu w menu na poprzednią zawartość
  * 
- * Dla wpisu o danym indeksie w menu ustawia funkcje sygnalizacyjna stanu gry dla operacji zmiany zmiennej wpisu w lewo.
+ * Dla wpisu o danym indeksie w menu ustawia funkcję sygnalizacyjną stanu gry dla operacji zmiany zmiennej wpisu na poprzednią.
  *
- * @param menu              menu
+ * @param menu              wskaźnik na menu
  * @param entry_index       indeks wpisu w menu
- * @param operation_select  wskaznik na funkcje sygnalizacyjna stanu gry dla operacji zmiany zmiennej wpisu w lewo
+ * @param operation_select  wskaźnik na funkcję sygnalizacyjną stanu gry dla operacji zmiany zmiennej wpisu na poprzednią
 */
 void setEntryLeftOperation( Menu *menu, int entry_index, void ( *operation_left )( GameState * ) ) {
     menu -> entries[ entry_index ].operation_left = operation_left;
 }
 
-/** @brief Ustawia operacje zmiany zmiennej w prawo dla wpisu w menu
+/** @brief Ustawia operację zmiany zmiennej wpisu w menu na nastepna zawartosc
  * 
- * Dla wpisu o danym indeksie w menu ustawia funkcje sygnalizacyjna stanu gry dla operacji zmiany zmiennej wpisu w prawo.
+ * Dla wpisu o danym indeksie w menu ustawia funkcję sygnalizacyjną stanu gry dla operacji zmiany zmiennej wpisu na następną.
  *
- * @param menu              menu
+ * @param menu              wskaźnik na menu
  * @param entry_index       indeks wpisu w menu
- * @param operation_select  wskaznik na funkcje sygnalizacyjna stanu gry dla operacji zmiany zmiennej wpisu w prawo
+ * @param operation_select  wskaznik na funkcje sygnalizacyjna stanu gry dla operacji zmiany zmiennej wpisu na następną
 */
 void setEntryRightOperation( Menu *menu, int entry_index, void ( *operation_right )( GameState * ) ) {
     menu -> entries[ entry_index ].operation_right = operation_right;
 }
 
-/** @brief Ustawia operacje wyjscia ESC dla menu
+/** @brief Ustawia operację wyjścia przez ESC dla menu
  * 
- * Dla danego menu ustawia funkcje sygnalizacyjna stanu gry dla operacji wyjscia z menu za pomoca ESC.
+ * Dla danego menu ustawia funkcję sygnalizacyjną stanu gry dla operacji wyjścia z menu za pomocą ESC.
  *
- * @param menu              menu
- * @param operation_select  wskaznik na funkcje sygnalizacyjna stanu gry dla operacji wyjscia z menu za pomoca ESC
+ * @param menu              wskaźnik na menu
+ * @param operation_select  wskaźnik na funkcję sygnalizacyjną stanu gry dla operacji wyjścia z menu za pomoca ESC
 */
 void setMenuEscOperation( Menu *menu, void ( *operation_esc )( GameState * ) ) {
     menu -> operation_esc = operation_esc;
 }
 
-/** @brief Ustawia wpis jako mozliwy do zaznaczenia
+/** @brief Ustawia wpis jako możliwy do zaznaczenia
  * 
- * Ustawia wpis o danym indeksie jako zdatny do zaznaczenia (przejscia na niego kursorem) w menu
+ * Ustawia wpis o danym indeksie jako zdatny do zaznaczenia (przejścia na niego kursorem) w menu.
  *
- * @param menu          menu
+ * @param menu          wskaźnik na menu
  * @param entry_index   indeks wpisu w menu
 */
 void setHighlightable( Menu *menu, int entry_index ) {
     menu -> entries[ entry_index ].highlightable = true;
 }
 
-/** @brief Ustawia indeks domyslnie zaznaczonego wpisu
+/** @brief Ustawia indeks domyślnie zaznaczonego wpisu
  * 
- * Ustawia dany indeks, dla ktorego wpis o tym indeksie ma byc domyslnie zaznaczony przy wejsciu do menu 
+ * Ustawia dany indeks, dla którego wpis o tym indeksie ma byc domyślnie zaznaczony przy wejściu do menu.
  *
- * @param menu              menu
- * @param default_hl_index  indeks domyslnie zaznaczonego wpisu
+ * @param menu              wskaźnik na menu
+ * @param default_hl_index  indeks domyślnie zaznaczonego wpisu
 */
 void setDefaultHighlighted( Menu *menu, int default_hl_index ) {
     menu -> default_highlighted = menu -> currently_highlighted = default_hl_index;
 }
 
-/** @brief Resetuje obecnie zaznaczony wpis do domyslnego
+/** @brief Resetuje obecnie zaznaczony wpis do domyślnego
  * 
- * Resetuje dla danego menu obecnie zaznaczony wpis i resetuje obecny indeks do indeksu domyslnego
+ * Resetuje dla danego menu obecnie zaznaczony wpis i resetuje obecny indeks do indeksu domyślnego.
  *
- * @param menu menu
+ * @param menu wskaźnik na menu
 */
 void resetToDefaultHighlighted( Menu *menu ) {
     menu -> currently_highlighted = menu->default_highlighted;
@@ -221,21 +222,21 @@ void resetToDefaultHighlighted( Menu *menu ) {
 
 /** @brief Uaktywnia wpis
  * 
- * Wpis o danym indeksie dla danego menu zostaje aktywowany i moze teraz zostawac rysowany i/lub\n
- * moga byc na nim wykonywane zaznaczenie lub operacje wyboru i zmian zmiennej.
+ * Wpis o danym indeksie dla danego menu zostaje aktywowany i może teraz zostawac rysowany i/lub\n
+ * mogą byc na nim wykonywane zaznaczenie lub operacje wyboru i zmian zmiennej.
  *
- * @param menu          menu
+ * @param menu          wskaźnik na menu
  * @param entry_index   indeks wpisu w menu
 */
 void enableEntry( Menu *menu, int entry_index ) {
     menu -> entries[ entry_index ].entry_set = true;
 }
 
-/** @brief Zwalnia pamiec z menu
+/** @brief Zwalnia pamięć z menu
  * 
- * Zwalnia pamiec z dynamicznie zalokowanej zmiennej typu Menu i z bitmapy menu.
+ * Zwalnia pamięć z dynamicznie alokowanej zmiennej typu Menu i z bitmapy menu.
  *
- * @param menu wskaznik na wskaznik menu
+ * @param menu podwójny wskaźnik na menu
 */
 void destroyMenu( Menu **menu )
 {
