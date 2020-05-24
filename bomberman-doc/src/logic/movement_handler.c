@@ -5,7 +5,7 @@
  * Plik zawiera funckje aktualizowania wektorów prędkości aktora, jego pozycji oraz kierunku.
  * 
  * @author  Przemysław Cedro
- * @date    2020.05.21
+ * @date    2020.05.24
 */
 
 
