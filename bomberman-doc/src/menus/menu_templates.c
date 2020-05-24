@@ -212,7 +212,7 @@ Menu *createModeSelectionMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
  * @param main_font wskaźnik na główną czcionkę
  * @param sub_font  wskaźnik na poboczną czcionkę
  * 
- * @return wskaźnik na utworzone menu opcji
+ * @return wskaźnik na utworzone menu wyboru poziomu
 */
 Menu *createLevelSelectionMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
 {

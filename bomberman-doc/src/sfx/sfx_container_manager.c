@@ -64,8 +64,8 @@ void addSFXToContainer( SFX **sfx, SFX * container[] )
  * i sprawdza, czy któryś ze wskaźnikow o wartości nie-NULLowej, które przechowuje tablica,\n
  * wskazuje na zmienną typu SFX o podanym typie, której pola wspólrzędnych wskazują na podaną pozycję.
  * 
- * @param tile_x        współrzędna kafelkowa x na mapie poziomu
- * @param tile_y        współrzędna kafelkowa y na mapie poziomu
+ * @param tile_x        współrzędna pola mapy w osi x na mapie poziomu
+ * @param tile_y        współrzędna pola mapy w osi y na mapie poziomu
  * @param sfx_container tablica wskaźników na SFX
  * @param type          typ SFX
  * 
