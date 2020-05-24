@@ -1,3 +1,14 @@
+/** @file level_map_essentials.c
+ * 
+ * @brief Plik zawiera podstawowe funckje dla mapy poziomu
+ * 
+ * Zawiera funkcje tworzenia mapy poziomu i zwalniania z niej pamięci
+ * 
+ * @author  Przemysław Cedro
+ * @date    2020.05.24
+*/
+
+
 #include "../../headers/level_map.h"
 
 #include "../../headers/sprite_properties.h"
@@ -5,6 +16,15 @@
 #include <allegro5/allegro.h>
 #include <stdio.h>
 
+/** @brief Tworzy mapę poziomu
+ * 
+ * Otwiera plik o danej ścieżce i odczytuje z niego przy pomocy funkcji createLevelTileMatrix()\n
+ * dane mapy poziomu. Tworzy zmienną typu LevelMap (Mapa Poziomu) i zapisuje do niego odczytane wartości. 
+ *
+ * @param map_file_path ścieżka do pliku z mapą poziomu
+ * 
+ * @return wskaźnik na mapę poziomu
+*/
 LevelMap *createLevelMap( char *map_file_path )
 {
     LevelMap *level_map = (LevelMap *)malloc( sizeof( LevelMap ) );
@@ -41,6 +61,12 @@ LevelMap *createLevelMap( char *map_file_path )
     return level_map;
 }
 
+/** @brief Zwalnia pamięć z mapy poziomu
+ * 
+ * Zwalnia pamięć z dynamicznie alokowanej zmiennej typu LevelMap, jej macierzy poziomu oraz bitmapy.
+ *
+ * @param level_map podwójny wskaźnik na mapę poziomu
+*/
 void destroyLevelMap( LevelMap **level_map )
 {
     freeMatrix( (*level_map)->tile_matrix , (*level_map)->rows );

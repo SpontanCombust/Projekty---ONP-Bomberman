@@ -1,6 +1,6 @@
 /** @file rendering.c
  * 
- * @brief Plik zawiera metody rysowania bitmap elementow gry na ekran
+ * @brief Plik zawiera funkcje rysowania bitmap elementow gry na ekran
  * 
  * Zawiera metody odpowiadające za rysowanie bomb, SFX, aktorów,\n
  * mapy gry i menu na tylnim buforze.

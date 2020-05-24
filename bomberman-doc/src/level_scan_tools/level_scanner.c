@@ -1,3 +1,12 @@
+/** @file level_scanner.c
+ * 
+ * @brief Plik zawiera funkcje skanowania w poszukiwaniu poziomów gry
+ * 
+ * @author  Przemysław Cedro
+ * @date    2020.05.24
+*/
+
+
 #include "../../headers/level_scan_tools.h"
 
 #include <unistd.h>
@@ -8,6 +17,15 @@
 #include <stdlib.h>
 #include <allegro5/allegro_native_dialog.h>
 
+/** @brief Odwraca kolejność nazw poziomów w tablicy.
+ * 
+ * Domyślnie na systemie linux biblioteka dirent odczytuje nazwy katalogów w odwrotnej kolejności\n
+ * alfabetycznej, więc przy nazwach z numerami poziomy byłyby wyświetlane odwrotnie. Stąd odwracanie\n
+ * kolejności nazw.
+ *
+ * @param level_name    tablica nazw poziomów
+ * @param level_num     ilość poziomów
+*/
 static void reverseArray( char levels_names[MAX_LOADED_LEVELS][10], int level_num )
 {
     for (int i = 0; i < level_num/2; i++)
@@ -20,6 +38,15 @@ static void reverseArray( char levels_names[MAX_LOADED_LEVELS][10], int level_nu
     
 }
 
+/** @brief Skanuje w poszukiwaniu katalogów poziomów
+ * 
+ * Sprawdza katalog 'levels' w poszukiwaniu katalogów zaczynających się na 'level'. Nazwa poziomu to\n
+ * wszystko zapisane po tym słowie. Maksymalna długość nazwy poziomu to maksymalnie 10 znaków. Reszta\n
+ * znaków zostaje unicana. Jeśli sam katalog poziomów nie zostanie znaleziony, wyświetlany jest błąd.
+ *
+ * @param levels_names  tablica nazw poziomów
+ * @param level_num     wskaźnik na zmienną ilości poziomów
+*/
 void scanForLevels( char levels_names[MAX_LOADED_LEVELS][10], int *level_num )
 {
     *level_num = 0;

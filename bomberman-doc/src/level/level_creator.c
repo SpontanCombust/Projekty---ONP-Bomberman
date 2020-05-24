@@ -1,3 +1,12 @@
+/** @file level_creator.c
+ * 
+ * @brief Plik zawiera funkcję tworzenia poziomu gry
+ * 
+ * @author  Przemysław Cedro
+ * @date    2020.05.24
+*/
+
+
 #include "../../headers/level.h"
 
 #include "../../libs/matrix.h"
@@ -7,6 +16,19 @@
 #include <stdio.h>
 #include <string.h>
 
+/** @brief Tworzy poziom gry
+ * 
+ * Otwiera folder poziomu o danym ID i skanuje w poszukiwaniu plików mapy poziomu i ścieżek wrogów.\n
+ * Następnie tworzy mapę poziomu i tablicę ścieżek wrogów na podstawie danych plików. Jeśli\n 
+ * wszystko poszło pomyślnie tworzy tablicę wskaźników na wrogów oraz tablicę wskaźników na moduły AI,\n
+ * aplikuje wrogów i ścieżki do tych modułów, a na sam koniec wszystko to zapisuje do zmiennej poziomu\n
+ * i zwraca wskaźnik na utworzony poziom.
+ * 
+ * @param level_id  nazwa (ID) poziomu
+ * @param enemy_bmp wskaźnik na bitmapę używaną do wrogów
+ * 
+ * @return utworzony poziom gry lub NULL jeśli nie został utworzony pomyślnie
+*/
 Level *createLevel( char *level_id, ALLEGRO_BITMAP *enemy_bmp )
 {
     Level *level = ( Level * )malloc( sizeof( Level ) );
