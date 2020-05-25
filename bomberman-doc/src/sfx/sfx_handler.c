@@ -14,7 +14,7 @@
 
 /** @brief Aktualizuje klatkę animacji dla SFX
  * 
- * Aktualizuje stan pola anim_frame zmiennej typu SFX w zależnosci od pola typu tego SFX.
+ * Aktualizuje stan pola anim_frame zmiennej typu SFX w zależnosci od zmiennej typu tego SFX.
  * 
  * @param sfx wskaźnik na SFX
 */
