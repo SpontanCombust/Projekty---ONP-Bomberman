@@ -5,14 +5,5 @@
  * 
  * 
  * @author  Przemysław Cedro
- * @date    2020.05.24
-*/
-
-/** @brief 
- * 
- *
- *
- * @param 
- * 
- * @return 
+ * @date    2020.05.26
 */
