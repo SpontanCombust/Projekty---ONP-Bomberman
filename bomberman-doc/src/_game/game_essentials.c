@@ -1,5 +1,26 @@
+/** @file game_essentials.c
+ * 
+ * @brief Plik zawiera funkcje używane przy uruchamianiu i zamykaniu programu.
+ * 
+ * Zawiera funkcje inicjalizacji biblioteki Allegro, ładowania i sprawdzania zasobów gry oraz\n
+ * uprzątania pamięci przy wychodzeniu z programu.
+ * 
+ * @author  Przemysław Cedro
+ * @date    2020.05.26
+*/
+
+
 #include "../../headers/_game.h"
 
+/**
+ * @brief Inicjuje bibliotekę Allegro oraz podstawowe właściwości używane podczas działania programu
+ * 
+ * Inicjuje bibliotekę, tworzy wyświetlacz i ustawia jego właściwości, a następnie włącza\n
+ * wychwytywanie sygnałów z klawiatury oraz załącza wtyczki rysowania prostych figur, wyświetlania\n
+ * okien dialogowych, przetwarzania obrazów oraz wypisywania tekstu.
+ * 
+ * @return kod zwrotny wykonania funkcji - zwraca 0 przy prawidłowym wykonaniu 
+ */
 int initAllegro( void )
 {
     if( !al_init() )
@@ -31,6 +52,13 @@ int initAllegro( void )
     return 0;
 }
 
+/**
+ * @brief Załadowuje zasoby gry
+ * 
+ * Ładuje czcionki oraz bitmapy z plików i na koniec zwraca wynik poprawności tego załadowania.
+ * 
+ * @return wynik sprawdzenia poprawności zasobów - 0 w przypadku powodzenia
+ */
 int initAssets( void )
 {
     font_big = al_load_font( FONT_SRC, 40, 0 );
@@ -48,6 +76,13 @@ int initAssets( void )
     return validateAssets();
 }
 
+/**
+ * @brief Bada poprawność załadowanych zasobów
+ * 
+ * Sprawdza, czy wszystkie czcionki i bitmapy zostały załadowane prawidłowo.
+ * 
+ * @return kod zwrotny wykonania funkcji - zwraca 0 przy prawidłowym wykonaiu
+ */
 int validateAssets( void )
 {
     if( font_big == NULL || font_small == NULL || font_vsmall == NULL ){
@@ -85,6 +120,11 @@ int validateAssets( void )
     return 0;
 }
 
+/**
+ * @brief Uprząta zasoby programu przy zakończeniu jego działania
+ * 
+ * Zwalnia pamięć ze wszystkich czcionek oraz bitmap, jak i dezaktywuje wszystkie wtyczki biblioteki.\n
+ */
 void clearUp( void )
 {
     al_destroy_bitmap( solid_block_sprite );
