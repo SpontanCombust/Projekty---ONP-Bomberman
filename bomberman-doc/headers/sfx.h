@@ -13,9 +13,11 @@
 #include <allegro5/allegro.h>
 #include <stdbool.h>
 
-/** Enum informujące o typie SFX */
+/** Enum informujące o typie SFX. Dostępne typy: EXPLOSION, CORPSE. */
 typedef enum E_SFX_Type { EXPLOSION, CORPSE } SFX_Type;
-/** Enum informujące o orientacji SFX t.j. w jaki sposób jego bitmapa powinna zostać obrócona. Używane do eksplozji.*/
+/** Enum informujące o orientacji SFX t.j. w jaki sposób jego bitmapa powinna zostać obrócona. Używane do eksplozji. \n
+ * Dostępne orientacje: CENTRE, VERTICAL, HEAD_DOWN, HEAD_UP, HORIZONTAL, HEAD_LEFT, HEAD_RIGHT.
+*/
 typedef enum E_SFX_Orientation { CENTRE, VERTICAL, HEAD_DOWN, HEAD_UP, HORIZONTAL, HEAD_LEFT, HEAD_RIGHT } SFX_Orientation;
 
 /**

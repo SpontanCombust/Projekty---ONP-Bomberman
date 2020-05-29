@@ -71,7 +71,7 @@ bool isProgramRunning( GameState gs ) {
 }
 
 /**
- * @brief Sygnalizuje pójście do Menu opcji      
+ * @brief Sygnalizuje pójście do Menu opcji
  * @param gs wskaźnik na Stan Gry
  */
 void signalGoingToOptions( GameState *gs ) {

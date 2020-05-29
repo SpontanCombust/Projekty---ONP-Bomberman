@@ -14,7 +14,7 @@
 #include "bomb.h"
 #include "menus.h"
 
-/** Enum informujące o domyślnym lub alternatywnym trybie sterowania */
+/** Enum informujące o domyślnym lub alternatywnym trybie sterowania. Dostępne tryby: STANDARD, ALTERNATIVE. */
 typedef enum E_InputScheme { STANDARD, ALTERNATIVE } InputScheme;
 
 // ==================== input_handler.c ====================

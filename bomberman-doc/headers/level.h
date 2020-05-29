@@ -32,7 +32,7 @@ typedef struct S_Level
 
 } Level;
 
-/** Enum informujące o warunku przejścia danego poziomu */
+/** Enum informujące o warunku przejścia danego poziomu. Dostępne warunki to DESTROY_ALL_BLOCKS (nieużywane), KILL_ALL_ENEMIES i KILL OPPONENT */
 typedef enum E_LevelClearCondition { DESTROY_ALL_BLOCKS, KILL_ALL_ENEMIES, KILL_OPPONENT } LevelClearCondition;
 
 
