@@ -1,24 +1,57 @@
+/** @file main.c
+ * 
+ * @brief Główny plik źródłowy programu. Zawiera główne pętle programu.
+ * 
+ * @author  Przemysław Cedro
+ * @date    2020.05.29
+*/
+
+
 #include "./headers/_game.h"
 
-ALLEGRO_DISPLAY *display = NULL;
-ALLEGRO_BITMAP *game_window = NULL;
+ALLEGRO_DISPLAY *display = NULL; /** Instancja zmiennej globalnej wskaźnika na wyświetlacz Allegro */
+ALLEGRO_BITMAP *game_window = NULL; /** Instancja zmiennej globalnej wskaźnika na bitmapę, na której rysowany jest obraz rozgrywki */
 
-ALLEGRO_FONT *font_big = NULL;
-ALLEGRO_FONT *font_small = NULL;
-ALLEGRO_FONT *font_vsmall = NULL;
+ALLEGRO_FONT *font_big = NULL; /** Instancja zmiennej globalnej wskaźnika na "dużą czcionkę" */
+ALLEGRO_FONT *font_small = NULL; /** Instancja zmiennej globalnej wskaźnika na "małą czcionkę" */
+ALLEGRO_FONT *font_vsmall = NULL; /** Instancja zmiennej globalnej wskaźnika na "bardzo małą czcionkę" */
 
-ALLEGRO_BITMAP *solid_block_sprite = NULL;
-ALLEGRO_BITMAP *brittle_block_sprite = NULL;
-ALLEGRO_BITMAP *bomb_sprite = NULL;
-ALLEGRO_BITMAP *explosion_sprite = NULL;
-ALLEGRO_BITMAP *player1_sprites = NULL;
-ALLEGRO_BITMAP *player2_sprites = NULL;
-ALLEGRO_BITMAP *enemy1_sprites = NULL;
+ALLEGRO_BITMAP *solid_block_sprite = NULL; /** Instancja zmiennej globalnej wskaźnika na bitmapę bloku twardego */
+ALLEGRO_BITMAP *brittle_block_sprite = NULL; /** Instancja zmiennej globalnej wskaźnika na bitmapę bloku kruchego */
+ALLEGRO_BITMAP *bomb_sprite = NULL; /** Instancja zmiennej globalnej wskaźnika na bitmapę bomby */
+ALLEGRO_BITMAP *explosion_sprite = NULL; /** Instancja zmiennej globalnej wskaźnika na bitmapę eksplozji */
+ALLEGRO_BITMAP *player1_sprites = NULL; /** Instancja zmiennej globalnej wskaźnika na bitmapę pierwszego gracza */
+ALLEGRO_BITMAP *player2_sprites = NULL; /** Instancja zmiennej globalnej wskaźnika na bitmapę drugiego gracza */
+ALLEGRO_BITMAP *enemy1_sprites = NULL; /** Instancja zmiennej globalnej wskaźnika na bitmapę wrogów */
 
-GameState gs;
+GameState gs; /** Instancja zmiennej globalnej Stanu Gry  */
 
-void playLevel( char *level_id );
+void playLevel( char *level_id ); 
 
+/**
+ * @brief Główna funkcja programu
+ * 
+ * Po tym jak załaduje zasoby, stworzy kolejkę zdarzeń i doda niej źródła zdarzeń, stworzy potrzebne \n
+ * menu i wstępnie narysuje menu, wchodzi w główną pętlę programu. \n
+ * \n
+ * Jeśli nie zostanie sygnalizowane wyjście z programu, każde przejście przez pętlę obejmuje: \n
+ * 1.   Sprawdzenie, czy naciśnięty został przycisk wyjścia w prawym górnym rogu ekranu - sygnalizowane \n
+ *      jest wtedy wyjście z programu \n
+ * 2.   Sprawdzenie, czy naciśnięty został klawisz klawiatury. \n
+ *      Jeśli tak, wejście jest obsługiwane dla danego menu. Jeśli była zmiana skórek lub poziomu gry, \n
+ *      są wtedy aktualizowane menu. Na koniec sygnalizowane jest renderowanie obrazu. \n
+ * 3.   Jeśli sygnalizowana była zmiana menu, zmieniane jest obecne menu \n
+ * 4.   Jeśli sygnalizowane było renderowanie obrazu, rysowane jest obecne menu na ekran \n
+ *      4.1     Przed tym jeśli sygnalizowana była aktualizacja menu, uaktualniania jest bitmapa \n
+ *              obecnego menu \n
+ * 5.   Jeśli sygnalizowane było rozpoczęcie rozgrywki i załadowane skórki są poprawne, główna \n
+ *      kolejka zdarzeń zostaje zapauzowana i gra przechodzi w tryb rozgrywki. Po zakończeniu rozgrywki \n
+ *      kolejka jest wznawiana. \n
+ * \n
+ * Po skończonej pętli zasoby są zwalniane z pamięci, a program kończy działanie.
+ * 
+ * @return kod wyjściowy funkcji, 0 w przypadku pomyślnego wykonania
+ */
 int main( void )
 {
     if( initAllegro() != 0 || initAssets() != 0 ){
@@ -111,7 +144,40 @@ int main( void )
 
 
 
-
+/**
+ * @brief Funkcja programu odpowiedzialna za pętlę rozgrywki
+ * 
+ * Najpierw tworzy deklaracje i inicuje zmienne potrzebne w czasie działania funkcji. Jeśli potwierdzi, \n 
+ * że załadowany poziom o danym ID jest poprawny, przypisuje odpowiednie wartości dla zainicjowanych \n
+ * zmiennych kolejki zdarzeń i czasomierzy (timerów), dodaje źródła zdarzeń do tej kolejki, sprawdza \n
+ * kamerę i tryb gry, pokazuje ekran tytułowy i rozpoczyna działanie timerów Allegro. \n
+ * \n
+ * Jeśli nie zostanie zasygnalizowane zakończenie rozgrywki, każde przejście przez pętlę gry obejmuje: \n
+ * 1.   Sprawdzanie próby zamknięcia okna "iksem" w rogu ekranu \n
+ * 2.   Sprawdzanie i obsługę wejść z klawiatury w zależności czy jest pauza, czy nie \n
+ * 3.   Przy sygnalizowaniu zrobienia stoplatki, wykonywana jest ta akcja \n
+ * 4.   Sprawdzane są wydarzenia czasomierzy: \n
+ *      4.1.    Jeśli gra nie jest zapauzowana: \n
+ *              4.1.1.  Dla czasomierza odświeżania gry, aktualizowane są stany aktorów, kamery i w razie \n
+ *                      konieczności bitmapy mapy. Na końcu zasygnalizowane jest renderowanie klatki obrazu. \n 
+ *              4.1.2.  Dla czasomierza sekundowego atualizowane są tablice Bomb i SFX \n
+ *              4.1.2.  Dla czasomierza animacji, aktualizowane są klatki animacji aktorów i SFX \n
+ *      4.2     Jeśli gra jest zapauzowana, dla czasomierza odświeżania gry, w razie konieczności aktualizowany \n
+ *              jest stan menu i na końcu sygnalizowane jest renderowanie obrazu \n
+ * 5.   Jeśli sygnalizowane było renderowanie obrazu, w odpowiedni sposób wykonywana jest ta czynność \n
+ * 6.   Jeśli umarł gracz: \n
+ *      6.1.    Obsługiwana jest zmiana stanu kamery \n
+ *      6.2     W zależności od trybu gry, jeśli umarł jeden lub oboje graczy, odpowiednio jest to sygnalizowane,
+ *              w tym przez sygnalizowanie zakończenia rozgrywki. \n
+ * 7.   Jeśli cel poziomu to unieszkodliwienie wszystkich wrogów, i tak się właśnie stało, sygnalizowane jest \n 
+ *      zakończenie rozgrywki. \n
+ * \n
+ * Jeśli zakończenie rozgrywki nie było nagłe (przez wyjście przy pomocy menu pauzy) wyświetlany jest ekran \n
+ * końcowy i zwalniana jest pamięć ze wszystkich zmiennych utworzonych w trakcie działanai funkcji. \n
+ * Sygnalizowany jest powrót do menu głównego.
+ * 
+ * @param level_id ID wybranego poziomu gry
+ */
 void playLevel( char *level_id )
 {
     ALLEGRO_EVENT_QUEUE *eq = NULL;
