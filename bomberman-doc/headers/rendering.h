@@ -1,3 +1,12 @@
+/** @file 
+ * 
+ * @brief Plik zawiera deklaracje funkcji rysowania elementów gry na ekran
+ * 
+ * @author  Przemysław Cedro
+ * @date    2020.05.29
+*/
+
+
 #ifndef RENDERING_H
 #define RENDERING_H
 
@@ -14,10 +23,15 @@
 
 // ======================== rendering.c =======================
 
+/** @brief Rysuje bomby */
 void drawBombs( Bomb *bomb_container[] );
+/** @brief Rysuje specjalne efekty SFX */
 void drawSFX( SFX *sfx_container[] );
+/** @brief Rysuje aktora */
 void drawActor( Actor *actor );
+/** @brief Rysuje mapę poziomu */
 void drawLevelMap( LevelMap *level_map );
+/** @brief Rysuje menu */
 void drawMenu( Menu *menu );
 
 #endif

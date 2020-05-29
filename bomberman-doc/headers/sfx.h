@@ -1,3 +1,12 @@
+/** @file sfx.h
+ * 
+ * @brief Plik zawiera definicję typu SFX, jego enumów pomocniczych oraz deklaracje funkcji dla SFX
+ * 
+ * @author  Przemysław Cedro
+ * @date    2020.05.29
+*/
+
+
 #ifndef SFX_H
 #define SFX_H
 
