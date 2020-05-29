@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <math.h>
 
-/** @brief Wykrywa, czy aktor jest poza obrębem mapy.
+/** @brief Wykrywa, czy aktor jest poza obrębem mapy
  * 
  * Na podstawie wymiarów przekazanej mapy ocenia, czy aktor znajduje się poza zakresem koordynatów \n
  * wewnątrz mapy opierając się o prostokąt kolizji aktora. Jeśli wyjście poza mapę zostanie wykryte, \n

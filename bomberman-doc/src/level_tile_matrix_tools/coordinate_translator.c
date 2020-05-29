@@ -10,7 +10,7 @@
 #include "../../headers/level_tile_matrix_tools.h"
 #include "../../headers/sprite_properties.h"
 
-/** @brief Zamienia współrzędne pola mapy na pikselowwe
+/** @brief Zamienia współrzędne pola mapy na pikselowe
  *
  * Współrzędna pikselowa to iloczyn współrzędnej pola mapy i wielkości pola.
  * 
