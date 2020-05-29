@@ -16,7 +16,7 @@
 
 /** @brief Aktualizuje pozycję kamery 
  * 
- * Aktualizuje obecną pozycję kamery na podstawie pozycji jej docelowego aktora, granic mapy poziomu\n
+ * Aktualizuje obecną pozycję kamery na podstawie pozycji jej docelowego aktora, granic mapy poziomu \n
  * oraz skali z jaką kamera przybliża obraz mapy.
  *
  * @param camera wskaźnik na kamerę
@@ -39,9 +39,9 @@ static void updateCameraPosition( Camera *camera )
 
 /** @brief Aktualizuje stan kamery
  * 
- * Aktualizuje pozycję kamery, a następnie transformuje obraz skalując go i przesuwając na\n
- * przeskalowaną pozycję kamery. Skalowanie obrazu jest ważne, gdy assety gry mają zaledwie\n
- * kilkadziesiąt pikseli wielkości, a chce się wszystko dobrze widzieć.\n
+ * Aktualizuje pozycję kamery, a następnie transformuje obraz skalując go i przesuwając na \n
+ * przeskalowaną pozycję kamery. Skalowanie obrazu jest ważne, gdy assety gry mają zaledwie \n
+ * kilkadziesiąt pikseli wielkości, a chce się wszystko dobrze widzieć. \n
  * Aplikuje transformację do obecnego wyświetlacza Allegro.
  *
  * @param camera wskaźnik na kamerę

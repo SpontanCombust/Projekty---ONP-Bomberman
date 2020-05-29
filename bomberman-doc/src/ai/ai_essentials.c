@@ -64,7 +64,7 @@ void destroyAIModuleArray( AIModule ** *modules, int module_num )
 
 /** @brief Tworzy aktora w miejscu początku ścieżki
  * 
- * Tworzy aktora, który zostaje ustawiony w miejscu ustalony przez pierwszy krok ścieżki podanej\n
+ * Tworzy aktora, który zostaje ustawiony w miejscu ustalony przez pierwszy krok ścieżki podanej \n
  * w parametrze.
  *
  * @param path  ścieżka

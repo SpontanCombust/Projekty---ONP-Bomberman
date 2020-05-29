@@ -17,7 +17,7 @@
 
 /** @brief Zwraca orientację SFX dla bomby
  * 
- * W zależności od tego, w którym kierunku eksplozja się rozprzestrzenia i jak daleko, determinowana\n
+ * W zależności od tego, w którym kierunku eksplozja się rozprzestrzenia i jak daleko, determinowana \n
  * jest jej orientacja, która jest później użyta do odpowiedniego jej rysowania na ekranie. 
  *
  * @param remaining_range   pozostały zasięg ekslozji bomby
@@ -52,9 +52,9 @@ static SFX_Orientation getExplosionOrientation( int remaining_range, int x_step,
 
 /** @brief Egzekwuje tworzenie ekslozji na konkretnym polu mapy
  * 
- * Jeżeli podane koordynaty nie wychodzą poza obszar mapy, pozostały zasięg ekspozji jest większy\n
- * od zera i na podanym polu nie ma twardego bloku, tworzona jest ekslozja o orientacji odpowiadającej\n
- * cechom rozprzestrzeniania się tej eksplozji. Jeżeli podane pole jest puste, rekurencyjnie\n
+ * Jeżeli podane koordynaty nie wychodzą poza obszar mapy, pozostały zasięg ekspozji jest większy \n
+ * od zera i na podanym polu nie ma twardego bloku, tworzona jest ekslozja o orientacji odpowiadającej \n
+ * cechom rozprzestrzeniania się tej eksplozji. Jeżeli podane pole jest puste, rekurencyjnie \n
  * rozprzestrzenia dalej eksplozję w konkretnym kierunku. Jeżeli jest to blok kruchy, tylko niszczy ten blok.
  *
  * @param level_map         wskaźnik na mapę poziomu
@@ -88,7 +88,7 @@ void explode( LevelMap *level_map, int remaining_range, int tile_x, int tile_y, 
 
 /** @brief Egzekwuje eksplozję bomby
  * 
- * Tworzy SFX eksplozji na danym polu i rozprzestrzenia eksplozję we wszystkie strony wg. zmiennej\n
+ * Tworzy SFX eksplozji na danym polu i rozprzestrzenia eksplozję we wszystkie strony wg. zmiennej \n
  * zasięgu eksplozji dla tej bomby.
  *
  * @param bomb          wskaźnik na bombę

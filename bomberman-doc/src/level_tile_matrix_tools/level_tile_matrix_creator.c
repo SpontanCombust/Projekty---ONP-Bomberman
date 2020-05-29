@@ -14,25 +14,25 @@
 
 /** @brief Odczytuje mapę poziomu z pliku
  * 
- * Czyta dane pliku w zależności od napotkanych nagłówków.\n
+ * Czyta dane pliku w zależności od napotkanych nagłówków. \n
  * 
- * Jeśli napotka nagłówek [background] odczytuje wartości RGB dla tła mapy i zapisuje\n
- * ich wartości do zmiennych spod wskaźników r, g i b. W pliku każda z tych składowych podana\n
- * jest jako "x=y", gdzie 'x' to składowa, a 'y' to wartość, jaka ma być zapisana do tej składowej.\n
- * Dostępne składowe to: 'r' - czerowny, 'g' - zielony i 'b' - niebieski.
- * 
- * Jeśli napotka nagłówek [dimensions] odczytuje wartości wymiarów macierzy tego poziomu.\n
- * W pliku każdy z tych wymiarów podany jest jako "x=y", gdzie 'x' to wymiar, a 'y' to wielkość tego wymiaru.\n
- * Dostępne wymiary to: 'r' - ilość rzędów, 'c' - ilość kolumn.\n
- * Na koniec alokuje pamięć na macierz, do której będą zapisane wartości macierzy w pliku.
- * 
- * Jeśli napotka nagłówek [data] odczytuje zawartość macierzy poziomu. 
- * Wymiary macierzy są domyślnie są równe zero, więcej zmienna macierzy jest zabezpieczona tutaj\n
- * przed zapisywaniem do niej wartości jeśli wcześniej nie wymiary nie zostały określone pod\n
- * nagłówkiem [dimensions] i nie została zalokowana pamięć na macierz. Kolejne wartości napotkane\n
- * w danej kolumnie i danym rzędzie macierzy z pliku zapisuje do utworzonej w programie macierzy.
- * 
- * Z początku pliku i między zawartościami nagłówków jeśli linia zaczyna się od ';' zostaje ona\n
+ * Jeśli napotka nagłówek [background] odczytuje wartości RGB dla tła mapy i zapisuje \n
+ * ich wartości do zmiennych spod wskaźników r, g i b. W pliku każda z tych składowych podana \n
+ * jest jako "x=y", gdzie 'x' to składowa, a 'y' to wartość, jaka ma być zapisana do tej składowej. \n
+ * Dostępne składowe to: 'r' - czerowny, 'g' - zielony i 'b' - niebieski. \n
+ * \n
+ * Jeśli napotka nagłówek [dimensions] odczytuje wartości wymiarów macierzy tego poziomu. \n
+ * W pliku każdy z tych wymiarów podany jest jako "x=y", gdzie 'x' to wymiar, a 'y' to wielkość tego wymiaru. \n
+ * Dostępne wymiary to: 'r' - ilość rzędów, 'c' - ilość kolumn. \n
+ * Na koniec alokuje pamięć na macierz, do której będą zapisane wartości macierzy w pliku. \n
+ * \n
+ * Jeśli napotka nagłówek [data] odczytuje zawartość macierzy poziomu. \n
+ * Wymiary macierzy są domyślnie są równe zero, więcej zmienna macierzy jest zabezpieczona tutaj \n
+ * przed zapisywaniem do niej wartości jeśli wcześniej nie wymiary nie zostały określone pod \n
+ * nagłówkiem [dimensions] i nie została zalokowana pamięć na macierz. Kolejne wartości napotkane \n
+ * w danej kolumnie i danym rzędzie macierzy z pliku zapisuje do utworzonej w programie macierzy. \n
+ * \n
+ * Z początku pliku i między zawartościami nagłówków jeśli linia zaczyna się od ';' zostaje ona \n
  * automatycznie ignorowana.
  *
  * @param map_file  wskaźnik na plik z mapą poziomu

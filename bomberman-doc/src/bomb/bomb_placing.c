@@ -17,7 +17,7 @@
 
 /** @brief Tworzy bombę na tej samej pozycji co aktor
  * 
- * Tworzy bombę o tylko ustawionej pozycji, z zerowym czasem eksplozji, zasięgiem i brakiem bitmapy\n
+ * Tworzy bombę o tylko ustawionej pozycji, z zerowym czasem eksplozji, zasięgiem i brakiem bitmapy \n
  * na tym samym polu, na którym stoi aktor.
  *
  * @param actor wskaźnik na aktora

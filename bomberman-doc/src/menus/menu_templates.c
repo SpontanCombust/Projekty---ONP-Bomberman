@@ -2,7 +2,7 @@
  * 
  * @brief Plik zawiera funkcje tworzenia menu wzorców menu
  * 
- * Plik zawiera funkcje tworzące już gotowe wzorce konkretnych menu: menu głównego, menu opcji,\n
+ * Plik zawiera funkcje tworzące już gotowe wzorce konkretnych menu: menu głównego, menu opcji, \n
  * menu wyboru trybu gry, menu wyboru poziomu i menu pauzy.
  * 
  * @author  Przemysław Cedro
@@ -17,11 +17,11 @@
 
 /** @brief Zwraca wzorzec menu głównego
  * 
- * Tworzy menu główne, którego konstrukcja to:\n
- * 1. czarne tło na cały ekran\n
- * 2. wpis z etykietą "PLAY" prowadzący do menu wyboru trybu gry\n
- * 3. wpis z etykietą "OPTIONS" prowadzący do menu opcji\n
- * 4. wpis z etykietą "EXIT" zamykający program\n
+ * Tworzy menu główne, którego konstrukcja to: \n
+ * 1. czarne tło na cały ekran \n
+ * 2. wpis z etykietą "PLAY" prowadzący do menu wyboru trybu gry \n
+ * 3. wpis z etykietą "OPTIONS" prowadzący do menu opcji \n
+ * 4. wpis z etykietą "EXIT" zamykający program \n
  *
  * @param main_font wskaźnik na główną czcionkę
  * @param sub_font  wskaźnik na poboczną czcionkę
@@ -56,15 +56,15 @@ Menu *createMainMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
 
 /** @brief Zwraca wzorzec menu opcji
  * 
- * Tworzy menu opcji, którego konstrukcja to:\n
- * 1. czarne tło na cały ekran\n
- * 2. wpis z etykietą "OPTIONS" będący nagłówkiem menu\n
- * 3. wpis z etykietą "PLAYER1 SKIN:" i zmienną z zawartością nazwy skórki dla Gracza 1\n
- *    wpis ten dla operacji poprzedniej i następnej zawartości argumentu przegląda skórki dla graczy\n
- * 4. wpis z etykietą "PLAYER2 SKIN:" i zmienną z zawartością nazwy skórki dla Gracza 2\n
- *    wpis ten dla operacji poprzedniej i następnej zawartości argumentu przegląda skórki dla graczy\n
- * 5. wpis z etykietą "GO BACK" prowadzący z powrotem do menu głównego\n
- * 6. operacja pod klawisz ESC prowadząca z powrotem do menu głównego\n
+ * Tworzy menu opcji, którego konstrukcja to: \n
+ * 1. czarne tło na cały ekran \n
+ * 2. wpis z etykietą "OPTIONS" będący nagłówkiem menu \n
+ * 3. wpis z etykietą "PLAYER1 SKIN:" i zmienną z zawartością nazwy skórki dla Gracza 1 \n
+ *    wpis ten dla operacji poprzedniej i następnej zawartości argumentu przegląda skórki dla graczy \n
+ * 4. wpis z etykietą "PLAYER2 SKIN:" i zmienną z zawartością nazwy skórki dla Gracza 2 \n
+ *    wpis ten dla operacji poprzedniej i następnej zawartości argumentu przegląda skórki dla graczy \n
+ * 5. wpis z etykietą "GO BACK" prowadzący z powrotem do menu głównego \n
+ * 6. operacja pod klawisz ESC prowadząca z powrotem do menu głównego \n
  *
  * @param main_font wskaźnik na główną czcionkę
  * @param sub_font  wskaźnik na poboczną czcionkę
@@ -107,12 +107,12 @@ Menu *createOptionsMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
 
 /** @brief Zwraca wzorzec menu pauzy
  * 
- * Tworzy menu główne, którego konstrukcja to:\n
- * 1. czarne, półprzezroczyste tło na 1/3 szerokości ekranu\n
- * 2. wpis z etykietą "PAUSE" będący nagłówkiem menu\n
- * 3. wpis z etykietą "RESUME" wznawiający grę\n
- * 4. wpis z etykietą "TO MAIN MENU" kończący rozgrywkę i prowadzący do menu głównego\n
- * 5. operacja pod klawisz ESC wznawiająca grę\n
+ * Tworzy menu główne, którego konstrukcja to: \n
+ * 1. czarne, półprzezroczyste tło na 1/3 szerokości ekranu \n
+ * 2. wpis z etykietą "PAUSE" będący nagłówkiem menu \n
+ * 3. wpis z etykietą "RESUME" wznawiający grę \n
+ * 4. wpis z etykietą "TO MAIN MENU" kończący rozgrywkę i prowadzący do menu głównego \n
+ * 5. operacja pod klawisz ESC wznawiająca grę \n
  *
  * @param main_font wskaźnik na główną czcionkę
  * @param sub_font  wskaźnik na poboczną czcionkę
@@ -146,16 +146,16 @@ Menu *createPauseMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
 
 /** @brief Zwraca wzorzec menu wyboru trybu gry
  * 
- * Tworzy menu główne, którego konstrukcja to:\n
- * 1. czarne tło na cały ekran\n
- * 2. wpis z etykietą "MODE SELECTION" będący nagłówkiem menu\n
- * 3. wpis z etykietą "SINGLE PLAYER" ustawiający tryb gry na tryb pojedynczego gracza\n
- *    i prowadzący do menu wyboru poziomu\n
- * 4. wpis z etykietą "CO-OP" ustawiający tryb gry na tryb kooperacyjny\n
- *    i prowadzący do menu wyboru poziomu\n
- * 5. wpis z etykietą "PvP" ustawiający tryb gry na tryb gracz przeciw graczowi\n
- *    i prowadzący do menu wyboru poziomu\n
- * 6. wpis z etykietą "GO BACK" prowadzący z powrotem do menu głównego
+ * Tworzy menu główne, którego konstrukcja to: \n
+ * 1. czarne tło na cały ekran \n
+ * 2. wpis z etykietą "MODE SELECTION" będący nagłówkiem menu \n
+ * 3. wpis z etykietą "SINGLE PLAYER" ustawiający tryb gry na tryb pojedynczego gracza \n
+ *    i prowadzący do menu wyboru poziomu \n
+ * 4. wpis z etykietą "CO-OP" ustawiający tryb gry na tryb kooperacyjny \n
+ *    i prowadzący do menu wyboru poziomu \n
+ * 5. wpis z etykietą "PvP" ustawiający tryb gry na tryb gracz przeciw graczowi \n
+ *    i prowadzący do menu wyboru poziomu \n
+ * 6. wpis z etykietą "GO BACK" prowadzący z powrotem do menu głównego \n
  * 7. operacja pod klawisz ESC prowadząca z powrotem do menu głównego
  *
  * @param main_font wskaźnik na główną czcionkę
@@ -200,14 +200,14 @@ Menu *createModeSelectionMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
 
 /** @brief Zwraca wzorzec menu wyboru poziomu
  * 
- * Tworzy menu opcji, którego konstrukcja to:\n
- * 1. czarne tło na cały ekran\n
- * 2. wpis z etykietą "SELECT_LEVEL" będący nagłówkiem menu\n
- * 3. wpis z etykietą "START!" prowadzący do rozpoczęcia rozgrywki
- * 4. wpis z etykietą "LEVEL:" i zmienną z zawartością nazwy poziomu\n
- *    wpis ten dla operacji poprzedniej i następnej zawartości argumentu przegląda dostępne poziomy\n
- * 5. wpis z etykietą "GO BACK" prowadzący z powrotem do menu wyboru trybu gry\n
- * 6. operacja pod klawisz ESC prowadząca z powrotem do menu wyboru trybu gry\n
+ * Tworzy menu opcji, którego konstrukcja to: \n
+ * 1. czarne tło na cały ekran \n
+ * 2. wpis z etykietą "SELECT_LEVEL" będący nagłówkiem menu \n
+ * 3. wpis z etykietą "START!" prowadzący do rozpoczęcia rozgrywki \n
+ * 4. wpis z etykietą "LEVEL:" i zmienną z zawartością nazwy poziomu \n
+ *    wpis ten dla operacji poprzedniej i następnej zawartości argumentu przegląda dostępne poziomy \n
+ * 5. wpis z etykietą "GO BACK" prowadzący z powrotem do menu wyboru trybu gry \n
+ * 6. operacja pod klawisz ESC prowadząca z powrotem do menu wyboru trybu gry \n
  *
  * @param main_font wskaźnik na główną czcionkę
  * @param sub_font  wskaźnik na poboczną czcionkę

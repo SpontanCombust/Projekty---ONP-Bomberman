@@ -38,8 +38,8 @@ void drawBrittleBlock( int x, int y, ALLEGRO_BITMAP *brittle_block_sprite )
 
 /** @brief Renderuje bitmapę mapy poziomu
  * 
- * Jako docelową bitmapę rysowania ustawia bitmapę mapy poziomu, czyści ją do koloru tła, a następnie\n
- * nanosi na nią kolejne elementy mapy odczytane z macierzy mapy poziomu.\n
+ * Jako docelową bitmapę rysowania ustawia bitmapę mapy poziomu, czyści ją do koloru tła, a następnie \n
+ * nanosi na nią kolejne elementy mapy odczytane z macierzy mapy poziomu. \n
  * Po tym ustawia docelową bitmapę rysowania dla Allegro z powrotem na tylni bufor wyświetlacza. 
  *
  * @param level_map             wskaźnik na mapę poziomu 

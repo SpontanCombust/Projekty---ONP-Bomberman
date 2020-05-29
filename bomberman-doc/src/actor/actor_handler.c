@@ -2,7 +2,7 @@
  * 
  * @brief Plik zawiera funkcje obsługi zmiennej Actor
  * 
- * Zawiera funkcje ustawiania kolizji dla aktora, sprawdzania, czy jest żywy, odejmowania jego\n
+ * Zawiera funkcje ustawiania kolizji dla aktora, sprawdzania, czy jest żywy, odejmowania jego \n
  * punktów życia oraz aktualizowania jego klatek animacji.
  * 
  * @author  Przemysław Cedro
@@ -76,7 +76,7 @@ void damageActor( Actor *actor ) {
 /**
  * @brief Aktualizuje klatkę animacji dla aktora
  * 
- * Aktualizuje zmienną anim_frame dla aktora. Jeśli ten się nie porusza, klatka zostaje ustawiona\n
+ * Aktualizuje zmienną anim_frame dla aktora. Jeśli ten się nie porusza, klatka zostaje ustawiona \n
  * na pcozątkową.
  * 
  * @param actor wskaźnik na aktora

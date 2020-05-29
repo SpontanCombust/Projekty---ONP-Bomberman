@@ -2,8 +2,8 @@
  * 
  * @brief Plik zawiera funkcje do egzekwowania przypisanych elementom menu operacji i aktualizowania stanu menu
  * 
- * Plik zawiera funkcje egzekwujące operacje przypisane operacji wybrania i/lub operacjom zmiany\n
- * zmiennej wpisu. Znajdują sie tu również funkcje przełączania kolejnych wpisow w menu oraz aktualizowania\n
+ * Plik zawiera funkcje egzekwujące operacje przypisane operacji wybrania i/lub operacjom zmiany \n
+ * zmiennej wpisu. Znajdują sie tu również funkcje przełączania kolejnych wpisow w menu oraz aktualizowania \n
  * stanu wpisu ze zmienna.
  * 
  * @author  Przemysław Cedro
@@ -28,7 +28,7 @@ void executeSelectOperation( Menu *menu, GameState *gs )
 
 /** @brief Egzekwuje zmianę zmiennej wpisu na poprzednią zawartość
  * 
- * Egzekwuje funkcję sygnalizacyjną stanu gry przypisaną do operacji zmiany zmiennej wpisu\n
+ * Egzekwuje funkcję sygnalizacyjną stanu gry przypisaną do operacji zmiany zmiennej wpisu \n
  * na poprzednią zawartość dla obecnie zaznaczonego wpisu menu.
  *
  * @param menu  wskaźnik na menu
@@ -42,7 +42,7 @@ void executeLeftOperation( Menu *menu, GameState *gs )
 
 /** @brief Egzekwuje zmianę zmiennej wpisu na nastepną zawartosc
  * 
- * Egzekwuje funkcję sygnalizacyjną stanu gry przypisaną do operacji zmiany zmiennej wpisu\n
+ * Egzekwuje funkcję sygnalizacyjną stanu gry przypisaną do operacji zmiany zmiennej wpisu \n
  * na nastepną zawartość dla obecnie zaznaczonego wpisu menu.
  *
  * @param menu  wskaźnik na menu
@@ -69,10 +69,10 @@ void executeEscOperation( Menu *menu, GameState *gs )
 
 /** @brief Wylicza indeks kolejnego możliwego do zaznaczenia wpisu
  * 
- * Cyklicznie podąża po indeksach tablicy wpisów w menu. Jeśli indeks będzie ujemny, wróci na koniec\n
- * tablicy; jeśli ten będzie wykraczał poza zakres tablicy, wróci na jej początek. Ilość przejść jest\n
- * z góry ograniczona przez MAX_ENTRIES. Przy każdej iteracji porusza się o ilość kroków podaną w parametrze.\n
- * Jeśli odnajdzie wpis, który jest aktywny i możliwy do zaznaczenia, zwraca jego indeks. W przeciwnym wypadku\n
+ * Cyklicznie podąża po indeksach tablicy wpisów w menu. Jeśli indeks będzie ujemny, wróci na koniec \n
+ * tablicy; jeśli ten będzie wykraczał poza zakres tablicy, wróci na jej początek. Ilość przejść jest \n
+ * z góry ograniczona przez MAX_ENTRIES. Przy każdej iteracji porusza się o ilość kroków podaną w parametrze. \n
+ * Jeśli odnajdzie wpis, który jest aktywny i możliwy do zaznaczenia, zwraca jego indeks. W przeciwnym wypadku \n
  * po zakończeniu poszukiwań zwraca indeks obecnie zaznaczonego wpisu.
  *
  * @param menu wskaźnik na menu
@@ -100,7 +100,7 @@ static int getNextHighlightableEntryIndex( Menu *menu, int step )
 
 /** @brief Przełącza obecnie zaznaczony wpis na kolejny możliwy
  * 
- * Pobiera indeks kolejnego możliwego do zaznaczenia wpisu z funkcji getNextHighlightableEntryIndex\n
+ * Pobiera indeks kolejnego możliwego do zaznaczenia wpisu z funkcji getNextHighlightableEntryIndex \n
  * i aplikuje go do obecnego indeksu zaznaczenia, aktualizując jego stan.
  *
  * @param menu wskaźnik na menu
@@ -112,7 +112,7 @@ void switchEntry( Menu *menu, int step ) {
 
 /** @brief Aktualizuje zmienną wpisu o danym indeksie
  * 
- * Dla wpisu o danym indeksie aktualizuje jego zmienną kopiujac zawartość podanego stringa\n
+ * Dla wpisu o danym indeksie aktualizuje jego zmienną kopiujac zawartość podanego stringa \n
  * do tekstu zmiennej. Długość skopiowanego stringa ograniczona jest przez MAX_ENTRY_VAR_LENGTH.
  * 
  * @param menu wskaźnik na menu

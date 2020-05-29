@@ -18,7 +18,7 @@
 
 /** @brief Tworzy mapę poziomu
  * 
- * Otwiera plik o danej ścieżce i odczytuje z niego przy pomocy funkcji createLevelTileMatrix()\n
+ * Otwiera plik o danej ścieżce i odczytuje z niego przy pomocy funkcji createLevelTileMatrix() \n
  * dane mapy poziomu. Tworzy zmienną typu LevelMap (Mapa Poziomu) i zapisuje do niego odczytane wartości. 
  *
  * @param map_file_path ścieżka do pliku z mapą poziomu

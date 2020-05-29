@@ -2,7 +2,7 @@
  * 
  * @brief Plik zawiera funkcje renderowania bitmapy menu
  * 
- * Plik zawiera funkcje tworzenia i aktualizowania zawartości bitmapy menu analizując jego zawartość\n
+ * Plik zawiera funkcje tworzenia i aktualizowania zawartości bitmapy menu analizując jego zawartość \n
  * i rysując odpowiedni tekst w odpowiednim miejscu.
  * 
  * @author  Przemysław Cedro
@@ -16,16 +16,16 @@
 
 /** @brief Rysuje tekst zawarty we wpisie
  * 
- * Nanosi na bitmapę menu zawartość konkretnego wpisu.\n
- * Jeśli wpis jest oznaczony jako posiadający zmienną, rysuje zarówno tekst etykiety jak i zmiennej\n
- * w taki sposób, by calość była wyśrodkowana względem szerokości calości tekstu. Narysowany wpis\n
- * wygląda wtedy nastepująco: "tekst_etykiety: <tekst_zmiennej>". Podczas zaznaczenia tego wpisu strzałki\n
- * (nawiasy ostre) przyjmują kolor poboczny czcionek sugerujący możliwosc zmiany zmiennej za pomocą strzałek\n
- * w lewo i w prawo.\n
- * Jeśli wpis jest oznaczony jako nieposiadający zmiennej, rysowany jest tylko tekst etykiety. Jeśli\n
- * taki wpis jest niemożliwy do zaznaczenia, zostaje traktowany jako naglówek menu i podkreślany jest\n
- * linią pod jego tekstem. Narysowany wpis: "tekst_etykiety" - ten również jest wypośrodkowany.
- * W obu przypadkach warunku obecności zmiennej, gdy dany wpis będzie obecnie zaznaczony przez kursor,\n
+ * Nanosi na bitmapę menu zawartość konkretnego wpisu. \n
+ * Jeśli wpis jest oznaczony jako posiadający zmienną, rysuje zarówno tekst etykiety jak i zmiennej \n
+ * w taki sposób, by calość była wyśrodkowana względem szerokości calości tekstu. Narysowany wpis \n
+ * wygląda wtedy nastepująco: "tekst_etykiety: <tekst_zmiennej>". Podczas zaznaczenia tego wpisu strzałki \n
+ * (nawiasy ostre) przyjmują kolor poboczny czcionek sugerujący możliwosc zmiany zmiennej za pomocą strzałek \n
+ * w lewo i w prawo. \n
+ * Jeśli wpis jest oznaczony jako nieposiadający zmiennej, rysowany jest tylko tekst etykiety. Jeśli \n
+ * taki wpis jest niemożliwy do zaznaczenia, zostaje traktowany jako naglówek menu i podkreślany jest \n
+ * linią pod jego tekstem. Narysowany wpis: "tekst_etykiety" - ten również jest wypośrodkowany. \n
+ * W obu przypadkach warunku obecności zmiennej, gdy dany wpis będzie obecnie zaznaczony przez kursor, \n
  * po jego lewej stronie pojawi sie właśnie ten kursor (">") o kolorze pobocznym czcionek.
  * 
  * @param menu  wskaźnik na menu
@@ -77,9 +77,9 @@ static void drawEntryContent( Menu *menu, float y, int i )
 
 /** @brief Renderuje bitmapę menu
  * 
- * Jako docelową bitmapę ustawia bitmapę menu, czyści ją, a następnie rysuje na niej najpierw tło\n
- * posługując się tymczasową bitmapą, a następnie w pętli rysuje kolejne wpisy (jeśli są aktywne).
- * Po tym ustawia docelową bitmapę rysowania dla Allegro z powrotem na tylni bufor wyświetlacza.
+ * Jako docelową bitmapę ustawia bitmapę menu, czyści ją, a następnie rysuje na niej najpierw tło \n
+ * posługując się tymczasową bitmapą, a następnie w pętli rysuje kolejne wpisy (jeśli są aktywne). \n
+ * Po tym ustawia docelową bitmapę rysowania dla Allegro z powrotem na tylni bufor wyświetlacza. \n
  * 
  * @param menu wskaźnik na menu
  * @param display wskaźnik na wyświetlacz Allegro

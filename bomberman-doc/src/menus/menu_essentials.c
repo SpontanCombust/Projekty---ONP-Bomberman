@@ -2,7 +2,7 @@
  * 
  * @brief Plik zawiera podstawowe metody dla menu
  * 
- * Plik zawiera podstawowe metody dla tworzenia, ustawiania zawartości i cech oraz zwalniania\n
+ * Plik zawiera podstawowe metody dla tworzenia, ustawiania zawartości i cech oraz zwalniania \n
  * pamięci z menu.
  * 
  * @author  Przemysław Cedro
@@ -37,7 +37,7 @@ static void initEntries( Menu *menu )
 
 /** @brief Tworzy i zwraca menu o danej zawartości
  *
- * Dynamicznie alokuje pamięć na zmienną typu Menu, przypisuje jej polom domyślne wartości,
+ * Dynamicznie alokuje pamięć na zmienną typu Menu, przypisuje jej polom domyślne wartości, \n
  * inicjuje wpisy w menu oraz ustawia dla menu czcionki podane w parametrach.
  * 
  * @param main_font główna czcionka używana w menu
@@ -72,7 +72,7 @@ Menu *createMenu( ALLEGRO_FONT *main_font, ALLEGRO_FONT *sub_font )
 
 /** @brief Ustawia dla danego menu pola odpowiadające za wygląd i rozmieszczenie tekstu
  * 
- * Ustawia dla danego menu pola odpowiadające za kolor glównej i pobocznej czcionki,\n
+ * Ustawia dla danego menu pola odpowiadające za kolor glównej i pobocznej czcionki, \n
  * punkt początkowy dla wpisów wzgledem tła menu oraz odległość miedzy wpisami w menu.
  *
  * @param menu              wskaźnik na menu
@@ -93,8 +93,8 @@ void setMenuTextData( Menu *menu, ALLEGRO_COLOR main_font_color, ALLEGRO_COLOR s
 
 /** @brief Ustawia dla danego menu pola odpowiadające za wygląd i rozmieszczenie tła
  * 
- * Ustawia dla danego menu pola odpowiadające za kolor tła, kanał alfa tła,\n
- * punkt początkowy umieszczenia tła oraz jego wymiary. Tworzy bitmapę menu,\n
+ * Ustawia dla danego menu pola odpowiadające za kolor tła, kanał alfa tła, \n
+ * punkt początkowy umieszczenia tła oraz jego wymiary. Tworzy bitmapę menu, \n
  * której rozmiar zdefiniowany jest przez rozmiar tła.
  *
  * @param menu      wskaźnik na menu
@@ -143,7 +143,8 @@ void setEntryVar( Menu *menu, int entry_index, char *entry_var ) {
 
 /** @brief Ustawia operację wyboru dla wpisu w menu
  * 
- * Dla wpisu o danym indeksie w menu ustawia funkcję sygnalizacyjną stanu gry dla operacji wybierania tego wpisu.
+ * Dla wpisu o danym indeksie w menu ustawia funkcję sygnalizacyjną stanu gry dla operacji \n
+ * wybierania tego wpisu.
  *
  * @param menu              wskaźnik na menu
  * @param entry_index       indeks wpisu w menu
@@ -155,7 +156,8 @@ void setEntrySelectOperation( Menu *menu, int entry_index, void ( *operation_sel
 
 /** @brief Ustawia operację zmiany zmiennej wpisu w menu na poprzednią zawartość
  * 
- * Dla wpisu o danym indeksie w menu ustawia funkcję sygnalizacyjną stanu gry dla operacji zmiany zmiennej wpisu na poprzednią.
+ * Dla wpisu o danym indeksie w menu ustawia funkcję sygnalizacyjną stanu gry dla operacji \n
+ * zmiany zmiennej wpisu na poprzednią.
  *
  * @param menu              wskaźnik na menu
  * @param entry_index       indeks wpisu w menu
@@ -167,7 +169,8 @@ void setEntryLeftOperation( Menu *menu, int entry_index, void ( *operation_left 
 
 /** @brief Ustawia operację zmiany zmiennej wpisu w menu na nastepna zawartosc
  * 
- * Dla wpisu o danym indeksie w menu ustawia funkcję sygnalizacyjną stanu gry dla operacji zmiany zmiennej wpisu na następną.
+ * Dla wpisu o danym indeksie w menu ustawia funkcję sygnalizacyjną stanu gry dla operacji zmiany \n
+ * zmiennej wpisu na następną.
  *
  * @param menu              wskaźnik na menu
  * @param entry_index       indeks wpisu w menu

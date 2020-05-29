@@ -2,7 +2,7 @@
  * 
  * @brief Plik zawiera funkcje obsługi tablicy wksaźników na bomby
  * 
- * Zawiera funkcje sprawdzania pola mapy w poszukiwaniu innej, już istniejącej bomby, sprawdzania,\n
+ * Zawiera funkcje sprawdzania pola mapy w poszukiwaniu innej, już istniejącej bomby, sprawdzania, \n
  * czy tablica jest pusta i dodawania bomb do tej tablicy.
  * 
  * @author  Przemysław Cedro
@@ -16,7 +16,7 @@
 
 /** @brief Sprawdza, czy tablica bomb jest pusta
  * 
- * Iteruje po tablicy wskaźników na zmienne typu Bomb o stałej wielkości określonej przez BOMB_BUDGET\n
+ * Iteruje po tablicy wskaźników na zmienne typu Bomb o stałej wielkości określonej przez BOMB_BUDGET \n
  * w _game_rules.h i sprawdza, czy wszystkie jej wskaźniki są NULLowe  
  *
  * @param container tablica wskaźników na bomby
@@ -34,7 +34,7 @@ bool isBombContainerEmpty( Bomb * container[] )
 
 /** @brief Sprawdza, czy dane pole mapy jest już zajęte przez inną bombę
  * 
- * Iteruje po tablicy wskaźników na bomby i sprawdza, czy któraś z bomb już nie jest istnieje\n
+ * Iteruje po tablicy wskaźników na bomby i sprawdza, czy któraś z bomb już nie jest istnieje \n
  * na polu, na którym podana bomba ma być postawiona.
  *
  * @param container tablica wskaźników na bomby
@@ -55,8 +55,8 @@ static bool isTileTaken( Bomb * container[], Bomb *bomb )
 
 /** @brief Dodaje bombę do tablicy bomb
  * 
- * Jeżeli pole mapy, na którym bomba ma być postawiona nie jest już zajęte przez inną bombę, ustawia\n
- * pierwszy napotkany NULLowy wskaźnik tablicy na wskaźnik na podaną bombę. W przeciwnym wypadku\n
+ * Jeżeli pole mapy, na którym bomba ma być postawiona nie jest już zajęte przez inną bombę, ustawia \n
+ * pierwszy napotkany NULLowy wskaźnik tablicy na wskaźnik na podaną bombę. W przeciwnym wypadku \n
  * zwalnia pamięć z podanej bomby.
  *
  * @param bomb      podwójny wskaźnik na bombę

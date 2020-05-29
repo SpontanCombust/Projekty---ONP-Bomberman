@@ -18,10 +18,10 @@
 
 /** @brief Tworzy poziom gry
  * 
- * Otwiera folder poziomu o danym ID i skanuje w poszukiwaniu plików mapy poziomu i ścieżek wrogów.\n
- * Następnie tworzy mapę poziomu i tablicę ścieżek wrogów na podstawie danych plików. Jeśli\n 
- * wszystko poszło pomyślnie tworzy tablicę wskaźników na wrogów oraz tablicę wskaźników na moduły AI,\n
- * aplikuje wrogów i ścieżki do tych modułów, a na sam koniec wszystko to zapisuje do zmiennej poziomu\n
+ * Otwiera folder poziomu o danym ID i skanuje w poszukiwaniu plików mapy poziomu i ścieżek wrogów. \n
+ * Następnie tworzy mapę poziomu i tablicę ścieżek wrogów na podstawie danych plików. Jeśli \n 
+ * wszystko poszło pomyślnie tworzy tablicę wskaźników na wrogów oraz tablicę wskaźników na moduły AI, \n
+ * aplikuje wrogów i ścieżki do tych modułów, a na sam koniec wszystko to zapisuje do zmiennej poziomu \n
  * i zwraca wskaźnik na utworzony poziom.
  * 
  * @param level_id  nazwa (ID) poziomu

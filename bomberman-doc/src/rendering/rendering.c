@@ -2,7 +2,7 @@
  * 
  * @brief Plik zawiera funkcje rysowania bitmap elementow gry na ekran
  * 
- * Zawiera metody odpowiadające za rysowanie bomb, SFX, aktorów,\n
+ * Zawiera metody odpowiadające za rysowanie bomb, SFX, aktorów, \n
  * mapy gry i menu na tylnim buforze.
  * 
  * @author  Przemysław Cedro
@@ -16,7 +16,7 @@
 
 /** @brief Rysuje bomby
  * 
- * Iteruje po tablicy wskaźników na zmienne typu Bomb i dla każdej nie-NULLowej bomby\n
+ * Iteruje po tablicy wskaźników na zmienne typu Bomb i dla każdej nie-NULLowej bomby \n
  * rysuje na tylnim buforze jej bitmapę na określonej pozycji i o określonej klatce animacji.
  * 
  * @param bomb_container tablica wskaźników na bomby
@@ -35,11 +35,11 @@ void drawBombs( Bomb *bomb_container[] )
 
 /** @brief Rysuje specjalne efekty SFX
  * 
- * Iteruje po tablicy wskaźnikow na zmienne typu SFX i dla każdego nie-NULLowego SFX\n
- * rysuje na tylnim buforze jego bitmapę na określonej pozycji i o okreslonej klatce animacji,\n
- * kierując sie również jego typem i orientacja.
- * Jeśli typ to eksplozja, bada orientację SFX i według niej w razie konieczności obraca pobierane\n
- * subbitmapy explozji. Jeśli typ to zwłoki, rysuje pokolorowaną na czerwono bitmapę aktora,\n
+ * Iteruje po tablicy wskaźnikow na zmienne typu SFX i dla każdego nie-NULLowego SFX \n
+ * rysuje na tylnim buforze jego bitmapę na określonej pozycji i o okreslonej klatce animacji, \n
+ * kierując sie również jego typem i orientacja. \n
+ * Jeśli typ to eksplozja, bada orientację SFX i według niej w razie konieczności obraca pobierane \n
+ * subbitmapy explozji. Jeśli typ to zwłoki, rysuje pokolorowaną na czerwono bitmapę aktora, \n
  * która została przekazana do tablicy SFX.
  * 
  * @param sfx_container tablica wskaźników na zmienne typu SFX
@@ -96,7 +96,7 @@ void drawSFX( SFX *sfx_container[] )
 
 /** @brief Rysuje aktora
  * 
- * Rysuje na tylnim buforze bitmapę aktora na określonej pozycji,\n
+ * Rysuje na tylnim buforze bitmapę aktora na określonej pozycji, \n
  * o określonej klatce animacji oraz kierując sie tym, w którą stronę jest skierowany.
  * 
  * @param actor wskaźnik na aktora

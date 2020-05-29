@@ -2,7 +2,7 @@
  * 
  * @brief Plik zawiera podstawowe metody dla SFX
  * 
- * Zawiera metody dla specjalnych efektów SFX odpowiadajace za tworzenie i zwalnianie pamięci\n
+ * Zawiera metody dla specjalnych efektów SFX odpowiadajace za tworzenie i zwalnianie pamięci \n
  * z dynamicznie alokowanych zmiennych typu SFX.
  *
  * @author  Przemysław Cedro
@@ -17,7 +17,7 @@
 
 /** @brief Tworzy i zwraca SFX o danej zawartosci
  * 
- * Dynamicznie alokuje pamięc na zmienną typu SFX i przypisuje do pól jej struktury wartości\n
+ * Dynamicznie alokuje pamięc na zmienną typu SFX i przypisuje do pól jej struktury wartości \n
  * podane w parametrach.
  * 
  * @param x             wspólrzędna pikselowa x na mapie poziomu

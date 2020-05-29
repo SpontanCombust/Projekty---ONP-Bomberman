@@ -2,7 +2,7 @@
  * 
  * @brief Plik zawiera funkcje używane przy uruchamianiu i zamykaniu programu.
  * 
- * Zawiera funkcje inicjalizacji biblioteki Allegro, ładowania i sprawdzania zasobów gry oraz\n
+ * Zawiera funkcje inicjalizacji biblioteki Allegro, ładowania i sprawdzania zasobów gry oraz \n
  * uprzątania pamięci przy wychodzeniu z programu.
  * 
  * @author  Przemysław Cedro
@@ -15,8 +15,8 @@
 /**
  * @brief Inicjuje bibliotekę Allegro oraz podstawowe właściwości używane podczas działania programu
  * 
- * Inicjuje bibliotekę, tworzy wyświetlacz i ustawia jego właściwości, a następnie włącza\n
- * wychwytywanie sygnałów z klawiatury oraz załącza wtyczki rysowania prostych figur, wyświetlania\n
+ * Inicjuje bibliotekę, tworzy wyświetlacz i ustawia jego właściwości, a następnie włącza \n
+ * wychwytywanie sygnałów z klawiatury oraz załącza wtyczki rysowania prostych figur, wyświetlania \n
  * okien dialogowych, przetwarzania obrazów oraz wypisywania tekstu.
  * 
  * @return kod zwrotny wykonania funkcji - zwraca 0 przy prawidłowym wykonaniu 
@@ -123,7 +123,7 @@ int validateAssets( void )
 /**
  * @brief Uprząta zasoby programu przy zakończeniu jego działania
  * 
- * Zwalnia pamięć ze wszystkich czcionek oraz bitmap, jak i dezaktywuje wszystkie wtyczki biblioteki.\n
+ * Zwalnia pamięć ze wszystkich czcionek oraz bitmap, jak i dezaktywuje wszystkie wtyczki biblioteki.
  */
 void clearUp( void )
 {

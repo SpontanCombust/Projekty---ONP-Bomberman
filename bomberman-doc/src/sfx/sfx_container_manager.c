@@ -2,7 +2,7 @@
  * 
  * @brief Plik zawiera metody do obsługi tablicy wskaźnikow na zmienne typu SFX
  * 
- * Plik zawiera metody do obsługi tablicy wskaźnikow na zmienne typu SFX o wielkosci zdefiniowanej\n
+ * Plik zawiera metody do obsługi tablicy wskaźnikow na zmienne typu SFX o wielkosci zdefiniowanej \n
  * przez SFX_BUDGET w _game_rules.h.
  * 
  * @author  Przemysław Cedro
@@ -34,8 +34,8 @@ bool isSFXContainerEmpty( SFX * container[] )
 
 /** @brief Dodaje SFX do tablicy SFX
  * 
- * Jesli dana tablica wskaźnikow na zmienne typu SFX nie jest pełna, przypisuje pierwszemu\n
- * napotkanemu nie-NULLowemu elementowi wskaźnik na daną zmienną typu SFX. W przeciwnym wypadku\n
+ * Jesli dana tablica wskaźnikow na zmienne typu SFX nie jest pełna, przypisuje pierwszemu \n
+ * napotkanemu nie-NULLowemu elementowi wskaźnik na daną zmienną typu SFX. W przeciwnym wypadku \n
  * zwalnia pamięć z danej dynamicznie alokowanej zmiennej typu SFX.
  * 
  * @param sfx       wskaźnik na wskaźnik na SFX
@@ -60,8 +60,8 @@ void addSFXToContainer( SFX **sfx, SFX * container[] )
 
 /** @brief Sprawdza, czy na danych koordynatach mapy poziomu znajduje się SFX danego typu
  * 
- * Jeśli tablica wskaźników na SFX jest niepusta, iteruje po jej elementach\n
- * i sprawdza, czy któryś ze wskaźnikow o wartości nie-NULLowej, które przechowuje tablica,\n
+ * Jeśli tablica wskaźników na SFX jest niepusta, iteruje po jej elementach \n
+ * i sprawdza, czy któryś ze wskaźnikow o wartości nie-NULLowej, które przechowuje tablica, \n
  * wskazuje na zmienną typu SFX o podanym typie, której pola wspólrzędnych wskazują na podaną pozycję.
  * 
  * @param tile_x        współrzędna pola mapy w osi x na mapie poziomu

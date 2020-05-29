@@ -17,7 +17,7 @@
 /**
  * @brief Tworzy aktora
  * 
- * Alokuje pamięć na dynamiczną zmienną typu Actor i przydziela jej odpowiednie cechy oraz inicjuje\n
+ * Alokuje pamięć na dynamiczną zmienną typu Actor i przydziela jej odpowiednie cechy oraz inicjuje \n
  * niektóre zmienne.
  * 
  * @param x     początkowa pozycja w osi X aktora

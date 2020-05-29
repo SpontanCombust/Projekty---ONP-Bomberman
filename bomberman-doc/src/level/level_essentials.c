@@ -2,8 +2,8 @@
  * 
  * @brief Plik zawiera funkcje zwalniania pamięci z poziomu oraz wyświetlania kart tytułowych
  * 
- * Zawiera funkcję zwalniania pamięci z dynamicznie alokowanej zmiennej typu Level, ale też funkcje\n
- * do wyświetlania kart tytułowych pojawiających się podczas rozpoczynania i kończenia rozgrywki\n
+ * Zawiera funkcję zwalniania pamięci z dynamicznie alokowanej zmiennej typu Level, ale też funkcje \n
+ * do wyświetlania kart tytułowych pojawiających się podczas rozpoczynania i kończenia rozgrywki \n
  * w poziomie gry.
  * 
  * @author  Przemysław Cedro
@@ -17,7 +17,7 @@
 
 /** @brief Wyświetla kartę tytułową przy rozpoczęciu rozgrywki w poziomie gry 
  * 
- * Wyświetla czarny ekran z napisem "LEVEL X", gdzie 'X' to tytuł poziomu, a następnie napis z warunkiem\n
+ * Wyświetla czarny ekran z napisem "LEVEL X", gdzie 'X' to tytuł poziomu, a następnie napis z warunkiem \n
  * ukończenia poziomu.
  *
  * @param font_big      wskaźnik na główną, dużą czcionkę

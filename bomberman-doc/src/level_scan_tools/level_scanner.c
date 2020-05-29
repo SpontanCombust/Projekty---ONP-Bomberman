@@ -19,8 +19,8 @@
 
 /** @brief Odwraca kolejność nazw poziomów w tablicy.
  * 
- * Domyślnie na systemie linux biblioteka dirent odczytuje nazwy katalogów w odwrotnej kolejności\n
- * alfabetycznej, więc przy nazwach z numerami poziomy byłyby wyświetlane odwrotnie. Stąd odwracanie\n
+ * Domyślnie na systemie linux biblioteka dirent odczytuje nazwy katalogów w odwrotnej kolejności \n
+ * alfabetycznej, więc przy nazwach z numerami poziomy byłyby wyświetlane odwrotnie. Stąd odwracanie \n
  * kolejności nazw.
  *
  * @param level_name    tablica nazw poziomów
@@ -40,8 +40,8 @@ static void reverseArray( char levels_names[MAX_LOADED_LEVELS][10], int level_nu
 
 /** @brief Skanuje w poszukiwaniu katalogów poziomów
  * 
- * Sprawdza katalog 'levels' w poszukiwaniu katalogów zaczynających się na 'level'. Nazwa poziomu to\n
- * wszystko zapisane po tym słowie. Maksymalna długość nazwy poziomu to maksymalnie 10 znaków. Reszta\n
+ * Sprawdza katalog 'levels' w poszukiwaniu katalogów zaczynających się na 'level'. Nazwa poziomu to \n
+ * wszystko zapisane po tym słowie. Maksymalna długość nazwy poziomu to maksymalnie 10 znaków. Reszta \n
  * znaków zostaje unicana. Jeśli sam katalog poziomów nie zostanie znaleziony, wyświetlany jest błąd.
  *
  * @param levels_names  tablica nazw poziomów

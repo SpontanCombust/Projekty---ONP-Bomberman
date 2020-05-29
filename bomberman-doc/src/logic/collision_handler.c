@@ -2,7 +2,7 @@
  * 
  * @brief Plik zawiera funkcje detekcji i obsługi kolizji.
  * 
- * Plik zawiera funkcje wykrywania kolizji avatara gracza z otoczeniem oraz z innymi aktorami.
+ * Plik zawiera funkcje wykrywania kolizji avatara gracza z otoczeniem oraz z innymi aktorami. \n
  * Zawiera też funkcje obsługi kolizji z otoczeniem.
  * 
  * @author  Przemysław Cedro
@@ -18,9 +18,9 @@
 
 /** @brief Wykrywa, czy aktor jest poza obrębem mapy.
  * 
- * Na podstawie wymiarów przekazanej mapy ocenia, czy aktor znajduje się poza zakresem koordynatów\n
- * wewnątrz mapy opierając się o prostokąt kolizji aktora. Jeśli wyjście poza mapę zostanie wykryte,\n
- * poza potwierdzeniem, zmiennej cdir zostanie nadana wartość odpowiadająca, z której strony względem\n
+ * Na podstawie wymiarów przekazanej mapy ocenia, czy aktor znajduje się poza zakresem koordynatów \n
+ * wewnątrz mapy opierając się o prostokąt kolizji aktora. Jeśli wyjście poza mapę zostanie wykryte, \n
+ * poza potwierdzeniem, zmiennej cdir zostanie nadana wartość odpowiadająca, z której strony względem \n
  * aktora wykryte zostało to zdarzenie.
  *
  * @param actor     wskaźnik na aktora
@@ -59,9 +59,9 @@ bool isOutOfBounds( Actor *actor, LevelMap *level_map, Direction *cdir )
 
 /** @brief Koryguje pozycję aktora po wyjściu za obszar mapy
  * 
- * Na podstawie wymiarów mapy i kierunku, w którym nastąpiło przekroczenie mapy, ustawia postać\n
- * gracza tak by jego prostokąt kolizji stykał się z granicą mapy po jej wewnętrznej stronie.\n
- * Dzięki danemu kierunkowi możlwie jest szybkie ocenienie od strony której ściany mapy nastąpiło\n
+ * Na podstawie wymiarów mapy i kierunku, w którym nastąpiło przekroczenie mapy, ustawia postać \n
+ * gracza tak by jego prostokąt kolizji stykał się z granicą mapy po jej wewnętrznej stronie. \n
+ * Dzięki danemu kierunkowi możlwie jest szybkie ocenienie od strony której ściany mapy nastąpiło \n
  * przejście i przenieść gracza z powrotem tuż przed tę ścianę.
  *
  * @param actor     wskaźnik na aktora
@@ -89,8 +89,8 @@ void handleOutOfBounds( Actor *actor, LevelMap *level_map, Direction cdir )
 
 /** @brief Wykrywa, czy dany wierzchołek prostokąta kolizji koliduje z elementami mapy
  * 
- * Wykrywa, czy dany punkt znajduje się w tym samym miejscu, gdzie jest również element mapy uznawany\n
- * jako mogący fizycznie kolidować z aktorem. Do tych elementów zaliczają się twarde i kruche bloki na mapie.\n 
+ * Wykrywa, czy dany punkt znajduje się w tym samym miejscu, gdzie jest również element mapy uznawany \n
+ * jako mogący fizycznie kolidować z aktorem. Do tych elementów zaliczają się twarde i kruche bloki na mapie.
  *
  * @param vertex_x  współrzędna pikselowa punktu w osi x
  * @param vertex_y  współrzędna pikselowa punktu w osi y
@@ -107,8 +107,8 @@ static bool isCollidedVertexOnTerrain( float vertex_x, float vertex_y, LevelMap 
 
 /** @brief Wykrywa, czy aktor wchodzi w kolizję z elementami mapy w osi X
  * 
- * Sprawdza każdy wierzchołek prostokąta kolizji aktora i ocenia w ten sposób, czy wchodzi on w kolizję\n
- * z elementami mapy w osi X. Nadaje następnie odpowiednią wartosć zmiennej cdir odpowiadającą kierunkowi,\n
+ * Sprawdza każdy wierzchołek prostokąta kolizji aktora i ocenia w ten sposób, czy wchodzi on w kolizję \n
+ * z elementami mapy w osi X. Nadaje następnie odpowiednią wartosć zmiennej cdir odpowiadającą kierunkowi, \n
  * w którym zaistniała kolizja. 
  *
  * @param actor     wskaźnik na aktora
@@ -139,8 +139,8 @@ bool isTerrainCollisionX( Actor *actor, LevelMap *level_map, Direction *cdir )
 
 /** @brief Wykrywa, czy aktor wchodzi w kolizję z elementami mapy w osi Y
  * 
- * Sprawdza każdy wierzchołek prostokąta kolizji aktora i ocenia w ten sposób, czy wchodzi on w kolizję\n
- * z elementami mapy w osi Y. Nadaje następnie odpowiednią wartosć zmiennej cdir odpowiadającą kierunkowi,\n
+ * Sprawdza każdy wierzchołek prostokąta kolizji aktora i ocenia w ten sposób, czy wchodzi on w kolizję \n
+ * z elementami mapy w osi Y. Nadaje następnie odpowiednią wartosć zmiennej cdir odpowiadającą kierunkowi, \n
  * w którym zaistniała kolizja. 
  *
  * @param actor     wskaźnik na aktora
@@ -171,10 +171,10 @@ bool isTerrainCollisionY( Actor *actor, LevelMap *level_map, Direction *cdir )
 
 /** @brief Koryguje pozycję aktora po kolizji z elementami mapy
  * 
- * Na podstawie kierunku, w którym nastąpiła kolizja, ustawia postać gracza tak by jego prostokąt\n
- * kolizji stykał się z ze ścianą najbliższego poprzedniego elementu mapy w zależności od kierunku\n
- * w którym nastąpiła kolizja np. jeśli kierunek to góra ("UP") koryguje pozycję o jedno pole\n
- * na mapie w dół i przysuwa aktora do górnej krawędzi tak, by stykał się prostokątem kolizji\n
+ * Na podstawie kierunku, w którym nastąpiła kolizja, ustawia postać gracza tak by jego prostokąt \n
+ * kolizji stykał się z ze ścianą najbliższego poprzedniego elementu mapy w zależności od kierunku \n
+ * w którym nastąpiła kolizja np. jeśli kierunek to góra ("UP") koryguje pozycję o jedno pole \n
+ * na mapie w dół i przysuwa aktora do górnej krawędzi tak, by stykał się prostokątem kolizji \n
  * z elementem mapy, z którym wszedł w kolizję.
  *
  * @param actor     wskaźnik na aktora
@@ -218,7 +218,7 @@ static float getActorsDistance( Actor *actor1, Actor *actor2 )
 
 /** @brief Wykrywa, czy dany wierzchołek prostokąta kolizji koliduje z aktorem
  * 
- * Wykrywa, czy dany punkt znajduje się w tym samym miejscu, gdzie jest również dany aktor,\n
+ * Wykrywa, czy dany punkt znajduje się w tym samym miejscu, gdzie jest również dany aktor, \n
  * a konkretnie obszar jego prostokąta kolizji.
  *
  * @param vertex_x  współrzędna pikselowa punktu w osi x
@@ -239,9 +239,9 @@ static bool isCollidedVertexOnActor( float vertex_x, float vertex_y, Actor *acto
 
 /** @brief Wykrywa, czy zaistaniała kolizja między dwoma aktorami
  * 
- * Jeśli wykryje, że aktorzy są dostatecznie blisko siebie (lewe górne wierzchołki są w odległości\n
- * mniejszej niż przekątna bitmapy) sprawdza każdy wierzchołek prostokąta kolizji pierwszego aktora\n
- * i jeśli któryś z tych punktów natknie się na prostokąt kolziji drugiego aktora, wykryta zostanie\n
+ * Jeśli wykryje, że aktorzy są dostatecznie blisko siebie (lewe górne wierzchołki są w odległości \n
+ * mniejszej niż przekątna bitmapy) sprawdza każdy wierzchołek prostokąta kolizji pierwszego aktora \n
+ * i jeśli któryś z tych punktów natknie się na prostokąt kolziji drugiego aktora, wykryta zostanie \n
  * kolizja między nimi.
  *
  * @param actor1 wskaźnik na pierwszego aktora

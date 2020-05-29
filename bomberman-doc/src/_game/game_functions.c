@@ -30,7 +30,7 @@ void updateSelectedSkinVars( Menu *opt_menu ) {
 /**
  * @brief Ustala jaką bitmapę powinien otrzymać dany gracz
  * 
- * Na podstawie podanego w parametrze ID gracza (1 lub 2) pobiera aktualnie  wybraną dla niego\n
+ * Na podstawie podanego w parametrze ID gracza (1 lub 2) pobiera aktualnie  wybraną dla niego \n
  * skórkę i według tego jak się nazywa zwraca odpowiednią bitmapę.
  * 
  * @param p ID gracza (1 lub 2)
@@ -57,8 +57,8 @@ static ALLEGRO_BITMAP *resolvePlayerBitmaps( char p )
 /**
  * @brief Ładuje aktualne skórki dla każdego z graczy
  * 
- * Aktualizuje zmienne globalne bitmap skórek dla graczy 1 i 2. Zwraca kod zwrotny wykonania funkcji.\n
- * Jeśli kod to 0, wszystko poszło pomyślnie. Jeśli -1, jednak ze skórek nie została załadowana\n
+ * Aktualizuje zmienne globalne bitmap skórek dla graczy 1 i 2. Zwraca kod zwrotny wykonania funkcji. \n
+ * Jeśli kod to 0, wszystko poszło pomyślnie. Jeśli -1, jednak ze skórek nie została załadowana \n
  * poprawnie.
  * 
  * @return kod zwrotny funkcji - 0 jeśli wszystko poszło pomyślnie
@@ -81,7 +81,7 @@ int loadSelectedSkins( void )
 /**
  * @brief Zmienia aktualnie uczęszczanie Menu
  * 
- * Zmienia Menu i przywraca domyślnie wybrany wpis w danym menu. Sygnalizuje koniec zmianu menu\n
+ * Zmienia Menu i przywraca domyślnie wybrany wpis w danym menu. Sygnalizuje koniec zmianu menu \n
  * dla Stanu Gry.
  * 
  * @param current   podwójny wskaźnik na obecne menu 

@@ -84,9 +84,9 @@ void resolveDirection( Actor *actor )
 
 /** @brief Aktualizuje pozycję aktora w osi X
  * 
- * Mnoży szybkość aktora i sumę wektorów składowych w osi X, biorąc pod uwagę że wartość wektora\n
- * składowego na wartościach ujemnych musi zostać zanegowana, by był on rzeczywiście przeciwny\n
- * wartością do wektora na wartościach dodatnich, bo jest to typ bool. Otrzymany wynik dodawany\n
+ * Mnoży szybkość aktora i sumę wektorów składowych w osi X, biorąc pod uwagę że wartość wektora \n
+ * składowego na wartościach ujemnych musi zostać zanegowana, by był on rzeczywiście przeciwny \n
+ * wartością do wektora na wartościach dodatnich, bo jest to typ bool. Otrzymany wynik dodawany \n
  * jest do obecnej pozycji aktora. 
  *
  * @param actor wskaźnik na aktora
@@ -98,9 +98,9 @@ void updatePositionX( Actor *actor )
 
 /** @brief Aktualizuje pozycję aktora w osi Y
  * 
- * Mnoży szybkość aktora i sumę wektorów składowych w osi Y, biorąc pod uwagę że wartość wektora\n
- * składowego na wartościach ujemnych musi zostać zanegowana, by był on rzeczywiście przeciwny\n
- * wartością do wektora na wartościach dodatnich, bo jest to typ bool. Otrzymany wynik dodawany\n
+ * Mnoży szybkość aktora i sumę wektorów składowych w osi Y, biorąc pod uwagę że wartość wektora \n
+ * składowego na wartościach ujemnych musi zostać zanegowana, by był on rzeczywiście przeciwny \n
+ * wartością do wektora na wartościach dodatnich, bo jest to typ bool. Otrzymany wynik dodawany \n
  * jest do obecnej pozycji aktora. 
  *
  * @param actor wskaźnik na aktora

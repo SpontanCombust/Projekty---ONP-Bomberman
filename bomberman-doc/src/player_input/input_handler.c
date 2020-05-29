@@ -2,7 +2,7 @@
  * 
  * @brief Zawiera metody do obslugi wejść użytkownika
  * 
- * Zawiera metody obsługi wejść z klawiatury odpowiednio dla obecności w menu\n
+ * Zawiera metody obsługi wejść z klawiatury odpowiednio dla obecności w menu \n
  * jak i w trakcie rozgrywki.
  * 
  * @author  Przemysław Cedro
@@ -17,9 +17,9 @@
 
 /** @brief Ustawia odpowiedni input dla akcji
  * 
- * Ustawia odpowiedni input dla akcji w menu i podczas rozgrywki w zależnosci od podanego schematu wejścia.\n
- * Schemat STANDARD: GÓRA, DÓŁ, LEWO, PRAWO, SPACJA
- * Schemat ALTERNATIVE: W, S, A, D, LCtrl
+ * Ustawia odpowiedni input dla akcji w menu i podczas rozgrywki w zależnosci od podanego schematu wejścia. \n
+ * Schemat STANDARD: GÓRA, DÓŁ, LEWO, PRAWO, SPACJA \n
+ * Schemat ALTERNATIVE: W, S, A, D, LCtrl \n
  * 
  * @param is    schemat sterowania wskazujący na dany zestaw wejść z klawiatury
  * @param down  wskaźnik na wartość klawisza odpowiadającemu akcji 'na dól'
@@ -38,8 +38,8 @@ static void retrieveInput( InputScheme is, char *down, char *up, char *left, cha
 
 /** @brief Obsługuje naciśnięcie danego klawisza w trakcie rozgrywki
  * 
- * Podejmuje odpowiednie akcje w zależności od naciśnięcia i trzymania danego przycisku klawiatury\n
- * w trakcie przechodzenia poziomu. Odpowiednio wysyła komendy o zmiane wektorów predkości,\n
+ * Podejmuje odpowiednie akcje w zależności od naciśnięcia i trzymania danego przycisku klawiatury \n
+ * w trakcie przechodzenia poziomu. Odpowiednio wysyła komendy o zmiane wektorów predkości, \n
  * podłożeniu bomby lub zapauzowaniu gry.
  * 
  * @param keyboard_keycode  kod klawisza zdefiniowany przez bibliotekę Allegro
@@ -75,7 +75,7 @@ void handleGameInputKeyDown( char keyboard_keycode, InputScheme is, Actor *playe
 
 /** @brief Obsługuje zwolnienie danego klawisza w trakcie rozgrywki
  * 
- * Podejmuje odpowiednie akcje w zależności od zwolnienia danego przycisku klawiatury\n
+ * Podejmuje odpowiednie akcje w zależności od zwolnienia danego przycisku klawiatury \n
  * w trakcie przechodzenia poziomu. Odpowiednio wysyła komendy o zmiane wektorow predkosci.
  * 
  * @param keyboard_keycode  kod klawisza zdefiniowany przez biblioteke Allegro
@@ -98,8 +98,8 @@ void handleGameInputKeyUp( char keyboard_keycode, InputScheme is, Actor *player 
 
 /** @brief Obsługuje naciśnięcie danego klawisza w trakcie pobytu w menu
  * 
- * Podejmuje odpowiednie akcje w zależności od nacisnięcia i trzymania danego przycisku klawiatury\n
- * w trakcie pobytu w menu. Odpowiednio wysyła komendy o zmianie wybranego wpisu w menu\n
+ * Podejmuje odpowiednie akcje w zależności od nacisnięcia i trzymania danego przycisku klawiatury \n
+ * w trakcie pobytu w menu. Odpowiednio wysyła komendy o zmianie wybranego wpisu w menu \n
  * lub zmianie zmiennej przechowywanej w wpisie.
  * 
  * @param keyboard_keycode  kod klawisza zdefiniowany przez biblioteke Allegro

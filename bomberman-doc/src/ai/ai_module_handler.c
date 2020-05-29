@@ -2,7 +2,7 @@
  * 
  * @brief Plik zawiera funkcje obsługi modułu AI 
  * 
- * Zawiera funkcję sprawdzania, czy aktor zaaplikowany do modułu osiągnął swój obecny cel oraz funkcję,\n
+ * Zawiera funkcję sprawdzania, czy aktor zaaplikowany do modułu osiągnął swój obecny cel oraz funkcję, \n
  * która ustawia mu kolejny cel.
  * 
  * @author  Przemysław Cedro
@@ -14,7 +14,7 @@
 
 /** @brief Sprawdza, czy aktor zaaplikowany do modułu osiągnął swój cel
  * 
- * Porównuje obecną pozycję aktora i determinuje, czy doszedł wystarczająco blisko do miejsca,\n
+ * Porównuje obecną pozycję aktora i determinuje, czy doszedł wystarczająco blisko do miejsca, \n
  * w którym kończy się obecny krok ścieżki, a zaczyna się następny.
  *
  * @param module wskaźnik na moduł AI
@@ -30,10 +30,10 @@ bool reachedDestination( AIModule *module )
 
 /** @brief Ustawia kolejny cel w module AI 
  * 
- * Dla aktora zaaplikowanego do modułu AI ustawia kolejny krok ścieżki, do którego miejsca ma się\n
- * poruszać. Wybierany jest kolejny krok w tablicy kroków w ścieżce. Aktualizuje wektory prędkości\n
- * aktora w zależności od relacji jego pozycji do pozycji jego celu. Wspierane są w pełni tylko\n
- * ścieżki, dla których przemieszczenie między kolejnymi krokami odbywa się równolegle do jednej\n
+ * Dla aktora zaaplikowanego do modułu AI ustawia kolejny krok ścieżki, do którego miejsca ma się \n
+ * poruszać. Wybierany jest kolejny krok w tablicy kroków w ścieżce. Aktualizuje wektory prędkości \n
+ * aktora w zależności od relacji jego pozycji do pozycji jego celu. Wspierane są w pełni tylko \n
+ * ścieżki, dla których przemieszczenie między kolejnymi krokami odbywa się równolegle do jednej \n
  * z osi współrzędnych.
  *
  * @param module wskaźnik na moduł AI

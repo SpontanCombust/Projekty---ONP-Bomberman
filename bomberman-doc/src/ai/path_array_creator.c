@@ -2,7 +2,7 @@
  * 
  * @brief Plik zawiera funkcje tworzenia i pomocnicze dla ścieżek ruchu Path.
  * 
- * Zawiera funkcje tworzenia tablic ścieżek ruchu Path z pliku, wypisywania ścieżki do konsoli oraz\n
+ * Zawiera funkcje tworzenia tablic ścieżek ruchu Path z pliku, wypisywania ścieżki do konsoli oraz \n
  * zwalniania pamięci z tablicy ścieżek.
  * 
  * @author  Przemysław Cedro
@@ -18,7 +18,7 @@
 /**
  * @brief Ustawia koordynaty dla elementu tablicy kroków PathStep przy odczytywaniu ich z pliku
  * 
- * Bierze tekst w formie "x,y", gdzie 'x' to koordynat X dla kroku PathStep, a 'y' to koordynat Y dla kroku\n
+ * Bierze tekst w formie "x,y", gdzie 'x' to koordynat X dla kroku PathStep, a 'y' to koordynat Y dla kroku \n
  * w ścieżce i przekształca go w liczby ustawiane jako koordynaty celu dla danego kroku w tablicy kroków.
  * 
  * @param steps tablica kroków
@@ -38,9 +38,9 @@ static void handlePoint( PathStep * steps, int i, char *point )
 /**
  * @brief Tworzy tablicę kroków PathStep dla ścieżki Path
  * 
- * Dzieli ciąg znaków z pliku reprezentujący ciąg kroków i tworzy na jego podstawie tablicę kroków\n
- * dla ścieżki ruchu.
- * Ciąg znaków wygląda następująco: "n x1 x2 x3 ... xn", gdzie n to ilość kroków, a kolejne xi\n
+ * Dzieli ciąg znaków z pliku reprezentujący ciąg kroków i tworzy na jego podstawie tablicę kroków \n
+ * dla ścieżki ruchu. \n
+ * Ciąg znaków wygląda następująco: "n x1 x2 x3 ... xn", gdzie n to ilość kroków, a kolejne xi \n
  * to kroki o formie "x,y".
  * @see handlePoint()
  * 
@@ -77,16 +77,16 @@ PathStep * createPathStepArray( char *line, int *step_num )
 /**
  * @brief Tworzy tablicę ścieżek Path z pliku
  * 
- * Czyta dane z pliku w zależności od napotkanych nagłówków.\n
- * 
- * Jeśli napotka nagłówek [quantity] szuka linii o treści "n=x",
- * gdzie x to ilość ścieżek Path jakie będą dalej wypisane.
- * 
- * Jeśli napotka nagłówek [paths] szuka linii ze ścieżkami Path. Każda z tych linii przetwarzana jest\n
- * na tablicę kroków PathStep, która zostaje ustawiana wraz z ilością kroków jakie posiada do elementu\n
- * tablicy ścieżek.
- * 
- * Jeśli z początku pliku lub pomiędzy zawartością nagłówków napotka linię zaczynającą się od ";",\n
+ * Czyta dane z pliku w zależności od napotkanych nagłówków. \n
+ * \n
+ * Jeśli napotka nagłówek [quantity] szuka linii o treści "n=x", \n
+ * gdzie x to ilość ścieżek Path jakie będą dalej wypisane. \n
+ * \n
+ * Jeśli napotka nagłówek [paths] szuka linii ze ścieżkami Path. Każda z tych linii przetwarzana jest \n
+ * na tablicę kroków PathStep, która zostaje ustawiana wraz z ilością kroków jakie posiada do elementu \n
+ * tablicy ścieżek. \n
+ * \n
+ * Jeśli z początku pliku lub pomiędzy zawartością nagłówków napotka linię zaczynającą się od ";", \n
  * automatycznie ją pominie. 
  * 
  * @param enemies_file_path ścieżka do pliku z tablicą ścieżek Path
@@ -171,7 +171,7 @@ void printPath( Path path )
 /**
  * @brief Zwalnia pamięć z tablicy ścieżek
  * 
- * Zwalnia pamięć z dynamicznie alokowanej tablicy dynamicznych zmiennych typu Path oraz zwalnia\n
+ * Zwalnia pamięć z dynamicznie alokowanej tablicy dynamicznych zmiennych typu Path oraz zwalnia \n
  * pamięć z tablic kroków PathStep dla każdej z tych ścieżek. 
  * 
  * @param array podwójny wskaźnik na tablicę ścieżek Path
