@@ -2,6 +2,25 @@
     "files.associations": {
         "stdio.h": "c",
         "allegro_primitives.h": "c",
-        "allegro_font.h": "c"
+        "allegro_font.h": "c",
+        "bit": "cpp",
+        "*.tcc": "cpp",
+        "functional": "cpp",
+        "random": "cpp",
+        "limits": "cpp",
+        "fstream": "cpp",
+        "cctype": "cpp",
+        "cerrno": "cpp",
+        "climits": "cpp",
+        "clocale": "cpp",
+        "cmath": "cpp",
+        "cstdarg": "cpp",
+        "cstddef": "cpp",
+        "cstdio": "cpp",
+        "cstdlib": "cpp",
+        "cwchar": "cpp",
+        "cwctype": "cpp",
+        "numeric": "cpp",
+        "tuple": "cpp"
     }
 }

@@ -1,5 +1,5 @@
-#ifndef __ONP_HPP
-#define __ONP_HPP
+#ifndef __RPN_HPP
+#define __RPN_HPP
 
 #include "../stack/stack.hpp"
 #include <vector>
