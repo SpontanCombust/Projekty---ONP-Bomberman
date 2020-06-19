@@ -8,13 +8,13 @@ typedef struct SStackNode
 
 } TStackNode;
 
-class Stack
+class CStack
 {
     protected:
         TStackNode *top;
 
     public:
-        Stack();
+        CStack();
         bool push( float content );
         bool pop( float *content );
         bool peek( float *content );

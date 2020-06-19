@@ -1,12 +1,12 @@
 #include "stack.hpp"
 #include <stdlib.h>
 
-Stack::Stack()
+CStack::CStack()
 {
     top = NULL;
 }
 
-bool Stack::push( float content )
+bool CStack::push( float content )
 {
     TStackNode *newNode = ( TStackNode * )malloc( sizeof( TStackNode ) );
     
@@ -30,7 +30,7 @@ bool Stack::push( float content )
     return false;
 }
 
-bool Stack::pop( float *content )
+bool CStack::pop( float *content )
 {
     if( top == NULL )
         return false;
@@ -43,7 +43,7 @@ bool Stack::pop( float *content )
     return true;
 }
 
-bool Stack::peek( float *content )
+bool CStack::peek( float *content )
 {
     if( top == NULL )
         return false;
