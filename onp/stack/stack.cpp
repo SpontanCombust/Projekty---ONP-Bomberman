@@ -10,24 +10,23 @@ bool CStack::push( float content )
 {
     SStackNode *newNode = ( SStackNode * )malloc( sizeof( SStackNode ) );
     
-    if ( newNode )
-    {       
-        newNode->content = content;
-        
-        if( top == NULL )
-        {
-            newNode->next = NULL;
-            top = newNode;
-        }
-        else
-        {
-            newNode->next = top;
-            top = newNode;
-        }
-        
-        return true;
+    if ( newNode == NULL )
+        return false;
+
+    newNode->content = content;
+    
+    if( top == NULL )
+    {
+        newNode->next = NULL;
+        top = newNode;
     }
-    return false;
+    else
+    {
+        newNode->next = top;
+        top = newNode;
+    }
+
+    return true;
 }
 
 bool CStack::pop( float *content )

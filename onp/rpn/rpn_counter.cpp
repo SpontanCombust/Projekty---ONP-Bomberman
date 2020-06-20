@@ -1,4 +1,5 @@
 #include "rpn.hpp"
+#include <iostream>
 
 bool isMathOperationValid( float x1, float x2, std::string mathOperator )
 {
@@ -18,10 +19,6 @@ float getOperationResult( float x1, float x2, std::string mathOperator )
         printf("Invalid operator!\n");
         return -1;
     }
-        
-    // if(steps==true){
-    //     printf("Executed operation %f %c %f\n",x1 , operator , x2);
-    //     printf("Placed %f at the top of the stack \n", outcome );}
 
     return outcome;
 }
@@ -32,22 +29,34 @@ bool handleRPNElementOnStack( std::string rpnElement, CStack *stack )
     if( isBasicMathOperator( rpnElement ) )
     {
         float x1, x2;
+        bool b1, b2;
 
-        if( !stack->pop( &x2 ) || !stack->pop( &x1 ) )
+        b2 = stack->pop( &x2 );
+        b1 = stack->pop( &x1 );
+
+        if( !b2 || !b1 )
+        {
+            std::cout << "Element not taken from stack correctly!" << std::endl;
             return false;
+        }
 
-        // if(steps==true)
-        //     printf("Removed %f and %f from the stack. ", n2, n1);
+        std::cout << "Popped " << x1 << " and " << x2 << " from stack." << std::endl;
 
         if( isMathOperationValid( x1, x2, rpnElement ) )
-            stack->push( getOperationResult( x1, x2, rpnElement ) );
+        {
+            float result = getOperationResult( x1, x2, rpnElement );
+            stack->push( result );
+            std::cout << "Pushed " << rpnElement << " onto stack." << std::endl;
+
+            return true;
+        }
         else
             return false;
     }
     else
     {
-        // if(steps==true)
-        //    printf("Placed %lf at the top of the stack \n",atof( e ));}
+        std::cout << "Pushed " << rpnElement << " onto stack." << std::endl;
+
         return stack->push( stof( rpnElement ) );
     }
 
@@ -64,9 +73,7 @@ float getRPNResult( std::string rawRPNString, bool *success )
     *success = true;
     stack = new CStack();
     rpnVec = parseRawRPNString( rawRPNString, " " );
-    
-    // if(steps==true)
-    //     printf("Returning top of the stack as a result\n");
+    result = 0;
 
     if( isRPNVectorValid( rpnVec ) )
     {
@@ -78,9 +85,15 @@ float getRPNResult( std::string rawRPNString, bool *success )
                 break;
             }
         }
-    }
-    stack->pop( &result );
 
+        stack->pop( &result );
+    }
+    else
+    {
+        std::cout << "RPN sequence not valid: " << rawRPNString << std::endl;
+        *success = false;
+    }
+    
     return result;
 }
 

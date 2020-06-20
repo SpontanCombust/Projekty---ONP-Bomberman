@@ -1,4 +1,5 @@
 #include "rpn.hpp"
+#include <iostream>
 
 std::vector< std::string > parseRawRPNString( std::string rawRPNString, std::string delim )
 {
@@ -46,7 +47,7 @@ bool isPointValid( std::string rpnElement )
     else if( pos == 0 )
         return false;
 
-    rpnElement.erase( 0, pos );
+    rpnElement.erase( 0, pos + 1 );
     pos = rpnElement.find( '.' );
 
     if( pos != std::string::npos )
@@ -78,7 +79,11 @@ bool isRPNVectorValid( std::vector< std::string > rpnVector )
 {
     for( std::string rpnElement : rpnVector )
     {
-        if( !isRPNElementValid( rpnElement ) ) return false;
+        if( !isRPNElementValid( rpnElement ) )
+        {
+            std::cout << "RPN element not valid: " << rpnElement << std::endl;
+            return false;
+        }
     }
     return true;
 }
