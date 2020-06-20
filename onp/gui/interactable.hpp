@@ -13,6 +13,7 @@ class CInteractable
         CInteractable();
         void setInteractibleParams( float interX0, float interX1, float interY0, float interY1 );
         bool testIfWasInteractedWith( float x, float y );
+        virtual void onInteraction();
 };
 
 CInteractable::CInteractable()

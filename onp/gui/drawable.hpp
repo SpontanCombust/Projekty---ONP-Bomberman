@@ -17,7 +17,7 @@ class CDrawable
         CDrawable();
         void setDrawableParams( float drawX, float drawY, float drawW, float drawH, int drawFlags );
         void drawBitmap();
-        virtual void updateBitmap() = 0;
+        virtual void updateBitmap();
 };
 
 CDrawable::CDrawable()

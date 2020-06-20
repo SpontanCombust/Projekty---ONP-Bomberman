@@ -6,12 +6,12 @@ typedef struct SStackNode
     float content;
     struct SStackNode *next;
 
-} TStackNode;
+} SStackNode;
 
 class CStack
 {
     protected:
-        TStackNode *top;
+        SStackNode *top;
 
     public:
         CStack();

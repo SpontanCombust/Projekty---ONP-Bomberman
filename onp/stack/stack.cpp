@@ -8,7 +8,7 @@ CStack::CStack()
 
 bool CStack::push( float content )
 {
-    TStackNode *newNode = ( TStackNode * )malloc( sizeof( TStackNode ) );
+    SStackNode *newNode = ( SStackNode * )malloc( sizeof( SStackNode ) );
     
     if ( newNode )
     {       
@@ -36,7 +36,7 @@ bool CStack::pop( float *content )
         return false;
 
     *content = top->content;
-    TStackNode *tmp = top->next;
+    SStackNode *tmp = top->next;
     free( top );
     top = tmp;
 
