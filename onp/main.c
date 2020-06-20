@@ -1,16 +1,8 @@
-#include "onp.h"
-#include <string.h>
-#include <stdio.h>
-#include <stdbool.h>
-
-#include "allegro_data.h"
-#include <allegro5/allegro.h>
-#include <allegro5/allegro_primitives.h>
-#include <allegro5/allegro_font.h>
-#include <allegro5/allegro_ttf.h>
+#include "./gui_ncurses/app.hpp"
 
 int main()
 {
+    /*
     if( al_init() == NULL ) {
         fprintf( stderr, "Failed to initialize Allegro!\n" );
         return -1;
@@ -34,6 +26,8 @@ int main()
     ALLEGRO_EVENT_QUEUE *eq = al_create_event_queue();
     al_register_event_source( eq, al_get_keyboard_event_source() );
     al_register_event_source( eq, al_get_mouse_event_source() );
+    */
+
     // char input[20];
     // puts( "Enter Reverse Polish Notation of max. length of 20:" );
     // scanf("%21[^\n]s", input );
@@ -44,6 +38,8 @@ int main()
     //     return -1;
     // }
     // printf("The result is: %f", get_ONP_result( input , show_steps() ) );
+
+    Run();
 
     return 0;
 }
