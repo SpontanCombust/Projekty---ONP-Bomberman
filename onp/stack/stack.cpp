@@ -57,7 +57,19 @@ bool CStack::peek( float *content )
     return true;
 }
 
-bool CStack::clear()
+long CStack::size()
+{
+    long ss = 0;
+    SStackNode *node = top;
+    while( node != NULL )
+    {
+        ss++;
+        node = node->next;
+    }
+    return ss;
+}
+
+void CStack::clear()
 {
     float dummy;
     while( top != NULL )

@@ -4,7 +4,7 @@
 
 int main()
 {
-    // RunRPN();
+    RunRPN();
 
     
     return 0;

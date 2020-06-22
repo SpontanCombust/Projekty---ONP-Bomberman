@@ -69,9 +69,11 @@ void performRPNPerformanceTest( int numberQuantity, int numberWeight, int mathOp
                 element = mathOperator;
         }
         
-        retcode = handleRPNElementOnStack( element, &stack );
+        retcode = handleRPNElementOnStack( element, stack, NULL, 0, 0 );
 
         if( retcode != 0 ) continue;
+
+        i++;
         // if( retcode == -1 )
         // {   
             // std::string tmp1 = getRandFloatString( valMin, valMax );
@@ -87,10 +89,15 @@ void performRPNPerformanceTest( int numberQuantity, int numberWeight, int mathOp
     }
 
     auto end = std::chrono::steady_clock::now();
-    
+    std::chrono::duration<double> perf_time = end - start;
+
     if( statFile != NULL )
     {
-        *statFile << numberQuantity << ";" << numberWeight << ";"
-        << mathOperatorWeight << ";" << valMin << ";" << valMax << std::endl;
+        *statFile   << numberQuantity       << ";" 
+                    << numberWeight         << ";" 
+                    << mathOperatorWeight   << ";" 
+                    << valMin               << ";" 
+                    << valMax               << ";" 
+                    << perf_time.count()    << "\n";
     }
 }
