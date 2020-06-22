@@ -6,6 +6,11 @@ CStack::CStack()
     top = NULL;
 }
 
+CStack::~CStack()
+{
+    clear();
+}
+
 bool CStack::push( float content )
 {
     SStackNode *newNode = ( SStackNode * )malloc( sizeof( SStackNode ) );
@@ -50,4 +55,11 @@ bool CStack::peek( float *content )
     *content = top->content;
 
     return true;
+}
+
+bool CStack::clear()
+{
+    float dummy;
+    while( top != NULL )
+        pop( &dummy );
 }

@@ -15,9 +15,11 @@ class CStack
 
     public:
         CStack();
+        ~CStack();
         bool push( float content );
         bool pop( float *content );
         bool peek( float *content );
+        bool clear();
 };
 
 #endif

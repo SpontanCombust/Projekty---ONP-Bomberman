@@ -24,7 +24,7 @@ float getOperationResult( float x1, float x2, std::string mathOperator )
 }
 
 
-bool handleRPNElementOnStack( std::string rpnElement, CStack *stack )
+int handleRPNElementOnStack( std::string rpnElement, CStack *stack )
 {
     if( isBasicMathOperator( rpnElement ) )
     {
@@ -32,12 +32,18 @@ bool handleRPNElementOnStack( std::string rpnElement, CStack *stack )
         bool b1, b2;
 
         b2 = stack->pop( &x2 );
-        b1 = stack->pop( &x1 );
-
-        if( !b2 || !b1 )
+        if( !b2 )
         {
-            std::cout << "Element not taken from stack correctly!" << std::endl;
-            return false;
+            std::cout << "Unable to pop element from stack. Probable cause: stack is empty." << std::endl;
+            return -1;
+        }
+
+        b1 = stack->pop( &x1 );
+        if( !b1 )
+        {
+            std::cout << "Unable to pop element from stack. Probable cause: stack is empty. Reversing the previous pop operation!" << std::endl;
+            stack->push( x2 );
+            return -2;
         }
 
         std::cout << "Popped " << x1 << " and " << x2 << " from stack." << std::endl;
@@ -48,30 +54,40 @@ bool handleRPNElementOnStack( std::string rpnElement, CStack *stack )
             stack->push( result );
             std::cout << "Pushed " << rpnElement << " onto stack." << std::endl;
 
-            return true;
+            return 0;
         }
         else
-            return false;
+        {
+            std::cout << "Unable to perform math operation. Probable cause: division by zero." << std::endl;
+            return -3;
+        }
     }
     else
     {
-        std::cout << "Pushed " << rpnElement << " onto stack." << std::endl;
-
-        return stack->push( stof( rpnElement ) );
+        if( stack->push( stof( rpnElement ) ) )
+        {
+            std::cout << "Pushed " << rpnElement << " onto stack." << std::endl;
+            return 0;
+        }
+        else
+        {
+            std::cout << "Unable to push element onto stack. Probable cause: unknown." << std::endl;
+            return -4;
+        }
     }
 
-    return true;
+    return 0;
 }
 
 
 float getRPNResult( std::string rawRPNString, bool *success )
 {
-    CStack *stack;
+    CStack stack;
     std::vector< std::string > rpnVec;
     float result;
 
     *success = true;
-    stack = new CStack();
+    stack = CStack();
     rpnVec = parseRawRPNString( rawRPNString, " " );
     result = 0;
 
@@ -79,14 +95,14 @@ float getRPNResult( std::string rawRPNString, bool *success )
     {
         for( std::string rpnElement : rpnVec )
         {
-            if( !handleRPNElementOnStack( rpnElement, stack ) )
+            if( handleRPNElementOnStack( rpnElement, &stack ) != 0 )
             {
                 *success = false;
                 break;
             }
         }
 
-        stack->pop( &result );
+        stack.pop( &result );
     }
     else
     {

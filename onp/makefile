@@ -8,10 +8,10 @@
 PROGRAM_NAME=RPN
 OUTPUT_DIR=bin
 INCLUDES=-I./stack -I./rpn -I./gui_ncurses
-SOURCES=main.c \
+SOURCES=main.cpp \
 ./stack/stack.hpp ./stack/stack.cpp \
-./rpn/rpn.hpp ./rpn/rpn_counter.cpp ./rpn/rpn_parser.cpp \
-./gui_ncurses/app.hpp ./gui_ncurses/app.cpp
+./rpn/rpn.hpp ./rpn/rpn_counter.cpp ./rpn/rpn_parser.cpp ./rpn/rpn_performance.cpp \
+./gui_ncurses/rpn_app.hpp ./gui_ncurses/rpn_app.cpp
 
 #######################################################
 
@@ -20,7 +20,10 @@ CFLAGS=-lncurses
 
 #######################################################
 
-.PHONY: build run clean help 
+.PHONY: all build run clean help 
+
+all:
+	make build
 
 help:
 	@echo "############# HELP #############"
@@ -39,3 +42,5 @@ run:
 
 clean:
 	rm -rf $(OUTPUT_DIR)	
+
+########################################################

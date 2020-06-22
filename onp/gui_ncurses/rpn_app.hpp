@@ -3,6 +3,6 @@
 
 #include <ncurses.h>
 
-void Run();
+void RunRPN();
 
 #endif
