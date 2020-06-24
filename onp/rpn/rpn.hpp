@@ -10,7 +10,7 @@ std::vector< std::string > parseRawRPNString( std::string rawRPNString, std::str
 bool isRPNElementValid( std::string rpnElement );
 bool isRPNVectorValid( std::vector< std::string > rpnVector );
 bool isBasicMathOperator( std::string rpnElement );
-int handleRPNElementOnStack( std::string rpnElement, CStack &stack, WINDOW *w = NULL, int y = 0, int x = 0 );
+int handleRPNElementOnStack( std::string rpnElement, CStack &stack, WINDOW *logWin = NULL, int winY = 0, int winX = 0 );
 float getRPNResult( std::string rawRPNString, bool *success );
 
 #endif

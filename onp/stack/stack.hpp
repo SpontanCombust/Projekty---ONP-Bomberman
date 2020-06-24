@@ -34,10 +34,12 @@ class CStack
         SStackNode *top; /**< Wskaźnik na szczyt stosu */
 
     public:
-        /** Konstruktor stosu. Zeruje wartość jego szczytu. */
+        /** Konstruktor stosu. Zeruje wartość jego szczytu */
         CStack(); 
-        /** Destruktor stosu. Zwalnia pamięć z pozostałych elemenyów stosu. */
+        /** Destruktor stosu. Zwalnia pamięć z pozostałych elemenyów stosu */
         ~CStack(); 
+        /** Przeciążony operator przypisania jednego stosu do drugiego */
+        CStack& operator= ( const CStack &stack );
         /** Dodaje element do stosu */
         bool push( float content ); 
         /** Zdejmuje element ze szczytu stosu */

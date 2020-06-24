@@ -69,7 +69,7 @@ void performRPNPerformanceTest( int numberQuantity, int numberWeight, int mathOp
                 element = mathOperator;
         }
         
-        retcode = handleRPNElementOnStack( element, stack, NULL, 0, 0 );
+        retcode = handleRPNElementOnStack( element, stack );
 
         if( retcode != 0 ) continue;
 

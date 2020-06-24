@@ -32,7 +32,7 @@ bool isBasicMathOperator( std::string rpnElement )
 {
     if( rpnElement.size() != 1 )
         return false;
-    else if( rpnElement == "+" || rpnElement == "-" || rpnElement == "*" || rpnElement == "/" )
+    else if( rpnElement == "+" || rpnElement == "-" || rpnElement == "*" || rpnElement == "/" || rpnElement == "=" )
         return true;
     
     return false;

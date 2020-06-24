@@ -20,7 +20,7 @@ CFLAGS=-lncurses
 
 #######################################################
 
-.PHONY: all build run clean help 
+.PHONY: all build debug run clean help 
 
 all:
 	make build
@@ -28,6 +28,7 @@ all:
 help:
 	@echo "############# HELP #############"
 	@echo "make build - compile the project"
+	@echo "make debug - compile for debugging"
 	@echo "make run   - run the program"
 	@echo "make clean - clean up"
 	@echo "make help  - display help"
@@ -36,6 +37,10 @@ help:
 build:
 	mkdir -p $(OUTPUT_DIR)/linux/
 	$(LINUX_COMPILER) -o $(OUTPUT_DIR)/linux/$(PROGRAM_NAME) $(INCLUDES) $(SOURCES) $(CFLAGS)
+
+debug:
+	mkdir -p $(OUTPUT_DIR)/linux/
+	$(LINUX_COMPILER) -g -o $(OUTPUT_DIR)/linux/$(PROGRAM_NAME) $(INCLUDES) $(SOURCES) $(CFLAGS)
 
 run:
 	$(OUTPUT_DIR)/linux/$(PROGRAM_NAME)

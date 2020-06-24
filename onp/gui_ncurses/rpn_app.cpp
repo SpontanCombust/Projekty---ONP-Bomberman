@@ -6,6 +6,9 @@
 
 void gotoMainMenu();
 void gotoRPNDemo();
+void resetStackElementWindows( WINDOW *stackElWins[6], bool baseToo = false );
+void drawStackBase( WINDOW *stackElWins[6], int baseY, int baseX );
+void drawStackElements( WINDOW *stackElWins[6], CStack &stack, int baseY, int baseX );
 
 void RunRPN()
 {
@@ -29,8 +32,17 @@ void RunRPN()
 
     gotoMainMenu();
 
+    echo();
+    curs_set(1);
+
     endwin();
 }
+
+
+
+
+// -------------- MENUS ----------------
+
 
 void gotoMainMenu()
 {
@@ -66,66 +78,21 @@ void gotoMainMenu()
         if      ( highlight < 0 )   highlight = 0;
         else if ( highlight > 1 )   highlight = 1;
 
-        if      ( selected && highlight == 0 ) { wclear( mainMenuWin ); refresh(); gotoRPNDemo(); }
-        else if ( selected && highlight == 1 ) done = true;
+        if ( selected && highlight == 0 ) 
+        { 
+            wclear( mainMenuWin ); 
+            refresh(); 
+            gotoRPNDemo(); 
+        }
+        else if ( selected && highlight == 1 ) 
+        {
+            done = true;
+        }
     
         selected = false;
     }
 
     delwin( mainMenuWin );
-}
-
-void drawStack( WINDOW *win, CStack stack, int y, int x )
-{
-    WINDOW *stackElementWins[6] = { NULL };
-    long size = stack.size();
-    int currLevel = 1;
-    float elementContent;
-    for( int i = 0; i < size; i++ )
-    {
-        stack.pop( &elementContent );
-        if( i < 2 || i > size - 3 )
-        {
-            stackElementWins[currLevel] = newwin( STACK_ELEMENT_H, STACK_ELEMENT_W, currLevel * y, x );
-            refresh();
-
-            box( stackElementWins[currLevel], 0, 0 );
-            mvwprintw( stackElementWins[currLevel], currLevel * y + 1, x + 5, std::to_string( elementContent ).c_str() );
-            wrefresh( stackElementWins[currLevel] );
-
-            currLevel++;
-        }
-        else if( i == 2 )
-        {
-            
-            stackElementWins[currLevel] = newwin( STACK_ELEMENT_H, STACK_ELEMENT_W, currLevel * y, x );
-            refresh();
-
-            box( stackElementWins[currLevel], 0, 0 );
-            if( size < 6 )
-            {
-                mvwprintw( stackElementWins[currLevel], currLevel * y + 1, x + 5, std::to_string( elementContent ).c_str() );
-            }
-            else
-            {
-                mvwprintw( stackElementWins[currLevel], currLevel * y + 1, x + 5, "..." );
-            }
-            wrefresh( stackElementWins[currLevel] );
-
-            currLevel++;
-        }               
-    }
-    stackElementWins[currLevel] = newwin( STACK_BASE_H, STACK_BASE_W, currLevel * y, x - (STACK_BASE_W - STACK_ELEMENT_W)/2 );
-    refresh();
-
-    box( stackElementWins[currLevel], '/', '/' );
-    wrefresh( stackElementWins[currLevel] );
-
-    for (int j = 0; j < 6; j++)
-    {
-        if( stackElementWins[j] != NULL ) delwin( stackElementWins[j] );
-    }
-    
 }
 
 void gotoRPNDemo()
@@ -135,13 +102,19 @@ void gotoRPNDemo()
 
     CStack stack = CStack();
     WINDOW *demoWin = newwin( SUB_WIN_H, SUB_WIN_W,  SUB_WIN_Y, SUB_WIN_X );
+    WINDOW *stackElWins[6] = {NULL};
+
+    drawStackBase( stackElWins, STACK_Y, STACK_X );
 
     int input;
     std::string sequence = "";
     bool done = false;
     while( !done )
     { 
-        input = wgetch( demoWin );      
+        wmove( demoWin, 0, 0 );
+        wrefresh( demoWin );
+        
+        input = wgetch( demoWin );    
         while( input != ' ' && input != '\n' )
         {
             if( input == 'q' )
@@ -154,26 +127,103 @@ void gotoRPNDemo()
             input = wgetch( demoWin );
         }
 
-        if( isRPNElementValid( sequence ) && handleRPNElementOnStack( sequence, stack, demoWin, 10, 60 ) == 0 )
+        werase( demoWin );
+        wrefresh( demoWin );
+
+        if( isRPNElementValid( sequence ) && handleRPNElementOnStack( sequence, stack, demoWin, 5, 10 ) == 0 )
         {
             wrefresh( demoWin );
-            drawStack( demoWin, stack, 0, 0 );
+            drawStackElements( stackElWins, stack, STACK_Y, STACK_X );
         }
         else
         {
-            wrefresh( demoWin );            
-            mvwprintw( demoWin, 20, 20, "WTF?!?!!!!?");
+            mvwprintw( demoWin, 5, 10, "Incorrect input!");
+            wrefresh( demoWin );
         }
         
-
-        sequence = "";
-        getch();
-        werase( demoWin );
-        wrefresh( demoWin );
+        sequence = "";     
     }
 
+    resetStackElementWindows( stackElWins, true );
     delwin( demoWin );
-
+    
     noecho();
     curs_set(0);
+}
+
+
+
+
+// ------------- DRAWING ---------------
+
+
+void resetStackElementWindows( WINDOW *stackElWins[6], bool baseToo )
+{
+    int lim = baseToo ? 6 : 5;
+    for (int i = 0; i < lim; i++)
+    {
+        if( stackElWins[i] != NULL )
+        {
+            werase( stackElWins[i] );
+            wrefresh( stackElWins[i] );
+            delwin( stackElWins[i] );
+        }
+        stackElWins[i] = NULL;
+    }
+    refresh();
+}
+
+void drawStackBase( WINDOW *stackElWins[6], int baseY, int baseX )
+{
+    if( stackElWins[5] == NULL )
+    {
+        stackElWins[5] = newwin( STACK_BASE_H, STACK_BASE_W, baseY, baseX );
+        refresh();
+        box( stackElWins[5], '/', '/' );
+    } 
+    wrefresh( stackElWins[5] );
+}
+
+void drawStackElements( WINDOW *stackElWins[6], CStack &stack, int baseY, int baseX )
+{
+    resetStackElementWindows( stackElWins );
+
+    CStack localStack;
+    bool isStackElPresent[5] = {false};
+    std::string stackElContentStrings[5];    
+    float currContent;
+    int i, j;
+
+    localStack = stack;
+
+    baseX += (STACK_BASE_W - STACK_ELEMENT_W)/2;
+    baseY -= STACK_ELEMENT_H;
+
+    i = 0;
+    while( localStack.pop(&currContent) && i < 5 )
+    {
+        isStackElPresent[i] = true;
+        stackElContentStrings[i] = std::to_string( currContent );
+        i++;
+    }
+
+    for(j = 4; j > -1; j--)
+    {
+        if( isStackElPresent[j] )
+        {
+            stackElWins[j] = newwin( STACK_ELEMENT_H, STACK_ELEMENT_W, baseY, baseX );
+            refresh();
+            box( stackElWins[j], 0, 0 );
+            wrefresh( stackElWins[j] );
+
+            if( j == 4 && stack.size() > 5 )
+                mvwprintw( stackElWins[j], 1, STACK_ELEMENT_W/2 - 2, "..." );
+            else
+                mvwprintw( stackElWins[j], 1, STACK_ELEMENT_W/2 - stackElContentStrings[j].size()/2, stackElContentStrings[j].c_str() );
+
+            wrefresh( stackElWins[j] );
+        
+            baseY -= STACK_ELEMENT_H;
+        }
+    }
 }

@@ -1,5 +1,6 @@
 #include "rpn.hpp"
 #include <iostream>
+#include <sstream>
 
 bool isMathOperationValid( float x1, float x2, std::string mathOperator )
 {
@@ -23,10 +24,33 @@ float getOperationResult( float x1, float x2, std::string mathOperator )
     return outcome;
 }
 
-
-int handleRPNElementOnStack( std::string rpnElement, CStack &stack, WINDOW *w, int y, int x )
+void log( std::string str, WINDOW *logWin, int winY, int winX )
 {
-    if( isBasicMathOperator( rpnElement ) )
+    if( logWin == NULL )
+        std::cout << str << std::endl;
+    else
+        mvwprintw( logWin, winY, winX, str.c_str() );
+}
+
+int handleRPNElementOnStack( std::string rpnElement, CStack &stack, WINDOW *logWin, int winY, int winX )
+{
+    std::ostringstream strStream;
+    
+    if( rpnElement == "=" )
+    {
+        float x;
+        if( stack.pop( &x ) )
+        {
+            log( "Popped " + std::to_string(x) + " as the equation result.", logWin, winY, winX );
+            return 0;
+        }
+        else
+        {
+            log( "Unable to pop element from stack. Probable cause: stack is empty.", logWin, winY, winX );
+            return -1;
+        }
+    }
+    else if( isBasicMathOperator( rpnElement ) )
     {
         float x1, x2;
         bool b1, b2;
@@ -34,77 +58,47 @@ int handleRPNElementOnStack( std::string rpnElement, CStack &stack, WINDOW *w, i
         b2 = stack.pop( &x2 );
         if( !b2 )
         {
-            if( w == NULL )
-                std::cout << "Unable to pop element from stack. Probable cause: stack is empty." << std::endl;
-            else
-                mvwprintw( w, y, x, "Unable to pop element from stack. Probable cause: stack is empty." );
-
-            return -1;
+            log( "Unable to pop element from stack. Probable cause: stack is empty.", logWin, winY, winX );
+            return -2;
         }
-        if( w == NULL )
-            std::cout << "Popped " << x2 << " from stack." << std::endl;
-        else
-            mvwprintw( w, y, x, "Popped %f from stack.", x2 );
+
+        log( "Popped " + std::to_string(x2) + " from stack.", logWin, winY, winX );
 
         b1 = stack.pop( &x1 );
         if( !b1 )
         {
-            if( w == NULL )
-                std::cout << "Unable to pop element from stack. Probable cause: stack is empty. Reversing the previous pop operation!" << std::endl;
-            else
-                mvwprintw( w, y, x, "Unable to pop element from stack. Probable cause: stack is empty. Reversing the previous pop operation!" );
-
+            log( "Unable to pop element from stack. Probable cause: stack is empty. Reversing the previous pop operation!", logWin, winY, winX );
             stack.push( x2 );
-            return -2;
+            return -3;
         }
 
-        if( w == NULL )
-            std::cout << "Popped " << x1 << " from stack." << std::endl;
-        else
-            mvwprintw( w, y, x, "Popped %f from stack.", x1 );
-
+        log( "Popped " + std::to_string(x1) + " from stack.", logWin, winY + 1, winX );
 
         if( isMathOperationValid( x1, x2, rpnElement ) )
         {
             float result = getOperationResult( x1, x2, rpnElement );
             stack.push( result );
 
-            if( w == NULL )
-                std::cout << "Pushed " << result << " onto stack." << std::endl;
-            else
-                mvwprintw( w, y, x, "Pushed %f onto stack.", result );
-
+            log( "Pushed " + std::to_string(result) + " onto stack.", logWin, winY + 2, winX );
             return 0;
         }
         else
         {
-            if( w == NULL)
-                std::cout << "Unable to perform math operation. Probable cause: division by zero." << std::endl;
-            else
-                mvwprintw( w, y, x, "Unable to perform math operation. Probable cause: division by zero.", rpnElement.c_str() );
-            
-            return -3;
+            log( "Unable to perform math operation. Probable cause: division by zero.", logWin, winY, winX );            
+            return -4;
         }
     }
     else
     {
         if( stack.push( stof( rpnElement ) ) )
         {
-            if( w == NULL )
-                std::cout << "Pushed " << rpnElement << " onto stack." << std::endl;
-            else
-                mvwprintw( w, y, x, "Pushed %s onto stack.", rpnElement.c_str() );
-
+            log( "Pushed " + rpnElement + " onto stack.", logWin, winY, winX );
             return 0;
         }
         else
         {
-            if( w == NULL )
-                std::cout << "Unable to push element onto stack. Probable cause: unknown." << std::endl;
-            else
-                mvwprintw( w, y, x, "Unable to push element onto stack. Probable cause: unknown." );
-
-            return -4;
+            log( "Unable to push element onto stack. Probable cause: unknown.", logWin, winY, winX );
+            return -5;
         }
     }
 

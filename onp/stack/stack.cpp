@@ -29,6 +29,45 @@ CStack::~CStack()
 }
 
 /**
+ * @brief Przeciążony operator przypisania jednego stosu do drugiego
+ * 
+ * Ze względu na to, że klasa CStack została zrealizowana na bazie dynamicznie alokowanych wskaźników
+ * na kolejne elementy stosu (SStackNode) by ewentualne skopiowanie danego stosu mogło przebiec
+ * pomyślnie można wykonać kopiowanie każdego elementu z jednego stosu do drugiego przez przeciążenie
+ * operatora przypisania dla tej klasy. \n
+ * Ta operacja najpierw sprawdza i usuwa (jeśli istnieją) elementy obecnej klasy i dokłada do niej
+ * później elementy z drugiej.
+ * 
+ * @param stack referencja do kopiowanego stosu
+ * @return referencja na ten, przetworzony stos 
+ */
+CStack& CStack::operator=( const CStack &otherStack )
+{
+    if( this != &otherStack)
+    {
+        SStackNode *otherTop = otherStack.top;
+        CStack reversedStack = CStack();
+
+        while( otherTop != NULL )
+        {
+            reversedStack.push( otherTop->content );    
+            otherTop = otherTop->next;
+        }
+
+        this->clear();
+
+        otherTop = reversedStack.top;
+        while( otherTop != NULL )
+        {
+            this->push( otherTop->content );    
+            otherTop = otherTop->next;
+        }
+    }
+
+    return *this;
+}
+
+/**
  * @brief Dodaje element do stosu
  * 
  * Jeśli stos jest pusty to ustawia nowo utworzony element jako szczyt.
