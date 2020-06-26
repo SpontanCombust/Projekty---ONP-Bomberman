@@ -1,8 +1,10 @@
 #include "rpn.hpp"
 
-#include <chrono>
+#include <iostream>
 #include <fstream>
-#include <cstdlib>
+#include <sstream>
+#include <iomanip>
+#include <chrono>
 #include <ctime>
 
 std::string getRandFloatString( float valMin, float valMax )
@@ -30,66 +32,79 @@ std::string getRandMathOperatorString( bool cantBeDevide = false )
     return s;
 }
 
-void performRPNPerformanceTest( int numberQuantity, int numberWeight, int mathOperatorWeight, float valMin, float valMax, std::string mathOperator = "", std::ofstream *statFile = NULL )
+void performRPNPerformanceTest( unsigned int numberQuantity = RPN_DEFAULT_NUMBER_QUANTITY,
+                                unsigned int numberWeight = RPN_DEFAULT_NUMBER_WEIGHT,
+                                unsigned int mathOperatorWeight = RPN_DEFAULT_MATH_OPERATOR_WEIGHT,
+                                float valMin = RPN_DEFAULT_VALUE_MIN,
+                                float valMax = RPN_DEFAULT_VALUE_MAX,
+                                std::string mathOperator = "", std::ofstream *statFile = NULL )
 {
     CStack          stack;
     std::string     element;
-    int             whichElement;
+    unsigned int    whichElement;
     bool            isNum;
-    int             retcode;
     int             i;
-
+    long            size;
+    std::chrono::duration<double> perf_time;
+    
     srand( time(0) );
     stack = CStack();
-    // if( writeResultsToFile ) 
-    // {
-    //     auto t = time(0);
-    //     auto tm = *std::localtime( &t );
-    //     std::ostringstream date;
-    //     date << "RPN-Performance-Test-" << std::put_time( &tm, "%Y-%m-%d-%H-%M-%S" ) << ".csv";
-    //     statFile.open( date.str() );
-    // }
+    i = 0;
+    size = 0;
+
     auto start = std::chrono::steady_clock::now();
 
     while( i < numberQuantity )
     {
-        whichElement = rand() % ( numberWeight + mathOperatorWeight );
-        isNum = whichElement < numberWeight ? true : false;
-
-        if( isNum )
+        if( size < 2 )
         {
             element = getRandFloatString( valMin, valMax );
+            size++;
             i++;
         }
         else
         {
-            if( mathOperator != "" )
-                element = getRandMathOperatorString();
+            /*
+             * < 0; numberWeight-1 >                   - number
+             * < numberWeight; mathOperatorWeight-1 >  - operator            
+            */
+            whichElement = rand() % ( numberWeight + mathOperatorWeight );
+            isNum = (whichElement < numberWeight) ? true : false;
+
+            if( isNum )
+            {
+                element = getRandFloatString( valMin, valMax );
+                size++;
+                i++;
+            }
             else
-                element = mathOperator;
+            {
+                if( mathOperator == "" )
+                    element = getRandMathOperatorString();
+                else
+                    element = mathOperator;
+                size--;
+            }    
         }
+
+        handleRPNElementOnStack( element, stack );
+    }
+
+    while( size > 1 )
+    {
+        if( mathOperator == "" )
+            element = getRandMathOperatorString();
+        else
+            element = mathOperator;
         
-        retcode = handleRPNElementOnStack( element, stack );
-
-        if( retcode != 0 ) continue;
-
-        i++;
-        // if( retcode == -1 )
-        // {   
-            // std::string tmp1 = getRandFloatString( valMin, valMax );
-            // std::string tmp2 = getRandFloatString( valMin, valMax );
-
-            // if( tmp2 == std::to_string(0.f) && element == "/" )
-            //     element = getRandMathOperatorString( true );
-            
-            // handleRPNElementOnStack( tmp1, &stack );
-            // handleRPNElementOnStack( tmp2, &stack );
-            // handleRPNElementOnStack( element, &stack );
-        // }
+        handleRPNElementOnStack( element, stack );
+        size--;
     }
 
     auto end = std::chrono::steady_clock::now();
-    std::chrono::duration<double> perf_time = end - start;
+    perf_time = end - start;
+
+    std::cout << "Time elapsed: " << perf_time.count() << std::endl;
 
     if( statFile != NULL )
     {
@@ -99,5 +114,66 @@ void performRPNPerformanceTest( int numberQuantity, int numberWeight, int mathOp
                     << valMin               << ";" 
                     << valMax               << ";" 
                     << perf_time.count()    << "\n";
+    }
+}
+
+void runRPNPerfTests( unsigned int numberWeight, unsigned int mathOperatorWeight, bool writeToFiles, std::string fileNamePrefix )
+{
+    std::ofstream quantityTestFile;
+    std::ofstream numValueTestFile;
+    
+    int numQuantity;
+    int numQuanityDelta;
+    float valMin;
+    float valMinDelta;
+    float valMax;
+    float valMaxDelta;
+
+    auto t = time(0);
+    auto tm = *std::localtime( &t );
+    std::ostringstream date;
+    date << std::put_time( &tm, "%Y-%m-%d-%H-%M-%S" );
+
+    if( writeToFiles )
+    {
+        quantityTestFile.open( fileNamePrefix + "-Quantity-Test-" + date.str() + ".csv" );
+        quantityTestFile << "numberQuantity;numberWeight;mathOperatorWeight;valMin;valMax;timeElapsed\n";
+        numValueTestFile.open( fileNamePrefix + "-Value-Test-" + date.str() + ".csv" );
+        numValueTestFile << "numberQuantity;numberWeight;mathOperatorWeight;valMin;valMax;timeElapsed\n";
+    }
+
+    numQuantity = RPN_NUMBER_QUANTITY_0;
+    numQuanityDelta = (RPN_NUMBER_QUANTITY_1 - RPN_NUMBER_QUANTITY_0) / RPN_DEFAULT_SAMPLE_SIZE;
+    valMin = RPN_VAL_MIN_0;
+    valMinDelta = (RPN_VAL_MIN_1 - RPN_VAL_MIN_0) / RPN_DEFAULT_SAMPLE_SIZE;
+    valMax = RPN_VAL_MAX_0;
+    valMaxDelta = (RPN_VAL_MAX_1 - RPN_VAL_MAX_0) / RPN_DEFAULT_SAMPLE_SIZE;
+
+    for (int i = 0; i < RPN_DEFAULT_SAMPLE_SIZE; i++)
+    {
+        if( writeToFiles )
+        {
+            std::cout << i << "-quantity: ";
+            performRPNPerformanceTest( numQuantity, numberWeight, mathOperatorWeight, RPN_DEFAULT_VALUE_MIN, RPN_DEFAULT_VALUE_MAX, "", &quantityTestFile );
+            std::cout << i << "-value: ";
+            performRPNPerformanceTest( RPN_DEFAULT_NUMBER_QUANTITY, numberWeight, mathOperatorWeight, valMin, valMax, "", &numValueTestFile );
+        }
+        else
+        {
+            std::cout << i << ": ";
+            performRPNPerformanceTest( numQuantity, numberWeight, mathOperatorWeight, RPN_DEFAULT_VALUE_MIN, RPN_DEFAULT_VALUE_MAX );
+            std::cout << i << ": ";
+            performRPNPerformanceTest( RPN_DEFAULT_NUMBER_QUANTITY, numberWeight, mathOperatorWeight, valMin, valMax );
+        }
+        
+        numQuantity += numQuanityDelta;
+        valMin += valMinDelta;
+        valMax += valMaxDelta;
+    }
+    
+    if( quantityTestFile.is_open() && numValueTestFile.is_open() )
+    {
+        quantityTestFile.close();
+        numValueTestFile.close();
     }
 }

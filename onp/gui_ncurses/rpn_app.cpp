@@ -10,7 +10,7 @@ void resetStackElementWindows( WINDOW *stackElWins[6], bool baseToo = false );
 void drawStackBase( WINDOW *stackElWins[6], int baseY, int baseX );
 void drawStackElements( WINDOW *stackElWins[6], CStack &stack, int baseY, int baseX );
 
-void RunRPN()
+void RunRPNDemo()
 {
     initscr();
     resize_term( MAIN_WIN_H, MAIN_WIN_W );
@@ -130,7 +130,7 @@ void gotoRPNDemo()
         werase( demoWin );
         wrefresh( demoWin );
 
-        if( isRPNElementValid( sequence ) && handleRPNElementOnStack( sequence, stack, demoWin, 5, 10 ) == 0 )
+        if( isRPNElementValid( sequence ) && handleRPNElementOnStack( sequence, stack, true, demoWin, 5, 10 ) == 0 )
         {
             wrefresh( demoWin );
             drawStackElements( stackElWins, stack, STACK_Y, STACK_X );

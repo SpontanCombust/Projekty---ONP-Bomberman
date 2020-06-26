@@ -4,7 +4,7 @@
 
 bool isMathOperationValid( float x1, float x2, std::string mathOperator )
 {
-    if( x2 == 0 && mathOperator == "/" )
+    if( x2 == 0.f && mathOperator == "/" )
         return false;
     return true;
 }
@@ -32,7 +32,7 @@ void log( std::string str, WINDOW *logWin, int winY, int winX )
         mvwprintw( logWin, winY, winX, str.c_str() );
 }
 
-int handleRPNElementOnStack( std::string rpnElement, CStack &stack, WINDOW *logWin, int winY, int winX )
+int handleRPNElementOnStack( std::string rpnElement, CStack &stack, bool logActions, WINDOW *logWin, int winY, int winX )
 {
     std::ostringstream strStream;
     
@@ -41,12 +41,12 @@ int handleRPNElementOnStack( std::string rpnElement, CStack &stack, WINDOW *logW
         float x;
         if( stack.pop( &x ) )
         {
-            log( "Popped " + std::to_string(x) + " as the equation result.", logWin, winY, winX );
+            if(logActions) log( "Popped " + std::to_string(x) + " as the equation result.", logWin, winY, winX );
             return 0;
         }
         else
         {
-            log( "Unable to pop element from stack. Probable cause: stack is empty.", logWin, winY, winX );
+            if(logActions) log( "Unable to pop element from stack. Probable cause: stack is empty.", logWin, winY, winX );
             return -1;
         }
     }
@@ -58,33 +58,33 @@ int handleRPNElementOnStack( std::string rpnElement, CStack &stack, WINDOW *logW
         b2 = stack.pop( &x2 );
         if( !b2 )
         {
-            log( "Unable to pop element from stack. Probable cause: stack is empty.", logWin, winY, winX );
+            if(logActions) log( "Unable to pop element from stack. Probable cause: stack is empty.", logWin, winY, winX );
             return -2;
         }
 
-        log( "Popped " + std::to_string(x2) + " from stack.", logWin, winY, winX );
+        if(logActions) log( "Popped " + std::to_string(x2) + " from stack.", logWin, winY, winX );
 
         b1 = stack.pop( &x1 );
         if( !b1 )
         {
-            log( "Unable to pop element from stack. Probable cause: stack is empty. Reversing the previous pop operation!", logWin, winY, winX );
+            if(logActions) log( "Unable to pop element from stack. Probable cause: stack is empty. Reversing the previous pop operation!", logWin, winY, winX );
             stack.push( x2 );
             return -3;
         }
 
-        log( "Popped " + std::to_string(x1) + " from stack.", logWin, winY + 1, winX );
+        if(logActions) log( "Popped " + std::to_string(x1) + " from stack.", logWin, winY + 1, winX );
 
         if( isMathOperationValid( x1, x2, rpnElement ) )
         {
             float result = getOperationResult( x1, x2, rpnElement );
             stack.push( result );
 
-            log( "Pushed " + std::to_string(result) + " onto stack.", logWin, winY + 2, winX );
+            if(logActions) log( "Pushed " + std::to_string(result) + " onto stack.", logWin, winY + 2, winX );
             return 0;
         }
         else
         {
-            log( "Unable to perform math operation. Probable cause: division by zero.", logWin, winY, winX );            
+            if(logActions) log( "Unable to perform math operation. Probable cause: division by zero.", logWin, winY, winX );            
             return -4;
         }
     }
@@ -92,12 +92,12 @@ int handleRPNElementOnStack( std::string rpnElement, CStack &stack, WINDOW *logW
     {
         if( stack.push( stof( rpnElement ) ) )
         {
-            log( "Pushed " + rpnElement + " onto stack.", logWin, winY, winX );
+            if(logActions) log( "Pushed " + rpnElement + " onto stack.", logWin, winY, winX );
             return 0;
         }
         else
         {
-            log( "Unable to push element onto stack. Probable cause: unknown.", logWin, winY, winX );
+            if(logActions) log( "Unable to push element onto stack. Probable cause: unknown.", logWin, winY, winX );
             return -5;
         }
     }

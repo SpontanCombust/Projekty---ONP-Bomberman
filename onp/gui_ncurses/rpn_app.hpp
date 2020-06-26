@@ -18,6 +18,6 @@
 #define STACK_Y         SUB_WIN_H + 2 // 24
 #define STACK_X         SUB_WIN_W + 5 // 65
 
-void RunRPN();
+void RunRPNDemo();
 
 #endif
