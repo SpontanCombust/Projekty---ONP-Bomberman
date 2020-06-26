@@ -7,6 +7,16 @@
 #include <chrono>
 #include <ctime>
 
+/**
+ * @brief Losuje liczbę typu float w formie stringa
+ * 
+ * W danych ramach liczbowych <valMin; valMax> losuje liczbę typu float i przekształca ją na łańcuch
+ * znaków typu std::string. Zwraca ten łańcuch.
+ * 
+ * @param valMin minimalna możliwa wartość
+ * @param valMax maksymalna możliwa wartość
+ * @return wylosowana liczba w formie stringa 
+ */
 std::string getRandFloatString( float valMin, float valMax )
 {
     float r = valMin + static_cast<float>( rand() ) / ( static_cast<float>( RAND_MAX / ( valMax - valMin ) ) );
@@ -14,6 +24,16 @@ std::string getRandFloatString( float valMin, float valMax )
     return std::to_string(r);
 }
 
+/**
+ * @brief Losuje operator matematyczny w formie stringa
+ * 
+ * Wylosowuje operator dodawania, odejmowania, dzielenia lub mnożenia. Możliwe jest zakazanie
+ * wylosowania operatora dzielenia (gdy np. miałoby wystąpić dzielenie przez zero). Zwraca łańcuch
+ * znaków typu std::string, który zawiera ten oeprator.
+ * 
+ * @param cantBeDevide czy zakazać wylosowania operatora dzielenia
+ * @return wylosowany operator w formie stringa
+ */
 std::string getRandMathOperatorString( bool cantBeDevide = false )
 {
     std::string s;
@@ -32,12 +52,33 @@ std::string getRandMathOperatorString( bool cantBeDevide = false )
     return s;
 }
 
+/**
+ * @brief Przeprowadza próbę wydajności wykonywania działań przez ONP i może je zapisać do pliku
+ * 
+ * Dla danych parametrów przeprowadza próbę wydajności poprzez sekwencyjne losowanie liczb
+ * lub operatorów, które miałyby być użyte na stosie ONP. Spośob losowania stworzony jest tak,
+ * by na końcu testu na stosie pozostał tylko jeden element, a samo losowanie minimalnie wpływało
+ * na wydajność liczenia elementów ciągu ONP. \n
+ * Dla każdego przejścia pętli, której cykle ograniczone są przez numberQuantity (całkowitą ilość
+ * wylosowanych liczb) losowana jest liczba lub operator. Szansa na wylosowanie każdego określona jest
+ * przez wagę, która jest liczbą naturalną. Jeśli wylosowanie zostanie liczba, jej wartość będzie
+ * losowana w przedziale valMin - valMax. Po wykonaniu głównej pętli wykonywana jest dodatkowa,
+ * która redukuje wielkość stosu do jednego elementu przez losowanie kolejnych operatorów. \n
+ * Wyniki testu może zapisać do pliku o rozszerzeniu csv.
+ * 
+ * @param numberQuantity ilość losowanych liczb
+ * @param numberWeight waga losowania liczby
+ * @param mathOperatorWeight waga losowania operatora matematycznego
+ * @param valMin minimalna wartość losowanych liczb
+ * @param valMax maksymalna wartość losowanych liczb
+ * @param statFile wskaźnik na strumień do pliku zapisu wyników testu
+ */
 void performRPNPerformanceTest( unsigned int numberQuantity = RPN_DEFAULT_NUMBER_QUANTITY,
                                 unsigned int numberWeight = RPN_DEFAULT_NUMBER_WEIGHT,
                                 unsigned int mathOperatorWeight = RPN_DEFAULT_MATH_OPERATOR_WEIGHT,
                                 float valMin = RPN_DEFAULT_VALUE_MIN,
                                 float valMax = RPN_DEFAULT_VALUE_MAX,
-                                std::string mathOperator = "", std::ofstream *statFile = NULL )
+                                std::ofstream *statFile = NULL )
 {
     CStack          stack;
     std::string     element;
@@ -79,10 +120,7 @@ void performRPNPerformanceTest( unsigned int numberQuantity = RPN_DEFAULT_NUMBER
             }
             else
             {
-                if( mathOperator == "" )
-                    element = getRandMathOperatorString();
-                else
-                    element = mathOperator;
+                element = getRandMathOperatorString();
                 size--;
             }    
         }
@@ -92,11 +130,7 @@ void performRPNPerformanceTest( unsigned int numberQuantity = RPN_DEFAULT_NUMBER
 
     while( size > 1 )
     {
-        if( mathOperator == "" )
-            element = getRandMathOperatorString();
-        else
-            element = mathOperator;
-        
+        element = getRandMathOperatorString();       
         handleRPNElementOnStack( element, stack );
         size--;
     }
@@ -117,6 +151,18 @@ void performRPNPerformanceTest( unsigned int numberQuantity = RPN_DEFAULT_NUMBER
     }
 }
 
+/**
+ * @brief Przeprowadza serię testów wydajności wykonywania działań przez ONP
+ * 
+ * Przeprowadza serię testów mających na celu zbadanie wydajności algorytmu wraz ze zmieniająca się
+ * ilością oraz wielkością liczb jakie mają być losowane.
+ * @see performRPNPerformanceTest
+ * 
+ * @param numberWeight waga losowania liczby
+ * @param mathOperatorWeight waga losowania 
+ * @param writeToFiles czy wyniki testów powinny być zapisane do plików
+ * @param fileNamePrefix prefiks nazw plików wyników testów
+ */
 void runRPNPerfTests( unsigned int numberWeight, unsigned int mathOperatorWeight, bool writeToFiles, std::string fileNamePrefix )
 {
     std::ofstream quantityTestFile;
@@ -154,9 +200,9 @@ void runRPNPerfTests( unsigned int numberWeight, unsigned int mathOperatorWeight
         if( writeToFiles )
         {
             std::cout << i << "-quantity: ";
-            performRPNPerformanceTest( numQuantity, numberWeight, mathOperatorWeight, RPN_DEFAULT_VALUE_MIN, RPN_DEFAULT_VALUE_MAX, "", &quantityTestFile );
+            performRPNPerformanceTest( numQuantity, numberWeight, mathOperatorWeight, RPN_DEFAULT_VALUE_MIN, RPN_DEFAULT_VALUE_MAX, &quantityTestFile );
             std::cout << i << "-value: ";
-            performRPNPerformanceTest( RPN_DEFAULT_NUMBER_QUANTITY, numberWeight, mathOperatorWeight, valMin, valMax, "", &numValueTestFile );
+            performRPNPerformanceTest( RPN_DEFAULT_NUMBER_QUANTITY, numberWeight, mathOperatorWeight, valMin, valMax, &numValueTestFile );
         }
         else
         {

@@ -2,6 +2,18 @@
 #include <iostream>
 #include <sstream>
 
+/**
+ * @brief Sprawdza, czy operacja matematyczna może zostać wykonana
+ * 
+ * Sprawdza, czy operację matematyczną da się poprawnie wykonać. W tym przypadku na razie,
+ * czy odbywa się dzielenie przez zero.
+ * 
+ * @param x1 argument 1.
+ * @param x2 argument 2.
+ * @param mathOperator operator matematyczny
+ * @return true jeśli operacja jest poprawna
+ * @return false jeśli operacja jest niepoprawna
+ */
 bool isMathOperationValid( float x1, float x2, std::string mathOperator )
 {
     if( x2 == 0.f && mathOperator == "/" )
@@ -9,6 +21,16 @@ bool isMathOperationValid( float x1, float x2, std::string mathOperator )
     return true;
 }
 
+/**
+ * @brief Zwraca wynik operacji matematycznej
+ * 
+ * Zwraca wynik działania dla danych dwóch argumentów i jednego operatora matematycznego.
+ * 
+ * @param x1 argument 1.
+ * @param x2 argument 2.
+ * @param mathOperator operator matematyczny
+ * @return wynik działania matematycznego
+ */
 float getOperationResult( float x1, float x2, std::string mathOperator )
 {
     float outcome = 0;
@@ -24,6 +46,14 @@ float getOperationResult( float x1, float x2, std::string mathOperator )
     return outcome;
 }
 
+/**
+ * @brief Wysyła komunikat na ekran w nCurses
+ * 
+ * @param str tekst do wyświetlenia
+ * @param logWin wskaźnik na okno nCurses
+ * @param winY pozycja Y wg. okna nCurses
+ * @param winX pozycja X wg. okna nCurses
+ */
 void log( std::string str, WINDOW *logWin, int winY, int winX )
 {
     if( logWin == NULL )
@@ -32,6 +62,23 @@ void log( std::string str, WINDOW *logWin, int winY, int winX )
         mvwprintw( logWin, winY, winX, str.c_str() );
 }
 
+/**
+ * @brief Obsługuje dany wejściowy element ciągu ONP i odpowiednio modyfikuje dany stos
+ * 
+ * Odpowiednio wykonuje akcję na stosie w zależności od podanego elementu ciągu ONP. Jeśli element
+ * to liczba, dodaje ją do stosu; jeśli jest to operator, pobiera dwie liczby ze stosu i wykonuje
+ * na nich działanie przy pomocy tego operatora, a następnie dodaje wynik działania do stosu.
+ * Jeśli element to znak równania, pobiera szczytowy element stosu. Wszelkie akcje mogą być
+ * wyświetlane do konsoli lub do okna nCurses.
+ * 
+ * @param rpnElement element ciągu ONP
+ * @param stack referencja stosu
+ * @param logActions czy akcje powinny zostać wyświetlone w konsoli
+ * @param logWin wskaźnik na okno nCurses
+ * @param winY pozycja Y wg. okna nCurses
+ * @param winX pozycja X wg. okna nCurses
+ * @return kod zwrotny działania funkcji
+ */
 int handleRPNElementOnStack( std::string rpnElement, CStack &stack, bool logActions, WINDOW *logWin, int winY, int winX )
 {
     std::ostringstream strStream;
@@ -105,7 +152,17 @@ int handleRPNElementOnStack( std::string rpnElement, CStack &stack, bool logActi
     return 0;
 }
 
-
+/**
+ * @brief Zwraca wynik danego działania w formie ONP 
+ * 
+ * Bierze surowy ciąg znaków będący działaniem w formie ONP, przetwarza go na pojedyncze elementy,
+ * a następnie wykonuje na nich odpowiednie działania. Mówi, czy działanie jest prawidłowe.
+ * @see handleRPNElementOnStack
+ * 
+ * @param rawRPNString surowy ciąg elementów ONP
+ * @param success wskaźnik na bool informujący czy działanie się powiodło
+ * @return wynik działania 
+ */
 float getRPNResult( std::string rawRPNString, bool *success )
 {
     CStack stack;
@@ -128,13 +185,15 @@ float getRPNResult( std::string rawRPNString, bool *success )
             }
         }
 
-        stack.pop( &result );
+        if( stack.size() != 1 )
+            *success = false;
+        else
+            stack.pop( &result );
     }
-    else
-    {
+    else *success = false;
+    
+    if( !(*success) )    
         std::cout << "RPN sequence not valid: " << rawRPNString << std::endl;
-        *success = false;
-    }
     
     return result;
 }
