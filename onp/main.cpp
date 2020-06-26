@@ -5,8 +5,10 @@
 
 int main()
 {
-    // RunRPNDemo();
-    runRPNPerfTests( 20, 80, true, "MoreOperators" );
+    // runRPNPerfTests( 80, 20, true, "MoreNums" );
+    // runRPNPerfTests( 50, 50, true, "EvenOdds" );
+    // runRPNPerfTests( 20, 80, true, "MoreOperators" );
+    RunRPNDemo();
     
     return 0;
 }
