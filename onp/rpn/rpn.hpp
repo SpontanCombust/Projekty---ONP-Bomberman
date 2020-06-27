@@ -51,9 +51,9 @@ void runRPNPerfTests( unsigned int numberWeight, unsigned int mathOperatorWeight
 #define RPN_NUMBER_QUANTITY_0 100 /**< Początkowa ilość losowanych liczb w serii testów */
 #define RPN_NUMBER_QUANTITY_1 1000000 /**< Końcowa ilość losowanych liczb w serii testów */
 
-#define RPN_VAL_MIN_0     -100 /**< Początkowa wartość minimalnej wartości losowanych liczb w czasie serii testów */
-#define RPN_VAL_MIN_1     -100000000 /**< Końcowa wartość minimalnej wartości losowanych liczb w czasie serii testów */
+#define RPN_VAL_MIN_0      0 /**< Początkowa wartość minimalnej wartości losowanych liczb w czasie serii testów */
+#define RPN_VAL_MIN_1      100000000 /**< Końcowa wartość minimalnej wartości losowanych liczb w czasie serii testów */
 #define RPN_VAL_MAX_0      100 /**< Początkowa wartość maksymalnej wartości losowanych liczb w czasie serii testów */
-#define RPN_VAL_MAX_1      100000000 /**< Końcowa wartość maksymalnej wartości losowanych liczb w czasie serii testów */
+#define RPN_VAL_MAX_1      99999900 /**< Końcowa wartość maksymalnej wartości losowanych liczb w czasie serii testów */
 
 #endif
