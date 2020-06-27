@@ -27,9 +27,9 @@ Bomberman:
 
 ## Kamień milowy 2 - 01.05.2020
 ONP:
-- [ ] analiza algorytmu - ufinalnienie
-- [ ] tabele i wykresy na podstawie analizy i testów
-- [ ] GUI do obsługi programu
+- [x] analiza algorytmu - ufinalnienie
+- [x] tabele i wykresy na podstawie analizy i testów
+- [x] GUI do obsługi programu
 
 Bomberman:
 - [x] praca kamery

@@ -1,6 +1,25 @@
+/** @file rpn_parser.cpp
+ * 
+ * @brief Plik zawiera definicje funkcji przetwarzania i sprawdzania ciągu elementów ONP
+ * 
+ * @author  Przemysław Cedro
+ * @date    2020.06.26
+*/
+
+
 #include "rpn.hpp"
 #include <iostream>
 
+/**
+ * @brief Przetwarza łańcuch znaków ciągu liczb w ONP na kontener pojedynczych elementów 
+ * 
+ * Bierze ciąg znaków składających się z liczb i operatorów oddzielonych separatorem, które razem
+ * tworzą ciąg równania w Odwrotnej Notacji Polskiej, i przetwarza go na kontener pojedynczych elementów.
+ * 
+ * @param rawRPNString surowy ciąg znaków reprezentujący ciąg ONP
+ * @param delim separator elementów ciągu
+ * @return kontener pojedynczych elementów ciągu
+ */
 std::vector< std::string > parseRawRPNString( std::string rawRPNString, std::string delim )
 {
     std::vector< std::string > rpnElements;
@@ -22,22 +41,48 @@ std::vector< std::string > parseRawRPNString( std::string rawRPNString, std::str
 }
 
 
-
+/**
+ * @brief Sprawdza, czy dany znak to cyfra
+ * 
+ * @param c znak
+ * @return true jeśli znak to cyfra
+ * @return false jeśli znak to nie cyfra
+ */
 bool isNumChar( char c )
 {
     return c >= '0' && c <= '9';
 }
 
+/**
+ * @brief Sprawdza, czy dany element ciągu ONP to operator matematyczny
+ * 
+ * Sprawdza, czy dany ciąg znaków to kolejno +, -, *, / lub =.
+ * 
+ * @param rpnElement element ciągu ONP
+ * @return true jeśli ciąg znaków to podstawowy operator matematyczny
+ * @return false jeśli ciąg znaków to nie jest podstawowy operator matematyczny
+ */
 bool isBasicMathOperator( std::string rpnElement )
 {
     if( rpnElement.size() != 1 )
         return false;
-    else if( rpnElement == "+" || rpnElement == "-" || rpnElement == "*" || rpnElement == "/" )
+    else if( rpnElement == "+" || rpnElement == "-" || rpnElement == "*" || rpnElement == "/" || rpnElement == "=" )
         return true;
     
     return false;
 }
 
+/**
+ * @brief Sprawdza, czy przecinek w elemencie ciągu ONP jest poprawny
+ * 
+ * Sprawdza, czy w danym elemencie ciągu ONP reprezentowanego przez string przecinek oddzielający
+ * część całkowitą od części ułamkowej jest poprawny tj. czy nie jest go za dużo lub czy nie jest
+ * w nieodpowiednim miejscu.
+ * 
+ * @param rpnElement element ciągu ONP
+ * @return true jeśli element ciągu ma poprawny przecinek
+ * @return false jeśli element ciągu nie ma poprawnego przecinka
+ */
 bool isPointValid( std::string rpnElement )
 {
     size_t pos = rpnElement.find( '.' );
@@ -57,7 +102,16 @@ bool isPointValid( std::string rpnElement )
 }
 
 
-
+/**
+ * @brief Stwierdza, czy dany element ciągu ONP jest poprawny
+ * 
+ * Sprawdza czy dany ciąg znaków, który reprezentuje element ciągu ONP jest poprawną liczbą
+ * lub operatorem matematycznym.
+ * 
+ * @param rpnElement element ciągu ONP
+ * @return true jeśli element jest poprawny
+ * @return false jeśli element jest niepoprawny
+ */
 bool isRPNElementValid( std::string rpnElement )
 {
     if( isBasicMathOperator( rpnElement ) )
@@ -75,6 +129,13 @@ bool isRPNElementValid( std::string rpnElement )
     return true;
 }
 
+/**
+ * @brief Sprawdza, czy kontener elementów ciągu ONP zawiera same poprawne elementy
+ * 
+ * @param rpnVector kontener elementów ciągu ONP
+ * @return true jeśli kontener zawiera same poprawne elementy
+ * @return false jeśli kontener zawiera niepoprawny element
+ */
 bool isRPNVectorValid( std::vector< std::string > rpnVector )
 {
     for( std::string rpnElement : rpnVector )
