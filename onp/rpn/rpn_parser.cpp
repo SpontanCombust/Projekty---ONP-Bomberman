@@ -1,3 +1,12 @@
+/** @file rpn_parser.cpp
+ * 
+ * @brief Plik zawiera definicje funkcji przetwarzania i sprawdzania ciągu elementów ONP
+ * 
+ * @author  Przemysław Cedro
+ * @date    2020.06.26
+*/
+
+
 #include "rpn.hpp"
 #include <iostream>
 

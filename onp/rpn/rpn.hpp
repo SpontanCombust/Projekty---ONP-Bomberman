@@ -1,3 +1,12 @@
+/** @file rpn.hpp
+ * 
+ * @brief Plik zawiera stałe i deklaracje funckji obsługujących ciąg elementów ONP oraz sprawdzających wydajność działania
+ * 
+ * @author  Przemysław Cedro
+ * @date    2020.06.26
+*/
+
+
 #ifndef __RPN_HPP
 #define __RPN_HPP
 

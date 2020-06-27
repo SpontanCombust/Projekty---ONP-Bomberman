@@ -1,3 +1,12 @@
+/** @file rpn_app.cpp
+ * 
+ * @brief Plik zawiera definicje funkcji obsługi programu w nCurses demonstrującego działanie ONP
+ * 
+ * @author  Przemysław Cedro
+ * @date    2020.06.26
+*/
+
+
 #include "rpn_app.hpp" 
 
 #include <iostream>
@@ -10,6 +19,13 @@ void resetStackElementWindows( WINDOW *stackElWins[6], bool baseToo = false );
 void drawStackBase( WINDOW *stackElWins[6], int baseY, int baseX );
 void drawStackElements( WINDOW *stackElWins[6], CStack &stack, int baseY, int baseX );
 
+/**
+ * @brief Głowna funkcja inicjująca potrzebne moduły biblioteki nCurses
+ * 
+ * Funkcja inicjuje podstawowe właściwości okna terminalu nCurses. Tworzy okno główne i wzywa 
+ * funkcję przejścia do menu głównego. Po wszystkim zamyka program.
+ * @see gotoMainMenu()
+ */
 void RunRPNDemo()
 {
     initscr();
@@ -43,7 +59,18 @@ void RunRPNDemo()
 
 // -------------- MENUS ----------------
 
-
+/**
+ * @brief Obsługuje przebywanie w menu głównym 
+ * 
+ * Tworzy okno menu i rysuje linie z tekstem dla niego. Linie można zmieniać strzałkami w górę
+ * i w dół. Wybranie linii odbiera się przez naciśnięcię przycisku Enter.
+ * Obecnie dostępne opcje:
+ * - "Manual RPN Test"  - przechodzi do okna testowania działania ONP 
+ * - "Exit"             - wychodzi z programu
+ * Wyjść z programu można również przez naciśnięcie przycisku 'q'.
+ * 
+ * @see gotoRPNDemo()
+ */
 void gotoMainMenu()
 {
     WINDOW *mainMenuWin = newwin( SUB_WIN_H, SUB_WIN_W,  SUB_WIN_Y, SUB_WIN_X );
@@ -95,6 +122,16 @@ void gotoMainMenu()
     delwin( mainMenuWin );
 }
 
+/**
+ * @brief Obsługuje przebywanie w menu demonstracyjnym działania ONP
+ * 
+ * Tworzy okno programu demonstracyjnego ONP i wczytuje wejście z klawiatury. Wejście jest
+ * interpretowane jako kolejne elementy dla stosu ONP. Elementem może być liczba (część ułamkowa
+ * powinna być oddzielona kropką '.') lub operator matematyczny ('+', '-', '*', '/', '=').
+ * Przy każdej akcji wyświetlany jest na ekranie komentarz do tej akcji wyjaśniający działanie
+ * algorytmu oraz rysowana jest wizualizacja stosu ONP. Aby wyjść z dema należy w dowolnym momencie
+ * nacisnąć 'q'.
+ */
 void gotoRPNDemo()
 {
     echo();
@@ -156,7 +193,12 @@ void gotoRPNDemo()
 
 // ------------- DRAWING ---------------
 
-
+/**
+ * @brief Resetuje okna nCurses dla wizualizacji stosu
+ * 
+ * @param stackElWins tablica okien nCurses dla wizualizacji stosu
+ * @param baseToo czy zresetować również podstawkę stosu
+ */
 void resetStackElementWindows( WINDOW *stackElWins[6], bool baseToo )
 {
     int lim = baseToo ? 6 : 5;
@@ -173,6 +215,13 @@ void resetStackElementWindows( WINDOW *stackElWins[6], bool baseToo )
     refresh();
 }
 
+/**
+ * @brief Tworzy i rysuje podstawkę wizualizacji stosu
+ * 
+ * @param stackElWins tablica okien nCurses dla wizualizacji stosu
+ * @param baseY koordynat Y podstawki wizualizacji stosu
+ * @param baseX koordynat X podstawki wizualizacji stosu
+ */
 void drawStackBase( WINDOW *stackElWins[6], int baseY, int baseX )
 {
     if( stackElWins[5] == NULL )
@@ -184,6 +233,19 @@ void drawStackBase( WINDOW *stackElWins[6], int baseY, int baseX )
     wrefresh( stackElWins[5] );
 }
 
+/**
+ * @brief Tworzy i rysuje wizualizację elementów stosu
+ * 
+ * Na bazie stosu programu demonstacyjnego tworzy wizualizację stosu ONP. Wizualizacja stosu
+ * na wysokość najwyżej 5 elementów - jeśli stos ma wysokość większą niż 5, najniższy element
+ * w wizualizacji jest oznaczony przez "...". Elementy stosu stoją na widzialnej cały czas podstawce. 
+ * @see drawStackBase()
+ * 
+ * @param stackElWins tablica okien nCurses dla wizualizacji stosu
+ * @param stack referencja stosu używanego przez program
+ * @param baseY koordynat Y podstawki wizualizacji stosu
+ * @param baseX koordynat X podstawki wizualizacji stosu
+ */
 void drawStackElements( WINDOW *stackElWins[6], CStack &stack, int baseY, int baseX )
 {
     resetStackElementWindows( stackElWins );

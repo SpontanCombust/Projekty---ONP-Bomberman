@@ -1,3 +1,12 @@
+/** @file rpn_counter.cpp
+ * 
+ * @brief Plik zawiera definicje funkcji obliczania wyniku ciągu elementów ONP
+ * 
+ * @author  Przemysław Cedro
+ * @date    2020.06.26
+*/
+
+
 #include "rpn.hpp"
 #include <iostream>
 #include <sstream>
@@ -157,7 +166,7 @@ int handleRPNElementOnStack( std::string rpnElement, CStack &stack, bool logActi
  * 
  * Bierze surowy ciąg znaków będący działaniem w formie ONP, przetwarza go na pojedyncze elementy,
  * a następnie wykonuje na nich odpowiednie działania. Mówi, czy działanie jest prawidłowe.
- * @see handleRPNElementOnStack
+ * @see handleRPNElementOnStack()
  * 
  * @param rawRPNString surowy ciąg elementów ONP
  * @param success wskaźnik na bool informujący czy działanie się powiodło

@@ -1,3 +1,12 @@
+/** @file rpn_performance.cpp
+ * 
+ * @brief Plik zawiera definicje funkcji testowania wydajności działania ONP
+ * 
+ * @author  Przemysław Cedro
+ * @date    2020.06.26
+*/
+
+
 #include "rpn.hpp"
 
 #include <iostream>
@@ -156,7 +165,7 @@ void performRPNPerformanceTest( unsigned int numberQuantity = RPN_DEFAULT_NUMBER
  * 
  * Przeprowadza serię testów mających na celu zbadanie wydajności algorytmu wraz ze zmieniająca się
  * ilością oraz wielkością liczb jakie mają być losowane.
- * @see performRPNPerformanceTest
+ * @see performRPNPerformanceTest()
  * 
  * @param numberWeight waga losowania liczby
  * @param mathOperatorWeight waga losowania 
