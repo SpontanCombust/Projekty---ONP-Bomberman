@@ -8,7 +8,6 @@
  * @date    2020.06.26
 */
 
-
 #include "./rpn/rpn.hpp"
 #include "./gui_ncurses/rpn_app.hpp"
 
@@ -26,6 +25,11 @@ int main()
     // runRPNPerfTests( 80, 20, true, "MoreNums" );
     // runRPNPerfTests( 50, 50, true, "EvenOdds" );
     // runRPNPerfTests( 20, 80, true, "MoreOperators" );
+
+    // bool success;
+    // float result = getRPNResult( "9 2 + 7 7 7 * / -", &success );
+    // if( success ) std::cout << "Result: " << result << std::endl;
+
     RunRPNDemo();
     
     return 0;
